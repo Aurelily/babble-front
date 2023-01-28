@@ -1,8 +1,10 @@
 import * as React from "react";
+import { useState, useEffect } from "react";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { StatusBar } from "expo-status-bar";
-import { StyleSheet, Text, View } from "react-native";
+import { Text, View, StyleSheet, TextInput, Button } from "react-native";
+import * as SecureStore from "expo-secure-store";
 
 // Import screens
 import HomeScreen from "./screens/HomeScreen";
@@ -17,12 +19,69 @@ import UsersDirScreen from "./screens/UsersDirScreen";
 // Definition of stack navigator
 const Stack = createNativeStackNavigator();
 
+// variable URL
+const url = "http://localhost:3001/";
+
 export default function App() {
+  const [isLoading, setIsLoading] = useState(true);
+  const [userToken, setUserToken] = useState(null);
+  const [userId, setUserId] = useState(null);
+
+  // Fonction setToken pour enregistrer ou supprimer le token de l'Expo Secure Store et du state userToken
+  const setToken = async (token) => {
+    if (token) {
+      SecureStore.getItemAsync("userToken", token);
+    } else {
+      SecureStore.deleteItemAsync("userToken");
+    }
+    setUserToken(token);
+  };
+
+  // Fonction getUserId pour enregistrer le userId dans l'Expo Secure Store
+  const getUserId = async (userId) => {
+    if (userId) {
+      SecureStore.setItemAsync("userId", userId);
+    } else {
+      SecureStore.deleteItemAsync("userId");
+    }
+    setUserId(userId);
+  };
+
+  useEffect(() => {
+    // Fetch the token and userId from Expo Secure Store then navigate to our appropriate place
+    const fetchToken = async () => {
+      // We should also handle error for production apps
+      const userToken = await SecureStore.getItemAsync("userToken");
+      const userId = await SecureStore.getItemAsync("userId");
+
+      // This will switch to the App screen or Auth screen and this loading
+      // screen will be unmounted and thrown away.
+      setIsLoading(false);
+      setUserToken(userToken);
+      setUserId(userId);
+    };
+
+    fetchToken();
+  }, []);
+
   return (
     <NavigationContainer>
       <StatusBar style="light" />
       <Stack.Navigator>
-        <Stack.Screen name="Home" component={HomeScreen} />
+        <Stack.Screen name="Login">
+          {() => (
+            <LoginScreen setToken={setToken} getUserId={getUserId} url={url} />
+          )}
+        </Stack.Screen>
+        <Stack.Screen name="Register">
+          {() => (
+            <RegisterScreen
+              setToken={setToken}
+              getUserId={getUserId}
+              url={url}
+            />
+          )}
+        </Stack.Screen>
       </Stack.Navigator>
     </NavigationContainer>
   );
