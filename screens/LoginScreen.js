@@ -44,26 +44,50 @@ export default function LoginScreen({ setToken, getUserId, url }) {
       if (alert !== null) {
         setAlert(null);
       }
+      var userToLogin = {
+        email: email,
+        password: password,
+      };
+      const requestOptions = {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(userToLogin),
+      };
 
       try {
-        const response = await axios.post(`${url}users/login`, {
+        await fetch(`${url}users/login`, requestOptions).then((response) => {
+          response.json().then((data) => {
+            if (data.status == 200) {
+              setAlert(data.message);
+              //navigation.navigate("Login");
+            }
+            if (data.status == 500) {
+              setAlert(data.message);
+            }
+            if (data.status == 400) {
+              setAlert("Login or password incorrect !");
+            }
+            if (data.token) {
+              const token = data.token;
+              setToken(token);
+              console.log(data.token);
+            }
+          });
+        });
+        /* const response = await axios.post(`${url}users/login`, {
           email,
           password,
-        });
+        }); */
 
-        if (response.data.token) {
-          const token = response.data.token;
+        /*    if (data.token) {
+          const token = data.token;
           setToken(token);
+          console.log(token);
         } else {
-          setAlert(error.response.data.message);
-        }
+          setAlert(data.message);
+        } */
       } catch (error) {
-        console.log(error.response.data.message);
-        if (error.response.status === 401) {
-          setAlert(error.response.data.message);
-        } else {
-          setAlert(error.response.data.message);
-        }
+        console.log(error.message);
       }
     } else {
       setAlert("Please fill all fields");
