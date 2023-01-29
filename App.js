@@ -20,7 +20,7 @@ import UsersDirScreen from "./screens/UsersDirScreen";
 const Stack = createNativeStackNavigator();
 
 // variable URL
-const url = "http://localhost:3001/";
+const url = "http://localhost:3000/";
 
 export default function App() {
   const [isLoading, setIsLoading] = useState(true);

@@ -29,9 +29,6 @@ import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view
 //UseNavigation pour pouvoir mettre des liens
 import { useNavigation } from "@react-navigation/core";
 
-//Axios pour envoyer des requetes
-const axios = require("axios");
-
 //Import Expo Secure Store to stock jwt token
 import * as SecureStore from "expo-secure-store";
 
@@ -52,29 +49,37 @@ export default function RegisterScreen({ url }) {
       // Si tous les champs sont remplis
       if (password === confirmPassword) {
         // si les 2 MDP sont identiques
+
+        var userToCreate = {
+          firstname: firstname,
+          lastname: lastname,
+          email: email,
+          password: password,
+        };
+        const requestOptions = {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(userToCreate),
+        };
         try {
-          // on passe à la requête
-          const response = await axios.post(`${url}users/register`, {
-            firstname,
-            lastname,
-            email,
-            password,
-          });
-
-          // console.log(response.data);
-
-          if (response.data.token) {
-            setAlert("Requête réussie");
-            // navigation.navigate("Login");
-          }
+          await fetch(`${url}users/register`, requestOptions).then(
+            (response) => {
+              response.json().then((data) => {
+                if (data.status == 200) {
+                  setAlert(data.message);
+                  navigation.navigate("Login");
+                }
+                if (data.status == 409) {
+                  setAlert(data.message);
+                }
+                if (data.status == 500) {
+                  setAlert(data.message);
+                }
+              });
+            }
+          );
         } catch (e) {
-          // console.log(Object.keys(e));
-          // console.log(e.response.data.error);
-          if (e.response.data.error === "This email already has an account.") {
-            setAlert(e.response.data.error);
-          } else {
-            setAlert("An error occurred");
-          }
+          console.log(e.message);
         }
       } else {
         // si les 2 MDP ne sont pas identiques
