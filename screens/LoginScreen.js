@@ -1,6 +1,5 @@
 import React from "react";
 import { useState } from "react";
-import { useNavigation } from "@react-navigation/core";
 import {
   Button,
   Text,
@@ -23,8 +22,8 @@ const { purplePrimary, grey } = colors;
 //Pour que le clavier du mobile ne supperpose pas le contenu
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 
-//Axios pour envoyer des requetes
-const axios = require("axios");
+//UseNavigation pour pouvoir mettre des liens
+import { useNavigation } from "@react-navigation/core";
 
 //Import Expo Secure Store to stock jwt token
 import * as SecureStore from "expo-secure-store";
@@ -59,7 +58,6 @@ export default function LoginScreen({ setToken, getUserId, url }) {
           response.json().then((data) => {
             if (data.status == 200) {
               setAlert(data.message);
-              //navigation.navigate("Login");
             }
             if (data.status == 500) {
               setAlert(data.message);
@@ -67,25 +65,12 @@ export default function LoginScreen({ setToken, getUserId, url }) {
             if (data.status == 400) {
               setAlert("Login or password incorrect !");
             }
-            if (data.token) {
-              const token = data.token;
+            if (data.data.token) {
+              const token = data.data.token;
               setToken(token);
-              console.log(data.token);
             }
           });
         });
-        /* const response = await axios.post(`${url}users/login`, {
-          email,
-          password,
-        }); */
-
-        /*    if (data.token) {
-          const token = data.token;
-          setToken(token);
-          console.log(token);
-        } else {
-          setAlert(data.message);
-        } */
       } catch (error) {
         console.log(error.message);
       }

@@ -29,11 +29,11 @@ export default function App() {
 
   // Fonction setToken pour enregistrer ou supprimer le token de l'Expo Secure Store et du state userToken
   const setToken = async (token) => {
-    if (token) {
+    /*   if (token) {
       SecureStore.getItemAsync("userToken", token);
     } else {
       SecureStore.deleteItemAsync("userToken");
-    }
+    } */
     setUserToken(token);
   };
 
@@ -56,6 +56,11 @@ export default function App() {
 
       // This will switch to the App screen or Auth screen and this loading
       // screen will be unmounted and thrown away.
+      //Time : simulate uploading Splash Screen for 3 seconds
+      setTimeout(() => {
+        setIsLoading(false);
+      }, 3000);
+
       setIsLoading(false);
       setUserToken(userToken);
       setUserId(userId);
@@ -67,22 +72,38 @@ export default function App() {
   return (
     <NavigationContainer>
       <StatusBar style="light" />
-      <Stack.Navigator>
-        <Stack.Screen name="Login">
-          {() => (
-            <LoginScreen setToken={setToken} getUserId={getUserId} url={url} />
-          )}
-        </Stack.Screen>
-        <Stack.Screen name="Register">
-          {() => (
-            <RegisterScreen
-              setToken={setToken}
-              getUserId={getUserId}
-              url={url}
-            />
-          )}
-        </Stack.Screen>
-      </Stack.Navigator>
+      {isLoading && <SplashScreen />}
+      {isLoading ? null : userToken === null ? ( // We haven't finished checking for the token yet
+        // No token found, user isn't signed in
+        <Stack.Navigator>
+          <Stack.Screen name="Login">
+            {() => (
+              <LoginScreen
+                setToken={setToken}
+                getUserId={getUserId}
+                url={url}
+              />
+            )}
+          </Stack.Screen>
+          <Stack.Screen name="Register">
+            {() => (
+              <RegisterScreen
+                setToken={setToken}
+                getUserId={getUserId}
+                url={url}
+              />
+            )}
+          </Stack.Screen>
+        </Stack.Navigator>
+      ) : (
+        <Stack.Navigator>
+          <Stack.Screen name="Home">
+            {() => (
+              <HomeScreen setToken={setToken} getUserId={getUserId} url={url} />
+            )}
+          </Stack.Screen>
+        </Stack.Navigator>
+      )}
     </NavigationContainer>
   );
 }
