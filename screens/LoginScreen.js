@@ -25,16 +25,20 @@ import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view
 //UseNavigation pour pouvoir mettre des liens
 import { useNavigation } from "@react-navigation/core";
 
-//Import Expo Secure Store to stock jwt token
-import * as SecureStore from "expo-secure-store";
-
-export default function LoginScreen({ setToken, getUserId, url }) {
+export default function LoginScreen({
+  keyTokenStore,
+  setKeyTokenStore,
+  userToken,
+  setUserToken,
+  getUserId,
+  url,
+  saveToStore,
+}) {
   const navigation = useNavigation();
 
   //States of input
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [isLoading, setIsLoading] = useState(false);
   const [alert, setAlert] = useState("");
 
   //handleSubmit function for sign in button
@@ -67,7 +71,9 @@ export default function LoginScreen({ setToken, getUserId, url }) {
             }
             if (data.data.token) {
               const token = data.data.token;
-              setToken(token);
+              setUserToken(token);
+              saveToStore(keyTokenStore, token);
+              console.log(token);
             }
           });
         });

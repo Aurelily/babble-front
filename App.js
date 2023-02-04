@@ -24,54 +24,46 @@ const url = "http://localhost:3000/";
 
 export default function App() {
   const [isLoading, setIsLoading] = useState(true);
+  const [keyTokenStore, setKeyTokenStore] = useState("jwtToken");
   const [userToken, setUserToken] = useState(null);
   const [userId, setUserId] = useState(null);
 
-  // Fonction setToken pour enregistrer ou supprimer le token de l'Expo Secure Store et du state userToken
-  const setToken = async (token) => {
-    /*   if (token) {
-      SecureStore.getItemAsync("userToken", token);
-    } else {
-      SecureStore.deleteItemAsync("userToken");
-    } */
-    setUserToken(token);
-  };
+  // Function to save something in expo secure store
+  async function saveToStore(key, value) {
+    await SecureStore.setItemAsync(key, value);
+  }
 
-  // Fonction getUserId pour enregistrer le userId dans l'Expo Secure Store
-  const getUserId = async (userId) => {
-    if (userId) {
-      SecureStore.setItemAsync("userId", userId);
-    } else {
-      SecureStore.deleteItemAsync("userId");
-    }
-    setUserId(userId);
-  };
+  // Function to get something in expo secure store
+  async function getFromStore(key, value) {
+    await SecureStore.getItemAsync(key, value);
+  }
+
+  // Function to delete something in expo secure store
+  async function deleteInStore(key, value) {
+    await SecureStore.deleteItemAsync(key, value);
+  }
 
   useEffect(() => {
-    // Fetch the token and userId from Expo Secure Store then navigate to our appropriate place
-    const fetchToken = async () => {
-      // We should also handle error for production apps
-      const userToken = await SecureStore.getItemAsync("userToken");
-      const userId = await SecureStore.getItemAsync("userId");
+    // Function to get value from Secure Store key
+    async function getValueFor(key) {
+      let result = await SecureStore.getItemAsync(key);
+      if (result) {
+        setUserToken(result);
+        alert("🔐 Here's your value 🔐 \n" + result);
+      } else {
+        alert("No values stored under that key.");
+      }
+    }
+    getValueFor("jwtToken");
 
-      // This will switch to the App screen or Auth screen and this loading
-      // screen will be unmounted and thrown away.
-      //Time : simulate uploading Splash Screen for 3 seconds
-      setTimeout(() => {
-        setIsLoading(false);
-      }, 3000);
-
+    setTimeout(() => {
       setIsLoading(false);
-      setUserToken(userToken);
-      setUserId(userId);
-    };
-
-    fetchToken();
+    }, 3000);
   }, []);
 
   return (
     <NavigationContainer>
-      <StatusBar style="light" />
+      <StatusBar style="dark" />
       {isLoading && <SplashScreen />}
       {isLoading ? null : userToken === null ? ( // We haven't finished checking for the token yet
         // No token found, user isn't signed in
@@ -79,28 +71,22 @@ export default function App() {
           <Stack.Screen name="Login">
             {() => (
               <LoginScreen
-                setToken={setToken}
+                keyTokenStore={keyTokenStore}
+                setUserToken={setUserToken}
                 getUserId={getUserId}
+                saveToStore={saveToStore}
                 url={url}
               />
             )}
           </Stack.Screen>
           <Stack.Screen name="Register">
-            {() => (
-              <RegisterScreen
-                setToken={setToken}
-                getUserId={getUserId}
-                url={url}
-              />
-            )}
+            {() => <RegisterScreen getUserId={getUserId} url={url} />}
           </Stack.Screen>
         </Stack.Navigator>
       ) : (
         <Stack.Navigator>
           <Stack.Screen name="Home">
-            {() => (
-              <HomeScreen setToken={setToken} getUserId={getUserId} url={url} />
-            )}
+            {() => <HomeScreen url={url} userId={userId} />}
           </Stack.Screen>
         </Stack.Navigator>
       )}
