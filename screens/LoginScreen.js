@@ -30,9 +30,10 @@ export default function LoginScreen({
   setKeyTokenStore,
   userToken,
   setUserToken,
-  getUserId,
+  setUserId,
   url,
   saveToStore,
+  setIsLoggedIn,
 }) {
   const navigation = useNavigation();
 
@@ -72,8 +73,10 @@ export default function LoginScreen({
             if (data.data.token) {
               const token = data.data.token;
               setUserToken(token);
+              setUserId(data.data._id);
               saveToStore(keyTokenStore, token);
-              console.log(token);
+              setIsLoggedIn(true);
+              /*               console.log(token); */
             }
           });
         });

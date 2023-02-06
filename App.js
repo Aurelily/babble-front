@@ -2,9 +2,21 @@ import * as React from "react";
 import { useState, useEffect } from "react";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
+import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { StatusBar } from "expo-status-bar";
-import { Text, View, StyleSheet, TextInput, Button } from "react-native";
+import {
+  Text,
+  View,
+  StyleSheet,
+  TextInput,
+  Button,
+  TouchableOpacity,
+} from "react-native";
 import * as SecureStore from "expo-secure-store";
+
+// Import icons
+import { Entypo } from "@expo/vector-icons";
+import { AntDesign } from "@expo/vector-icons";
 
 // Import screens
 import HomeScreen from "./screens/HomeScreen";
@@ -16,8 +28,12 @@ import ProfileScreen from "./screens/ProfileScreen";
 import UserDetailsScreen from "./screens/UserDetailsScreen";
 import UsersDirScreen from "./screens/UsersDirScreen";
 
+// Import navigation
+import HomeTabs from "./navigations/HomeTab";
+
 // Definition of stack navigator
 const Stack = createNativeStackNavigator();
+const Tab = createBottomTabNavigator();
 
 // variable URL
 const url = "http://localhost:3000/";
@@ -39,8 +55,8 @@ export default function App() {
   }
 
   // Function to delete something in expo secure store
-  async function deleteInStore(key, value) {
-    await SecureStore.deleteItemAsync(key, value);
+  async function deleteInStore(key) {
+    await SecureStore.deleteItemAsync(key);
   }
 
   useEffect(() => {
@@ -73,8 +89,8 @@ export default function App() {
               <LoginScreen
                 keyTokenStore={keyTokenStore}
                 setUserToken={setUserToken}
-                getUserId={getUserId}
                 saveToStore={saveToStore}
+                setUserId={setUserId}
                 url={url}
               />
             )}
@@ -84,11 +100,13 @@ export default function App() {
           </Stack.Screen>
         </Stack.Navigator>
       ) : (
-        <Stack.Navigator>
-          <Stack.Screen name="Home">
-            {() => <HomeScreen url={url} userId={userId} />}
-          </Stack.Screen>
-        </Stack.Navigator>
+        <HomeTabs
+          deleteInStore={deleteInStore}
+          userId={userId}
+          userToken={userToken}
+          setUserToken={setUserToken}
+          url={url}
+        />
       )}
     </NavigationContainer>
   );
