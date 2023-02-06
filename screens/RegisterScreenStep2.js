@@ -15,29 +15,26 @@ import {
 import InputText from "../components/atoms/InputText";
 import InputEmail from "../components/atoms/InputEmail";
 import InputPassword from "../components/atoms/InputPassword";
+import UploadImage from "../components/molecules/UploadImages";
 
-//Colors:
+// Colors:
 import colors from "../assets/colors";
 const { purplePrimary, grey } = colors;
 
-//Constant pour récupérer las dimensions des devices
+// Constant pour récupérer las dimensions des devices
 import Constants from "expo-constants";
 
-//Pour que le clavier du mobile ne supperpose pas le contenu
+// Pour que le clavier du mobile ne supperpose pas le contenu
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 
-//UseNavigation pour pouvoir mettre des liens
+// UseNavigation pour pouvoir mettre des liens
 import { useNavigation } from "@react-navigation/core";
 
-export default function RegisterScreen({ url }) {
+export default function RegisterScreenStep2({ url, userDatas }) {
   const navigation = useNavigation();
 
   //States of input
-  const [firstname, setFirstname] = useState("");
-  const [lastname, setLastname] = useState("");
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [confirmPassword, setConfirmPassword] = useState("");
+  const [picture, setPicture] = useState(null);
   const [alert, setAlert] = useState("");
 
   const handleSubmit = async () => {
@@ -46,12 +43,7 @@ export default function RegisterScreen({ url }) {
       if (password === confirmPassword) {
         // si les 2 MDP sont identiques
 
-        var userToCreate = {
-          firstname: firstname,
-          lastname: lastname,
-          email: email,
-          password: password,
-        };
+        var userToCreate = userDatas;
         const requestOptions = {
           method: "POST",
           headers: { "Content-Type": "application/json" },
@@ -95,46 +87,32 @@ export default function RegisterScreen({ url }) {
             source={require("../assets/img/logo.png")}
             style={styles.logoSign}
           /> */}
-          <Text style={styles.signTitle}>Sign up</Text>
+          <Text style={styles.signTitle}>Inscription : Etape 2</Text>
         </View>
-        <View style={styles.formContent}>
-          <View style={styles.inputContent}>
-            <InputText
-              placeholder="Prénom"
-              value={firstname}
-              setValue={setFirstname}
-            />
-            <InputText
-              placeholder="Nom"
-              value={lastname}
-              setValue={setLastname}
-            />
-            <InputEmail placeholder="email" value={email} setValue={setEmail} />
-            <InputPassword placeholder="Mot de passe" setValue={setPassword} />
-            <InputPassword
-              placeholder="Confirmez votre mot de passe"
-              setValue={setConfirmPassword}
-            />
-          </View>
-          <View style={styles.buttonsContent}>
-            <Text style={styles.msgAlert}>{alert}</Text>
-            <TouchableOpacity
-              style={styles.button}
-              disabled={false}
-              onPress={handleSubmit}
-            >
-              <Text style={styles.txtButton}>S'enregistrer</Text>
-            </TouchableOpacity>
-            <TouchableOpacity
-              style={styles.txtLink}
-              onPress={() => {
-                navigation.navigate("Login");
-              }}
-            >
-              <Text>Already have an account? Sign in</Text>
-            </TouchableOpacity>
-          </View>
+        <View style={styles.container}>
+          <UploadImage />
+          <Text style={{ marginVertical: 20, fontSize: 16 }}>
+            Welcome, FuzzySid
+          </Text>
         </View>
+        <View style={styles.buttonsContent}>
+          <Text style={styles.msgAlert}>{alert}</Text>
+        </View>
+        <TouchableOpacity
+          style={styles.button}
+          disabled={false}
+          onPress={handleSubmit}
+        >
+          <Text style={styles.txtButton}>Créer son compte</Text>
+        </TouchableOpacity>
+        <TouchableOpacity
+          style={styles.txtLink}
+          onPress={() => {
+            navigation.navigate("Login");
+          }}
+        >
+          <Text>Already have an account? Sign in</Text>
+        </TouchableOpacity>
       </SafeAreaView>
     </KeyboardAwareScrollView>
   );
@@ -165,42 +143,13 @@ const styles = StyleSheet.create({
     color: grey,
   },
 
-  // *---- FORM ----*
+  // *---- CONTAINER ----*
 
-  formContent: {
-    // backgroundColor: "purple",
-    width: "80%",
+  container: {
+    padding: 50,
+    backgroundColor: "#fff",
     alignItems: "center",
-    justifyContent: "space-between",
-    flex: 1,
-  },
-
-  inputContent: {
-    alignItems: "center",
-    width: "100%",
-  },
-
-  input: {
-    width: "100%",
-    height: 50,
-    // backgroundColor: "blue",
-    borderBottomColor: purplePrimary,
-    borderBottomWidth: 1,
-  },
-
-  inputArea: {
-    height: 100,
-    width: "100%",
-    borderColor: purplePrimary,
-    borderWidth: 1,
-    marginVertical: 10,
-    padding: 10,
-    textAlignVertical: "top",
-  },
-
-  buttonsContent: {
     justifyContent: "center",
-    alignItems: "center",
   },
 
   button: {
@@ -218,9 +167,5 @@ const styles = StyleSheet.create({
     color: grey,
     fontSize: 20,
     fontWeight: "bold",
-  },
-
-  msgAlert: {
-    color: purplePrimary,
   },
 });

@@ -21,7 +21,8 @@ import { AntDesign } from "@expo/vector-icons";
 // Import screens
 import HomeScreen from "./screens/HomeScreen";
 import LoginScreen from "./screens/LoginScreen";
-import RegisterScreen from "./screens/RegisterScreen";
+import RegisterScreenStep1 from "./screens/RegisterScreenStep1";
+import RegisterScreenStep2 from "./screens/RegisterScreenStep2";
 import SplashScreen from "./screens/SplashScreen";
 import GeneralChatScreen from "./screens/GeneralChatScreen";
 import ProfileScreen from "./screens/ProfileScreen";
@@ -43,6 +44,12 @@ export default function App() {
   const [keyTokenStore, setKeyTokenStore] = useState("jwtToken");
   const [userToken, setUserToken] = useState(null);
   const [userId, setUserId] = useState(null);
+  const [userDatas, setUserDatas] = useState({
+    firstname: "",
+    lastname: "",
+    email: "",
+    password: "",
+  });
 
   // Function to save something in expo secure store
   async function saveToStore(key, value) {
@@ -95,8 +102,13 @@ export default function App() {
               />
             )}
           </Stack.Screen>
-          <Stack.Screen name="Register">
-            {() => <RegisterScreen url={url} />}
+          <Stack.Screen name="RegisterStep1">
+            {() => (
+              <RegisterScreenStep1 url={url} setUserDatas={setUserDatas} />
+            )}
+          </Stack.Screen>
+          <Stack.Screen name="RegisterStep2">
+            {() => <RegisterScreenStep2 url={url} userDatas={userDatas} />}
           </Stack.Screen>
         </Stack.Navigator>
       ) : (

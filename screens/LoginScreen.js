@@ -118,7 +118,7 @@ export default function LoginScreen({
             <TouchableOpacity
               style={styles.txtLink}
               onPress={() => {
-                navigation.navigate("Register");
+                navigation.navigate("RegisterStep1");
               }}
             >
               <Text style={styles.signTitle}>Pas encore inscrit ?</Text>
