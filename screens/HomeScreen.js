@@ -4,7 +4,7 @@ import { View, Text } from "react-native";
 export default function HomeScreen({ userId }) {
   return (
     <View style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>
-      <Text>Screen Home : connexion confirmée pour le user : {userId} </Text>
+      <Text>Screen Home : connexion confirmée pour le user ID : {userId} </Text>
     </View>
   );
 }

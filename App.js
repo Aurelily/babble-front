@@ -96,7 +96,7 @@ export default function App() {
             )}
           </Stack.Screen>
           <Stack.Screen name="Register">
-            {() => <RegisterScreen getUserId={getUserId} url={url} />}
+            {() => <RegisterScreen url={url} />}
           </Stack.Screen>
         </Stack.Navigator>
       ) : (

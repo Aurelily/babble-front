@@ -29,9 +29,6 @@ import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view
 //UseNavigation pour pouvoir mettre des liens
 import { useNavigation } from "@react-navigation/core";
 
-//Import Expo Secure Store to stock jwt token
-import * as SecureStore from "expo-secure-store";
-
 export default function RegisterScreen({ url }) {
   const navigation = useNavigation();
 
@@ -42,7 +39,6 @@ export default function RegisterScreen({ url }) {
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [alert, setAlert] = useState("");
-  const [isLoading, setIsLoading] = useState(false);
 
   const handleSubmit = async () => {
     if (firstname && lastname && email && password && confirmPassword) {

@@ -33,7 +33,6 @@ export default function LoginScreen({
   setUserId,
   url,
   saveToStore,
-  setIsLoggedIn,
 }) {
   const navigation = useNavigation();
 
@@ -75,7 +74,7 @@ export default function LoginScreen({
               setUserToken(token);
               setUserId(data.data._id);
               saveToStore(keyTokenStore, token);
-              setIsLoggedIn(true);
+
               /*               console.log(token); */
             }
           });
