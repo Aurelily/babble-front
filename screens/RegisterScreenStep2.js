@@ -34,10 +34,13 @@ export default function RegisterScreenStep2({ url, userDatas }) {
   const navigation = useNavigation();
 
   //States of input
-  const [picture, setPicture] = useState(null);
+  const [picture, setPicture] = useState(
+    "https://res.cloudinary.com/lilycloud/image/upload/v1675756437/babble/users/avatar-default_tpd0vq.jpg"
+  );
   const [alert, setAlert] = useState("");
 
   const handleSubmit = async () => {
+    userDatas.avatarPath = picture;
     var userToCreate = userDatas;
     const requestOptions = {
       method: "POST",
@@ -75,7 +78,7 @@ export default function RegisterScreenStep2({ url, userDatas }) {
           <Text style={styles.signTitle}>Inscription : Etape 2</Text>
         </View>
         <View style={styles.container}>
-          <UploadImage />
+          <UploadImage picture={picture} setPicture={setPicture} />
           <Text style={{ marginVertical: 20, fontSize: 16 }}>
             Welcome, Lily
           </Text>

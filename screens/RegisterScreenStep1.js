@@ -33,7 +33,6 @@ export default function RegisterScreen({ url, userDatas, setUserDatas }) {
   const navigation = useNavigation();
 
   //States of input
-  const [step, setStep] = useState(1);
   const [firstname, setFirstname] = useState("");
   const [lastname, setLastname] = useState("");
   const [email, setEmail] = useState("");
@@ -52,8 +51,8 @@ export default function RegisterScreen({ url, userDatas, setUserDatas }) {
           lastname: lastname,
           email: email,
           password: password,
-          avatar: "",
-          avatarPath: "",
+          avatar: null,
+          avatarPath: null,
         };
         const requestOptions = {
           method: "POST",

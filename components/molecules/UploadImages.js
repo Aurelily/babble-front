@@ -12,10 +12,7 @@ import { AntDesign } from "@expo/vector-icons";
 // Pour l'upload d'image
 import * as ImagePicker from "expo-image-picker";
 
-export default function UploadImage() {
-  const [picture, setPicture] = useState(
-    "https://res.cloudinary.com/lilycloud/image/upload/v1675756437/babble/users/avatar-default_tpd0vq.jpg"
-  );
+export default function UploadImage({ picture, setPicture }) {
   const addImage = async () => {
     let _image = await ImagePicker.launchImageLibraryAsync({
       mediaTypes: ImagePicker.MediaTypeOptions.Images,
