@@ -38,44 +38,29 @@ export default function RegisterScreenStep2({ url, userDatas }) {
   const [alert, setAlert] = useState("");
 
   const handleSubmit = async () => {
-    if (firstname && lastname && email && password && confirmPassword) {
-      // Si tous les champs sont remplis
-      if (password === confirmPassword) {
-        // si les 2 MDP sont identiques
-
-        var userToCreate = userDatas;
-        const requestOptions = {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(userToCreate),
-        };
-        try {
-          await fetch(`${url}users/register`, requestOptions).then(
-            (response) => {
-              response.json().then((data) => {
-                if (data.status == 200) {
-                  setAlert(data.message);
-                  navigation.navigate("Login");
-                }
-                if (data.status == 409) {
-                  setAlert(data.message);
-                }
-                if (data.status == 500) {
-                  setAlert(data.message);
-                }
-              });
-            }
-          );
-        } catch (e) {
-          console.log(e.message);
-        }
-      } else {
-        // si les 2 MDP ne sont pas identiques
-        setAlert("MDP doivent être identiques");
-      }
-    } else {
-      // Si tous les champs ne sont pas remplis
-      setAlert("Remplir tous les champs");
+    var userToCreate = userDatas;
+    const requestOptions = {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(userToCreate),
+    };
+    try {
+      await fetch(`${url}users/register`, requestOptions).then((response) => {
+        response.json().then((data) => {
+          if (data.status == 200) {
+            setAlert(data.message);
+            navigation.navigate("Login");
+          }
+          if (data.status == 409) {
+            setAlert(data.message);
+          }
+          if (data.status == 500) {
+            setAlert(data.message);
+          }
+        });
+      });
+    } catch (e) {
+      console.log(e.message);
     }
   };
 
@@ -92,7 +77,7 @@ export default function RegisterScreenStep2({ url, userDatas }) {
         <View style={styles.container}>
           <UploadImage />
           <Text style={{ marginVertical: 20, fontSize: 16 }}>
-            Welcome, FuzzySid
+            Welcome, Lily
           </Text>
         </View>
         <View style={styles.buttonsContent}>
