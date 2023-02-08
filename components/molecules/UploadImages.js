@@ -9,22 +9,56 @@ import {
 } from "react-native";
 import { AntDesign } from "@expo/vector-icons";
 
+// Pour l'upload d'image
+import * as ImagePicker from "expo-image-picker";
+
 export default function UploadImage() {
-  const [image, setImage] = useState(
-    "https://res.cloudinary.com/lilycloud/image/upload/v1675674938/babble/users/avatar-default_wuw8rx.jpg"
+  const [picture, setPicture] = useState(
+    "https://res.cloudinary.com/lilycloud/image/upload/v1675756437/babble/users/avatar-default_tpd0vq.jpg"
   );
-  const addImage = () => {};
+  const addImage = async () => {
+    let _image = await ImagePicker.launchImageLibraryAsync({
+      mediaTypes: ImagePicker.MediaTypeOptions.Images,
+      allowsEditing: true,
+      aspect: [4, 3],
+      quality: 1,
+    });
+    console.log(_image.assets[0].uri);
+    if (!_image.canceled) {
+      setPicture(_image.assets[0].uri);
+    }
+  };
+
+  // Pour demander la permission d'utiliser la media library du téléphone
+  /*   const checkForCameraRollPermission = async () => {
+    const { status } = await ImagePicker.getMediaLibraryPermissionsAsync();
+    if (status !== "granted") {
+      alert(
+        "Please grant camera roll permissions inside your system's settings"
+      );
+    } else {
+      console.log("Media Permissions are granted");
+    }
+  };
+
+  useEffect(() => {
+    checkForCameraRollPermission();
+  }, []); */
+
   return (
     <View style={imageUploaderStyles.container}>
-      {image && (
-        <Image source={{ uri: image }} style={{ width: 150, height: 150 }} />
+      {picture && (
+        <Image
+          source={{ uri: picture }}
+          style={imageUploaderStyles.previewImage}
+        />
       )}
       <View style={imageUploaderStyles.uploadBtnContainer}>
         <TouchableOpacity
           onPress={addImage}
           style={imageUploaderStyles.uploadBtn}
         >
-          <Text>{image ? "Edit" : "Upload"} Image</Text>
+          <Text>{picture ? "Edit" : "Upload"} Avatar</Text>
           <AntDesign name="camera" size={20} color="black" />
         </TouchableOpacity>
       </View>
@@ -54,5 +88,12 @@ const imageUploaderStyles = StyleSheet.create({
     display: "flex",
     alignItems: "center",
     justifyContent: "center",
+  },
+
+  previewImage: {
+    width: 400,
+    height: 400,
+    marginLeft: -100,
+    marginTop: -100,
   },
 });
