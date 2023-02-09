@@ -9,7 +9,16 @@ import {
   StyleSheet,
 } from "react-native";
 
+//Colors:
+import colors from "../assets/colors";
+const { purplePrimary, grey } = colors;
+
+//UseNavigation pour pouvoir mettre des liens
+import { useNavigation } from "@react-navigation/core";
+
 export default function HomeScreen({ url, userId, userToken }) {
+  const navigation = useNavigation();
+
   //dPour stocker les infos utilisateurs
   const [userInfos, setUserInfos] = useState();
   const [infosLoading, setInfosLoading] = useState(true);
@@ -53,6 +62,18 @@ export default function HomeScreen({ url, userId, userToken }) {
         />
       </View>
       <Text>Bienvenue {userInfos.firstname}</Text>
+      <View style={homeScreenStyles.buttonsContent}>
+        <TouchableOpacity
+          style={homeScreenStyles.button}
+          onPress={() => {
+            navigation.navigate("Discussion");
+          }}
+        >
+          <Text style={homeScreenStyles.txtButton}>
+            Entrez dans la discussion
+          </Text>
+        </TouchableOpacity>
+      </View>
     </View>
   );
 }
@@ -73,5 +94,27 @@ const homeScreenStyles = StyleSheet.create({
     height: 400,
     marginLeft: -100,
     marginTop: -100,
+  },
+
+  buttonsContent: {
+    justifyContent: "center",
+    alignItems: "center",
+  },
+
+  button: {
+    borderColor: purplePrimary,
+    borderRadius: 30,
+    borderWidth: 2,
+    justifyContent: "center",
+    alignItems: "center",
+    height: 60,
+    width: 200,
+    marginVertical: 30,
+  },
+
+  txtButton: {
+    color: grey,
+    fontSize: 20,
+    fontWeight: "bold",
   },
 });
