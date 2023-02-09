@@ -12,6 +12,7 @@ import {
 export default function HomeScreen({ url, userId, userToken }) {
   //dPour stocker les infos utilisateurs
   const [userInfos, setUserInfos] = useState();
+  const [infosLoading, setInfosLoading] = useState(true);
 
   useEffect(() => {
     // Function to get all user connected informations
@@ -25,7 +26,7 @@ export default function HomeScreen({ url, userId, userToken }) {
           response.json().then((data) => {
             if (data.status == 200) {
               setUserInfos(data.data);
-              console.log(userInfos.firstname);
+              setInfosLoading(false);
             }
           });
         });
@@ -34,9 +35,13 @@ export default function HomeScreen({ url, userId, userToken }) {
       }
     }
     getUserInfos();
-  }, []);
+  }, [userId]);
 
-  return (
+  return infosLoading ? (
+    <View style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>
+      <Text>Loading ...</Text>
+    </View>
+  ) : (
     <View style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>
       <Text>Screen Home : connexion confirmée pour le user ID : {userId} </Text>
       <View style={homeScreenStyles.container}>
@@ -47,9 +52,7 @@ export default function HomeScreen({ url, userId, userToken }) {
           style={homeScreenStyles.avatar}
         />
       </View>
-      <Text>
-        Bienvenue {userInfos.firstname} {userInfos.lastname}
-      </Text>
+      <Text>Bienvenue {userInfos.firstname}</Text>
     </View>
   );
 }
