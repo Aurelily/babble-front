@@ -18,7 +18,7 @@ import UsersDirScreen from "../screens/UsersDirScreen";
 import colors from "../assets/colors";
 const { purplePrimary } = colors;
 
-const HomeTabs = ({ deleteInStore, setUserToken, url, userId }) => {
+const HomeTabs = ({ deleteInStore, userToken, setUserToken, url, userId }) => {
   return (
     <Tab.Navigator
       screenOptions={{
@@ -35,7 +35,14 @@ const HomeTabs = ({ deleteInStore, setUserToken, url, userId }) => {
           ),
         }}
       >
-        {(props) => <HomeScreen {...props} url={url} userId={userId} />}
+        {(props) => (
+          <HomeScreen
+            {...props}
+            url={url}
+            userId={userId}
+            userToken={userToken}
+          />
+        )}
       </Tab.Screen>
       <Tab.Screen
         name="Discussion"

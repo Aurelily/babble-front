@@ -42,6 +42,7 @@ export default function RegisterScreenStep2({ url, userDatas }) {
   const handleSubmit = async () => {
     userDatas.avatarPath = picture;
     var userToCreate = userDatas;
+
     const requestOptions = {
       method: "POST",
       headers: { "Content-Type": "application/json" },
