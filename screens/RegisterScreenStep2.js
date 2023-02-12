@@ -1,9 +1,7 @@
 import * as React from "react";
 import { useState } from "react";
 import {
-  Button,
   Text,
-  TextInput,
   View,
   TouchableOpacity,
   StyleSheet,
@@ -12,10 +10,9 @@ import {
 } from "react-native";
 
 // Import components
-import InputText from "../components/atoms/InputText";
-import InputEmail from "../components/atoms/InputEmail";
-import InputPassword from "../components/atoms/InputPassword";
 import UploadImage from "../components/molecules/UploadImages";
+
+const FormData = require("form-data");
 
 // Colors:
 import colors from "../assets/colors";
@@ -33,14 +30,38 @@ import { useNavigation } from "@react-navigation/core";
 export default function RegisterScreenStep2({ url, userDatas }) {
   const navigation = useNavigation();
 
-  //States of input
+  //Image Picker picture URI
   const [picture, setPicture] = useState(
     "https://res.cloudinary.com/lilycloud/image/upload/v1675756437/babble/users/avatar-default_tpd0vq.jpg"
   );
+  //Cloudinary secure_url
+  const [pictureUrl, setPictureUrl] = useState("");
+
   const [alert, setAlert] = useState("");
 
   const handleSubmit = async () => {
-    userDatas.avatarPath = picture;
+    // Upload Image on cloudinary
+    console.log(picture);
+
+    fetch(`${url}users/upload`, {
+      body: { avatarPath: picture },
+      headers: {
+        "content-type": "application/json",
+      },
+      method: "POST",
+    })
+      .then(async (r) => {
+        let data = await r.json();
+        if (data.secure_url) {
+          console.log("Upload OK");
+          setPictureUrl(data.secure_url);
+          userDatas.avatarPath = pictureUrl;
+        }
+      })
+      .catch((err) => console.log("Cannot upload"));
+
+    // Create User
+
     var userToCreate = userDatas;
 
     const requestOptions = {
@@ -48,6 +69,7 @@ export default function RegisterScreenStep2({ url, userDatas }) {
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(userToCreate),
     };
+
     try {
       await fetch(`${url}users/register`, requestOptions).then((response) => {
         response.json().then((data) => {
@@ -79,10 +101,11 @@ export default function RegisterScreenStep2({ url, userDatas }) {
           <Text style={styles.signTitle}>Inscription : Etape 2</Text>
         </View>
         <View style={styles.container}>
-          <UploadImage picture={picture} setPicture={setPicture} />
-          <Text style={{ marginVertical: 20, fontSize: 16 }}>
-            Welcome, Lily
-          </Text>
+          <UploadImage
+            picture={picture}
+            setPicture={setPicture}
+            setPictureUrl={setPictureUrl}
+          />
         </View>
         <View style={styles.buttonsContent}>
           <Text style={styles.msgAlert}>{alert}</Text>

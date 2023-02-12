@@ -1,13 +1,10 @@
 import React from "react";
 import { useState } from "react";
 import {
-  Button,
   Text,
-  TextInput,
   View,
   TouchableOpacity,
   StyleSheet,
-  Image,
   SafeAreaView,
 } from "react-native";
 
@@ -27,8 +24,6 @@ import { useNavigation } from "@react-navigation/core";
 
 export default function LoginScreen({
   keyTokenStore,
-  setKeyTokenStore,
-  userToken,
   setUserToken,
   setUserId,
   url,
@@ -75,7 +70,7 @@ export default function LoginScreen({
               setUserId(data.data._id);
               saveToStore(keyTokenStore, token);
 
-              /*               console.log(token); */
+              /*console.log(token); */
             }
           });
         });

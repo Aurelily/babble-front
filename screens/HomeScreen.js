@@ -1,13 +1,6 @@
 import * as React from "react";
 import { useState, useEffect } from "react";
-import {
-  Image,
-  View,
-  Platform,
-  TouchableOpacity,
-  Text,
-  StyleSheet,
-} from "react-native";
+import { Image, View, TouchableOpacity, Text, StyleSheet } from "react-native";
 
 //Colors:
 import colors from "../assets/colors";

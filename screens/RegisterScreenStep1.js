@@ -1,9 +1,7 @@
 import * as React from "react";
 import { useState } from "react";
 import {
-  Button,
   Text,
-  TextInput,
   View,
   TouchableOpacity,
   StyleSheet,
@@ -29,7 +27,7 @@ import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view
 // UseNavigation pour pouvoir mettre des liens
 import { useNavigation } from "@react-navigation/core";
 
-export default function RegisterScreen({ url, userDatas, setUserDatas }) {
+export default function RegisterScreen({ url, setUserDatas }) {
   const navigation = useNavigation();
 
   //States of input
