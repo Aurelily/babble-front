@@ -18,37 +18,14 @@ export default function UploadImage({ picture, setPicture, setPictureUrl }) {
       mediaTypes: ImagePicker.MediaTypeOptions.Images,
       allowsEditing: true,
       aspect: [4, 3],
-      base64: true,
+      /*      base64: true, */
       quality: 1,
     });
     console.log(_image.assets[0]);
     if (!_image.canceled) {
       setPicture(_image.assets[0].uri);
     }
-    /*     let base64Img = `data:image/jpg;base64,${_image}`;
-
-    //Add to cloudinary
-    let apiUrl = "https://api.cloudinary.com/v1_1/lilycloud/image/upload";
-
-    let data = {
-      file: base64Img,
-      upload_preset: "lilyUploadPreset",
-    };
-    fetch(apiUrl, {
-      body: JSON.stringify(data),
-      headers: {
-        "content-type": "application/json",
-      },
-      method: "POST",
-    })
-      .then(async (r) => {
-        let data = await r.json();
-        if (data.secure_url) {
-          alert("Upload successful");
-          setPictureUrl(data.secure_url);
-        }
-      })
-      .catch((err) => alert("Cannot upload")); */
+    console.log(picture);
   };
 
   // Pour demander la permission d'utiliser la media library du téléphone

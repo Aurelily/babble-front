@@ -40,25 +40,28 @@ export default function RegisterScreenStep2({ url, userDatas }) {
   const [alert, setAlert] = useState("");
 
   const handleSubmit = async () => {
-    // Upload Image on cloudinary
-    console.log(picture);
+    // Upload picture on server
+    const formData = new FormData();
+    formData.append("avatarPath", {
+      name: "photo",
+      type: "image/jpg",
+      uri: Platform.OS !== "android" ? "file://" + picture : picture,
+    });
 
-    fetch(`${url}users/upload`, {
-      body: { avatarPath: picture },
-      headers: {
-        "content-type": "application/json",
-      },
-      method: "POST",
-    })
-      .then(async (r) => {
-        let data = await r.json();
-        if (data.secure_url) {
-          console.log("Upload OK");
-          setPictureUrl(data.secure_url);
-          userDatas.avatarPath = pictureUrl;
-        }
-      })
-      .catch((err) => console.log("Cannot upload"));
+    try {
+      const fetchResponse = await fetch(`${url}users/upload`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "multipart/form-data;",
+        },
+        body: formData,
+      });
+      const data = await fetchResponse.json();
+      userDatas.avatarPath = data;
+      console.log(userDatas);
+    } catch (e) {
+      console.log(e.message);
+    }
 
     // Create User
 
