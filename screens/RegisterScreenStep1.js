@@ -49,23 +49,22 @@ export default function RegisterScreen({ url, setUserDatas }) {
           lastname: lastname,
           email: email,
           password: password,
-          avatar: null,
-          avatarPath: null,
+          avatarPath:
+            "https://res.cloudinary.com/lilycloud/image/upload/v1675756437/babble/users/avatar-default_tpd0vq.jpg",
         };
         const requestOptions = {
           method: "POST",
           headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(userToCreate),
+          body: userToCreate,
         };
         try {
-          await fetch(`${url}users/registertest`, requestOptions).then(
+          await fetch(`${url}users/register`, requestOptions).then(
             (response) => {
               response.json().then((data) => {
                 if (data.status == 200) {
                   setAlert(data.message);
-                  setUserDatas(userToCreate);
                   console.log(data.status);
-                  navigation.navigate("RegisterStep2");
+                  navigation.navigate("login");
                 }
                 if (data.status == 409) {
                   setAlert(data.message);
@@ -125,7 +124,7 @@ export default function RegisterScreen({ url, setUserDatas }) {
               disabled={false}
               onPress={handleSubmit}
             >
-              <Text style={styles.txtButton}>Continuer</Text>
+              <Text style={styles.txtButton}>Créer votre compte</Text>
             </TouchableOpacity>
             <TouchableOpacity
               style={styles.txtLink}
