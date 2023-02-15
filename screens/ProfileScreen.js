@@ -1,24 +1,84 @@
 import * as React from "react";
-import { View, Text, TouchableOpacity, StyleSheet } from "react-native";
+import { useState } from "react";
+import {
+  Text,
+  View,
+  TouchableOpacity,
+  StyleSheet,
+  SafeAreaView,
+  Image,
+} from "react-native";
 
-//Colors:
+// Import components
+import InputText from "../components/atoms/InputText";
+import InputEmail from "../components/atoms/InputEmail";
+import InputPassword from "../components/atoms/InputPassword";
+
+// Colors:
 import colors from "../assets/colors";
 const { purplePrimary, grey } = colors;
 
+// Constant pour récupérer las dimensions des devices
+import Constants from "expo-constants";
+
+// Pour que le clavier du mobile ne supperpose pas le contenu
+import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
+
+// UseNavigation pour pouvoir mettre des liens
+import { useNavigation } from "@react-navigation/core";
+
 export default function ProfileScreen({ deleteInStore, setUserToken }) {
   return (
-    <View style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>
-      <Text>Screen My Profil Update</Text>
-      <TouchableOpacity
-        style={styles.button}
-        onPress={() => {
-          deleteInStore("jwtToken");
-          setUserToken(null);
-        }}
-      >
-        <Text>Disconnect</Text>
-      </TouchableOpacity>
-    </View>
+    <KeyboardAwareScrollView>
+      <SafeAreaView style={styles.container}>
+        <View style={styles.logoZone}>
+          {/*           <Image
+            source={require("../assets/img/logo.png")}
+            style={styles.logoSign}
+          /> */}
+          <Text style={styles.signTitle}>Profil </Text>
+          <Text style={styles.subTitle}>
+            Ici vous pouvez modifier les informations de votre profil..
+          </Text>
+          <Text style={styles.subTitle}>
+            Vous pouvez également créer un avatar.
+          </Text>
+        </View>
+        <View style={styles.formContent}>
+          <InputText
+            placeholder="Prénom"
+            /* value={firstname}
+            setValue={setFirstname} */
+          />
+          <InputText
+            placeholder="Nom"
+            /*   value={lastname}
+            setValue={setLastname} */
+          />
+          <InputEmail
+            placeholder="email" /* value={email} setValue={setEmail} */
+          />
+          <InputPassword
+            placeholder="Mot de passe" /* setValue={setPassword} */
+          />
+          <InputPassword
+            placeholder="Confirmez votre mot de passe"
+            /* setValue={setConfirmPassword} */
+          />
+        </View>
+        <View style={styles.buttonsContent}>
+          <TouchableOpacity
+            style={styles.button}
+            onPress={() => {
+              deleteInStore("jwtToken");
+              setUserToken(null);
+            }}
+          >
+            <Text>Disconnect</Text>
+          </TouchableOpacity>
+        </View>
+      </SafeAreaView>
+    </KeyboardAwareScrollView>
   );
 }
 const styles = StyleSheet.create({

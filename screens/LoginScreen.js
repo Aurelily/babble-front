@@ -57,20 +57,18 @@ export default function LoginScreen({
           response.json().then((data) => {
             if (data.status == 200) {
               setAlert(data.message);
+              if (data.data.token) {
+                const token = data.data.token;
+                setUserToken(token);
+                setUserId(data.data._id);
+                saveToStore(keyTokenStore, token);
+              }
             }
             if (data.status == 500) {
               setAlert(data.message);
             }
             if (data.status == 400) {
               setAlert("Login or password incorrect !");
-            }
-            if (data.data.token) {
-              const token = data.data.token;
-              setUserToken(token);
-              setUserId(data.data._id);
-              saveToStore(keyTokenStore, token);
-
-              /*console.log(token); */
             }
           });
         });
@@ -113,7 +111,7 @@ export default function LoginScreen({
             <TouchableOpacity
               style={styles.txtLink}
               onPress={() => {
-                navigation.navigate("RegisterStep1");
+                navigation.navigate("Register");
               }}
             >
               <Text style={styles.signTitle}>Pas encore inscrit ?</Text>

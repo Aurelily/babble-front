@@ -55,7 +55,7 @@ export default function RegisterScreen({ url, setUserDatas }) {
         const requestOptions = {
           method: "POST",
           headers: { "Content-Type": "application/json" },
-          body: userToCreate,
+          body: JSON.stringify(userToCreate),
         };
         try {
           await fetch(`${url}users/register`, requestOptions).then(
@@ -64,7 +64,7 @@ export default function RegisterScreen({ url, setUserDatas }) {
                 if (data.status == 200) {
                   setAlert(data.message);
                   console.log(data.status);
-                  navigation.navigate("login");
+                  navigation.navigate("Login");
                 }
                 if (data.status == 409) {
                   setAlert(data.message);
@@ -96,9 +96,19 @@ export default function RegisterScreen({ url, setUserDatas }) {
             source={require("../assets/img/logo.png")}
             style={styles.logoSign}
           /> */}
-          <Text style={styles.signTitle}>Inscription : Etape 1</Text>
+          <Text style={styles.signTitle}>Inscription </Text>
+          <Text style={styles.subTitle}>
+            Créez votre compte pour pouvoir chatter avec les “babblers”.
+          </Text>
+          <Text style={styles.subTitle}>
+            Vous pourrez modifier votre avatar par la suite.
+          </Text>
         </View>
         <View style={styles.formContent}>
+          <Image
+            source={require("../assets/img/avatar-default.jpg")}
+            style={styles.avatar}
+          />
           <View style={styles.inputContent}>
             <InputText
               placeholder="Prénom"
@@ -165,8 +175,19 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     color: grey,
   },
+  subTitle: {
+    fontSize: 12,
+    color: grey,
+    textAlign: "center",
+  },
 
   // *---- FORM ----*
+
+  avatar: {
+    height: 100,
+    width: 100,
+    borderRadius: 999,
+  },
 
   formContent: {
     // backgroundColor: "purple",

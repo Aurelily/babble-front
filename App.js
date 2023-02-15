@@ -21,7 +21,7 @@ import { AntDesign } from "@expo/vector-icons";
 // Import screens
 import HomeScreen from "./screens/HomeScreen";
 import LoginScreen from "./screens/LoginScreen";
-import RegisterScreenStep1 from "./screens/RegisterScreenStep1";
+import RegisterScreen from "./screens/RegisterScreen";
 import RegisterScreenStep2 from "./screens/RegisterScreenStep2";
 import SplashScreen from "./screens/SplashScreen";
 import GeneralChatScreen from "./screens/GeneralChatScreen";
@@ -102,13 +102,8 @@ export default function App() {
               />
             )}
           </Stack.Screen>
-          <Stack.Screen name="RegisterStep1">
-            {() => (
-              <RegisterScreenStep1 url={url} setUserDatas={setUserDatas} />
-            )}
-          </Stack.Screen>
-          <Stack.Screen name="RegisterStep2">
-            {() => <RegisterScreenStep2 url={url} userDatas={userDatas} />}
+          <Stack.Screen name="Register">
+            {() => <RegisterScreen url={url} setUserDatas={setUserDatas} />}
           </Stack.Screen>
         </Stack.Navigator>
       ) : (
