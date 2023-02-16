@@ -1,5 +1,5 @@
 import * as React from "react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import {
   Text,
   View,
@@ -27,7 +27,47 @@ import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view
 // UseNavigation pour pouvoir mettre des liens
 import { useNavigation } from "@react-navigation/core";
 
-export default function ProfileScreen({ deleteInStore, setUserToken }) {
+export default function ProfileScreen({
+  deleteInStore,
+  userToken,
+  setUserToken,
+  userId,
+  url,
+}) {
+  const navigation = useNavigation();
+
+  //States of input
+  const [firstname, setFirstname] = useState("");
+  const [lastname, setLastname] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
+  const [alert, setAlert] = useState("");
+
+  useEffect(() => {
+    // Function to get all user connected informations
+    async function getUserInfos() {
+      try {
+        await fetch(`${url}users/details/${userId}`, {
+          headers: {
+            Authorization: `Bearer ${userToken}`,
+          },
+        }).then((response) => {
+          response.json().then((data) => {
+            if (data.status == 200) {
+              setFirstname(data.firstname);
+              setLastname(data.lastname);
+              setEmail(data.email);
+            }
+          });
+        });
+      } catch (e) {
+        console.log(e);
+      }
+    }
+    getUserInfos();
+  }, [userId]);
+
   return (
     <KeyboardAwareScrollView>
       <SafeAreaView style={styles.container}>
@@ -45,28 +85,38 @@ export default function ProfileScreen({ deleteInStore, setUserToken }) {
           </Text>
         </View>
         <View style={styles.formContent}>
+          <Image
+            source={require("../assets/img/avatar-default.jpg")}
+            style={styles.avatar}
+          />
           <InputText
             placeholder="Prénom"
-            /* value={firstname}
-            setValue={setFirstname} */
+            value={firstname}
+            setValue={setFirstname}
           />
           <InputText
             placeholder="Nom"
-            /*   value={lastname}
-            setValue={setLastname} */
+            value={lastname}
+            setValue={setLastname}
           />
-          <InputEmail
-            placeholder="email" /* value={email} setValue={setEmail} */
-          />
-          <InputPassword
-            placeholder="Mot de passe" /* setValue={setPassword} */
-          />
+          <InputEmail placeholder="email" value={email} setValue={setEmail} />
+          <InputPassword placeholder="Mot de passe" setValue={setPassword} />
           <InputPassword
             placeholder="Confirmez votre mot de passe"
-            /* setValue={setConfirmPassword} */
+            setValue={setConfirmPassword}
           />
         </View>
         <View style={styles.buttonsContent}>
+          <Text style={styles.msgAlert}>{alert}</Text>
+          <TouchableOpacity
+            style={styles.button}
+            /*     onPress={() => {
+              deleteInStore("jwtToken");
+              setUserToken(null);
+            }} */
+          >
+            <Text>Mettre à jour</Text>
+          </TouchableOpacity>
           <TouchableOpacity
             style={styles.button}
             onPress={() => {
@@ -112,6 +162,11 @@ const styles = StyleSheet.create({
   },
 
   // *---- FORM ----*
+  avatar: {
+    height: 100,
+    width: 100,
+    borderRadius: 999,
+  },
 
   formContent: {
     // backgroundColor: "purple",
@@ -136,6 +191,7 @@ const styles = StyleSheet.create({
   buttonsContent: {
     justifyContent: "center",
     alignItems: "center",
+    marginTop: 50,
   },
 
   button: {

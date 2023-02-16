@@ -67,8 +67,11 @@ const HomeTabs = ({ deleteInStore, userToken, setUserToken, url, userId }) => {
         {(props) => (
           <ProfileScreen
             {...props}
+            url={url}
+            userToken={userToken}
             setUserToken={setUserToken}
             deleteInStore={deleteInStore}
+            userId={userId}
           />
         )}
       </Tab.Screen>

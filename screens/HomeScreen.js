@@ -12,7 +12,7 @@ import { useNavigation } from "@react-navigation/core";
 export default function HomeScreen({ url, userId, userToken }) {
   const navigation = useNavigation();
 
-  //dPour stocker les infos utilisateurs
+  //Pour stocker les infos utilisateurs
   const [userInfos, setUserInfos] = useState();
   const [infosLoading, setInfosLoading] = useState(true);
 
