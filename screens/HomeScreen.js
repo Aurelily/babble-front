@@ -9,11 +9,19 @@ const { purplePrimary, grey } = colors;
 //UseNavigation pour pouvoir mettre des liens
 import { useNavigation } from "@react-navigation/core";
 
-export default function HomeScreen({ url, userId, userToken }) {
+export default function HomeScreen({
+  url,
+  userId,
+  setUserToken,
+  userToken,
+  userInfos,
+  setUserInfos,
+  deleteInStore,
+}) {
   const navigation = useNavigation();
 
   //Pour stocker les infos utilisateurs
-  const [userInfos, setUserInfos] = useState();
+  /*  const [userInfos, setUserInfos] = useState(); */
   const [infosLoading, setInfosLoading] = useState(true);
 
   useEffect(() => {
@@ -42,6 +50,14 @@ export default function HomeScreen({ url, userId, userToken }) {
   return infosLoading ? (
     <View style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>
       <Text>Loading ...</Text>
+      <TouchableOpacity
+        onPress={() => {
+          deleteInStore("jwtToken");
+          setUserToken(null);
+        }}
+      >
+        <Text>Se déconnecter</Text>
+      </TouchableOpacity>
     </View>
   ) : (
     <View style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>

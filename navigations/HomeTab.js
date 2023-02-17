@@ -1,4 +1,5 @@
 import React from "react";
+import { useState } from "react";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { StyleSheet, TouchableOpacity, Text } from "react-native";
 
@@ -19,6 +20,8 @@ import colors from "../assets/colors";
 const { purplePrimary } = colors;
 
 const HomeTabs = ({ deleteInStore, userToken, setUserToken, url, userId }) => {
+  const [userInfos, setUserInfos] = useState();
+
   return (
     <Tab.Navigator
       screenOptions={{
@@ -41,6 +44,10 @@ const HomeTabs = ({ deleteInStore, userToken, setUserToken, url, userId }) => {
             url={url}
             userId={userId}
             userToken={userToken}
+            setUserToken={setUserToken}
+            userInfos={userInfos}
+            setUserInfos={setUserInfos}
+            deleteInStore={deleteInStore}
           />
         )}
       </Tab.Screen>
@@ -72,6 +79,8 @@ const HomeTabs = ({ deleteInStore, userToken, setUserToken, url, userId }) => {
             setUserToken={setUserToken}
             deleteInStore={deleteInStore}
             userId={userId}
+            userInfos={userInfos}
+            setUserInfos={setUserInfos}
           />
         )}
       </Tab.Screen>

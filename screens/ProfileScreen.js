@@ -33,40 +33,65 @@ export default function ProfileScreen({
   setUserToken,
   userId,
   url,
+  userInfos,
+  setUserInfos,
 }) {
   const navigation = useNavigation();
 
   //States of input
-  const [firstname, setFirstname] = useState("");
-  const [lastname, setLastname] = useState("");
-  const [email, setEmail] = useState("");
+  const [firstname, setFirstname] = useState(userInfos.firstname);
+  const [lastname, setLastname] = useState(userInfos.lastname);
+  const [email, setEmail] = useState(userInfos.email);
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [alert, setAlert] = useState("");
 
-  useEffect(() => {
-    // Function to get all user connected informations
-    async function getUserInfos() {
-      try {
-        await fetch(`${url}users/details/${userId}`, {
+  const handleSubmitUpdate = async () => {
+    if (firstname && lastname && email && password && confirmPassword) {
+      // Si tous les champs sont remplis
+      if (password === confirmPassword) {
+        // si les 2 MDP sont identiques
+
+        var userToUpdate = {
+          firstname: firstname,
+          lastname: lastname,
+          email: email,
+          password: password,
+          avatarPath:
+            "https://res.cloudinary.com/lilycloud/image/upload/v1675756437/babble/users/avatar-default_tpd0vq.jpg",
+        };
+        const requestOptions = {
+          method: "PUT",
           headers: {
-            Authorization: `Bearer ${userToken}`,
+            Accept: "application/json",
+            "Content-Type": "application/json",
+            Authorization: "Bearer " + userToken,
           },
-        }).then((response) => {
-          response.json().then((data) => {
-            if (data.status == 200) {
-              setFirstname(data.firstname);
-              setLastname(data.lastname);
-              setEmail(data.email);
-            }
+          body: JSON.stringify(userToUpdate),
+        };
+        await fetch(`${url}users/update/profil`, requestOptions)
+          .then((response) => {
+            console.log(response);
+            response.json().then((data) => {
+              if (data.status == 200) {
+                console.log(data.status);
+                setAlert("Update OK");
+                /* navigation.navigate("Login"); */
+              }
+            });
+          })
+          .catch((e) => {
+            console.log(e);
           });
-        });
-      } catch (e) {
-        console.log(e);
+      } else {
+        // si les 2 MDP ne sont pas identiques
+        setAlert("MDP doivent être identiques");
       }
+    } else {
+      // Si tous les champs ne sont pas remplis
+      setAlert("Remplir tous les champs");
     }
-    getUserInfos();
-  }, [userId]);
+  };
 
   return (
     <KeyboardAwareScrollView>
@@ -108,13 +133,7 @@ export default function ProfileScreen({
         </View>
         <View style={styles.buttonsContent}>
           <Text style={styles.msgAlert}>{alert}</Text>
-          <TouchableOpacity
-            style={styles.button}
-            /*     onPress={() => {
-              deleteInStore("jwtToken");
-              setUserToken(null);
-            }} */
-          >
+          <TouchableOpacity style={styles.button} onPress={handleSubmitUpdate}>
             <Text>Mettre à jour</Text>
           </TouchableOpacity>
           <TouchableOpacity
@@ -124,7 +143,7 @@ export default function ProfileScreen({
               setUserToken(null);
             }}
           >
-            <Text>Disconnect</Text>
+            <Text>Se déconnecter</Text>
           </TouchableOpacity>
         </View>
       </SafeAreaView>
