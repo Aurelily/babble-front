@@ -77,6 +77,7 @@ export default function RegisterScreen({ url, setUserDatas }) {
           );
         } catch (e) {
           console.log(e.message);
+          j;
         }
       } else {
         // si les 2 MDP ne sont pas identiques

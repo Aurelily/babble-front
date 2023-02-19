@@ -12,6 +12,7 @@ const Tab = createBottomTabNavigator();
 //import Screens
 import HomeScreen from "../screens/HomeScreen";
 import GeneralChatScreen from "../screens/GeneralChatScreen";
+import MessagingScreen from "../screens/MessagingScreen";
 import ProfileScreen from "../screens/ProfileScreen";
 import UsersDirScreen from "../screens/UsersDirScreen";
 
@@ -61,6 +62,17 @@ const HomeTabs = ({ deleteInStore, userToken, setUserToken, url, userId }) => {
         }}
       >
         {(props) => <GeneralChatScreen {...props} />}
+      </Tab.Screen>
+      <Tab.Screen
+        name="Messaging"
+        options={{
+          tabBarLabel: "Messaging",
+          tabBarIcon: ({ color, size }) => (
+            <AntDesign name="message1" size={size} color={color} />
+          ),
+        }}
+      >
+        {(props) => <MessagingScreen {...props} />}
       </Tab.Screen>
       <Tab.Screen
         name="Profile"
