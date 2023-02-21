@@ -55,7 +55,7 @@ export default function GeneralChatScreen() {
     <SafeAreaView style={stylesChat.chatscreen}>
       <View style={stylesChat.chattopContainer}>
         <View style={stylesChat.chatheader}>
-          <Text style={stylesChat.chatheading}>Chats</Text>
+          <Text style={stylesChat.chatheading}>Babbler's rooms</Text>
 
           {/* Displays the Modal component when clicked */}
           <Pressable onPress={() => setVisible(true)}>

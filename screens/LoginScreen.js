@@ -2,19 +2,23 @@ import React from "react";
 import { useState } from "react";
 import {
   Text,
+  Image,
   View,
   TouchableOpacity,
   StyleSheet,
   SafeAreaView,
+  ImageBackground,
 } from "react-native";
 
 // Import components
 import InputEmail from "../components/atoms/InputEmail";
 import InputPassword from "../components/atoms/InputPassword";
 
-//Colors:
+//Colors and styles:
 import colors from "../assets/colors";
 const { purplePrimary, grey } = colors;
+import { genStyles } from "../styles/genStyles";
+import { loginScreenStyle } from "../styles/loginScreenStyles";
 
 //Pour que le clavier du mobile ne supperpose pas le contenu
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
@@ -82,89 +86,67 @@ export default function LoginScreen({
 
   return (
     <KeyboardAwareScrollView>
-      <SafeAreaView style={styles.container}>
-        <View style={styles.logoZone}>
-          {/*     <Image
-            source={require("../assets/img/logo.png")}
-            style={styles.logoSign}
-          /> */}
-          <Text style={styles.signTitle}>Bienvenue sur BABBLE !</Text>
-          <Text style={styles.subTitle}>
-            Veuillez vous connecter pour accéder aux discussion.
-          </Text>
-        </View>
-        <View style={styles.formContent}>
-          <View style={styles.inputContent}>
-            <InputEmail placeholder="email" value={email} setValue={setEmail} />
+      <SafeAreaView style={loginScreenStyle.container}>
+        <ImageBackground
+          source={require("../assets/img/fond-bulles-orange.png")}
+          style={loginScreenStyle.bgImage}
+        >
+          <View style={loginScreenStyle.logoZone}>
+            <Image
+              source={require("../assets/img/logo-orange.png")}
+              style={loginScreenStyle.logoSign}
+            />
+            <Text style={[genStyles.basicClearText, genStyles.textAlignCenter]}>
+              Veuillez vous connecter pour accéder aux salons de discussion, à
+              vos favoris et à la liste des Babblers !.
+            </Text>
+          </View>
+          <View style={loginScreenStyle.formContent}>
+            <View style={loginScreenStyle.inputContent}>
+              <InputEmail
+                placeholder="email"
+                value={email}
+                setValue={setEmail}
+              />
 
-            <InputPassword placeholder="password" setValue={setPassword} />
+              <InputPassword placeholder="password" setValue={setPassword} />
+            </View>
+            <View style={styles.buttonsContent}>
+              <Text style={styles.msgAlert}>{alert}</Text>
+              <TouchableOpacity
+                style={styles.button}
+                /* disabled={isLoading ? true : false} */
+                onPress={handleSubmit}
+              >
+                <Text style={styles.txtButton}>Se connecter</Text>
+              </TouchableOpacity>
+            </View>
           </View>
-          <View style={styles.buttonsContent}>
-            <Text style={styles.msgAlert}>{alert}</Text>
-            <TouchableOpacity
-              style={styles.button}
-              /* disabled={isLoading ? true : false} */
-              onPress={handleSubmit}
-            >
-              <Text style={styles.txtButton}>Connexion</Text>
-            </TouchableOpacity>
-            <TouchableOpacity
-              style={styles.txtLink}
-              onPress={() => {
-                navigation.navigate("Register");
-              }}
-            >
-              <Text style={styles.signTitle}>Pas encore inscrit ?</Text>
-              <Text style={styles.subTitle}>
-                Cliquez ici pour créer votre compte.
-              </Text>
-            </TouchableOpacity>
-          </View>
-        </View>
+          <TouchableOpacity
+            style={styles.txtLink}
+            onPress={() => {
+              navigation.navigate("Register");
+            }}
+          >
+            <Text style={styles.signTitle}>Pas encore inscrit ?</Text>
+            <Text style={styles.subTitle}>
+              Cliquez ici pour créer votre compte.
+            </Text>
+          </TouchableOpacity>
+        </ImageBackground>
       </SafeAreaView>
     </KeyboardAwareScrollView>
   );
 }
 
 const styles = StyleSheet.create({
-  // *---- GLOBAL ----*
-
-  container: {
-    alignItems: "center",
-  },
-
-  // *---- LOGO ZONE ----*
-  logoZone: {
-    justifyContent: "center",
-    alignItems: "center",
-    marginVertical: 50,
-  },
-
-  logoSign: {
-    height: 100,
-    width: 100,
-  },
-
   signTitle: {
     fontSize: 20,
     fontWeight: "bold",
     color: grey,
   },
 
-  subTitle: {
-    fontSize: 12,
-    color: grey,
-  },
-
   // *---- FORM ----*
-
-  formContent: {
-    // backgroundColor: "purple",
-    width: "80%",
-    height: 300,
-    alignItems: "center",
-    justifyContent: "space-between",
-  },
 
   inputContent: {
     alignItems: "center",

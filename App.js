@@ -91,7 +91,20 @@ export default function App() {
       {isLoading ? null : userToken === null ? ( // We haven't finished checking for the token yet
         // No token found, user isn't signed in
         <Stack.Navigator>
-          <Stack.Screen name="Login">
+          <Stack.Screen
+            name="Login"
+            options={{
+              title: "Bienvenue sur",
+              headerStyle: {
+                backgroundColor: "#f4bb71",
+              },
+              headerShadowVisible: false,
+              headerTintColor: "#fff",
+              headerTitleStyle: {
+                fontWeight: "bold",
+              },
+            }}
+          >
             {() => (
               <LoginScreen
                 keyTokenStore={keyTokenStore}
@@ -118,12 +131,3 @@ export default function App() {
     </NavigationContainer>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: "#fff",
-    alignItems: "center",
-    justifyContent: "center",
-  },
-});

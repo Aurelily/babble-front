@@ -8,9 +8,9 @@ const ModalChat = ({ setVisible }) => {
   //👇🏻 Function that closes the Modal component
   const closeModal = () => setVisible(false);
 
-  //👇🏻 Logs the group name to the console
   const handleCreateRoom = () => {
-    console.log({ groupName });
+    //👇🏻 sends a message containing the group name to the server
+    socket.emit("createRoom", groupName);
     closeModal();
   };
   return (
