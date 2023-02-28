@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useLayoutEffect } from "react";
 import { View, Text, Pressable, SafeAreaView, FlatList } from "react-native";
 import { Feather } from "@expo/vector-icons";
 import { useState } from "react";
@@ -9,10 +9,15 @@ import Modal from "../components/molecules/ModalChat";
 
 import { stylesChat } from "../utils/styles";
 
-export default function GeneralChatScreen() {
+//👇🏻 Import socket from the socket.js file in utils folder
+import socket from "../utils/socket";
+
+export default function GeneralChatScreen({ url }) {
   const [visible, setVisible] = useState(false);
+  const [rooms, setRooms] = useState([]);
+
   //👇🏻 Dummy list of rooms
-  const rooms = [
+  /*   const rooms = [
     {
       id: "1",
       name: "Pokemons",
@@ -49,8 +54,25 @@ export default function GeneralChatScreen() {
         },
       ],
     },
-  ];
+  ]; */
 
+  //👇🏻 Runs when the component mounts
+  useLayoutEffect(() => {
+    function fetchGroups() {
+      fetch(`${url}rooms`)
+        .then((res) => res.json())
+        .then((data) => setRooms(data))
+        .catch((err) => console.error(err));
+    }
+    fetchGroups();
+  }, []);
+
+  //👇🏻 Runs whenever there is new trigger from the backend
+  useEffect(() => {
+    socket.on("roomsList", (rooms) => {
+      setRooms(rooms);
+    });
+  }, [socket]);
   return (
     <SafeAreaView style={stylesChat.chatscreen}>
       <View style={stylesChat.chattopContainer}>

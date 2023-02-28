@@ -2,6 +2,9 @@ import { View, Text, TextInput, Pressable } from "react-native";
 import React, { useState } from "react";
 import { stylesChat } from "../../utils/styles";
 
+//👇🏻 Import socket from the socket.js file in utils folder
+import socket from "../../utils/socket";
+
 const ModalChat = ({ setVisible }) => {
   const [groupName, setGroupName] = useState("");
 
