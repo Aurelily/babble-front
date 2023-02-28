@@ -96,7 +96,7 @@ export default function App() {
             options={{
               title: "Bienvenue sur",
               headerStyle: {
-                backgroundColor: "#f4bb71",
+                backgroundColor: "#ffb863",
               },
               headerShadowVisible: false,
               headerTintColor: "#fff",

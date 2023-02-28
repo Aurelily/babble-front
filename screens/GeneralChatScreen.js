@@ -19,15 +19,15 @@ export default function GeneralChatScreen() {
       messages: [
         {
           id: "1a",
-          text: "Hello guys, welcome!",
-          time: "07:50",
-          user: "Tomer",
+          content: "Hello guys, welcome!",
+          datePublished: "07:50",
+          author: "Tomer",
         },
         {
           id: "1b",
-          text: "Hi Tomer, thank you! 😇",
-          time: "08:50",
-          user: "David",
+          content: "Hi Tomer, thank you! 😇",
+          datePublished: "08:50",
+          author: "David",
         },
       ],
     },
@@ -37,15 +37,15 @@ export default function GeneralChatScreen() {
       messages: [
         {
           id: "2a",
-          text: "Guys, who's awake? 🙏🏽",
-          time: "12:50",
-          user: "Team Leader",
+          content: "Guys, who's awake? 🙏🏽",
+          datePublished: "12:50",
+          author: "Team Leader",
         },
         {
           id: "2b",
-          text: "What's up? 🧑🏻‍💻",
-          time: "03:50",
-          user: "Victoria",
+          content: "What's up? 🧑🏻‍💻",
+          datePublished: "03:50",
+          author: "Victoria",
         },
       ],
     },

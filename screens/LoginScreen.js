@@ -13,6 +13,7 @@ import {
 // Import components
 import InputEmail from "../components/atoms/InputEmail";
 import InputPassword from "../components/atoms/InputPassword";
+import BtForm from "../components/atoms/BtForm";
 
 //Colors and styles:
 import colors from "../assets/colors";
@@ -88,7 +89,7 @@ export default function LoginScreen({
     <KeyboardAwareScrollView>
       <SafeAreaView style={loginScreenStyle.container}>
         <ImageBackground
-          source={require("../assets/img/fond-bulles-orange.png")}
+          source={require("../assets/img/fond-bulles-orange2.png")}
           style={loginScreenStyle.bgImage}
         >
           <View style={loginScreenStyle.logoZone}>
@@ -101,8 +102,8 @@ export default function LoginScreen({
               vos favoris et à la liste des Babblers !.
             </Text>
           </View>
-          <View style={loginScreenStyle.formContent}>
-            <View style={loginScreenStyle.inputContent}>
+          <View style={genStyles.formContent}>
+            <View style={genStyles.inputContent}>
               <InputEmail
                 placeholder="email"
                 value={email}
@@ -111,83 +112,33 @@ export default function LoginScreen({
 
               <InputPassword placeholder="password" setValue={setPassword} />
             </View>
-            <View style={styles.buttonsContent}>
-              <Text style={styles.msgAlert}>{alert}</Text>
-              <TouchableOpacity
-                style={styles.button}
-                /* disabled={isLoading ? true : false} */
-                onPress={handleSubmit}
-              >
-                <Text style={styles.txtButton}>Se connecter</Text>
-              </TouchableOpacity>
+            <View style={genStyles.buttonsContent}>
+              <Text style={genStyles.msgAlert}>{alert}</Text>
+
+              <BtForm
+                action={handleSubmit}
+                text={"Se connecter"}
+                colorStart={colors.purplePrimary}
+                colorEnd={colors.purpleSecondary}
+              />
             </View>
           </View>
-          <TouchableOpacity
-            style={styles.txtLink}
-            onPress={() => {
-              navigation.navigate("Register");
-            }}
-          >
-            <Text style={styles.signTitle}>Pas encore inscrit ?</Text>
-            <Text style={styles.subTitle}>
-              Cliquez ici pour créer votre compte.
-            </Text>
-          </TouchableOpacity>
+          <Image
+            source={require("../assets/img/emo-violet-01.png")}
+            style={loginScreenStyle.emoRegister}
+          />
+          <Text style={genStyles.titlePurpleText}>Pas encore inscrit ?</Text>
+          <Text style={genStyles.basicPurpleText}>
+            Créez votre compte Babble et chattez avec vos amis !
+          </Text>
+          <BtForm
+            action={() => navigation.navigate("Register")}
+            text={"S'inscrire"}
+            colorStart={colors.purplePrimary}
+            colorEnd={colors.purpleSecondary}
+          />
         </ImageBackground>
       </SafeAreaView>
     </KeyboardAwareScrollView>
   );
 }
-
-const styles = StyleSheet.create({
-  signTitle: {
-    fontSize: 20,
-    fontWeight: "bold",
-    color: grey,
-  },
-
-  // *---- FORM ----*
-
-  inputContent: {
-    alignItems: "center",
-    width: "100%",
-  },
-
-  input: {
-    width: "100%",
-    height: 50,
-    borderBottomColor: purplePrimary,
-    borderBottomWidth: 1,
-  },
-
-  buttonsContent: {
-    justifyContent: "center",
-    alignItems: "center",
-  },
-
-  button: {
-    borderColor: purplePrimary,
-    borderRadius: 30,
-    borderWidth: 2,
-    justifyContent: "center",
-    alignItems: "center",
-    height: 60,
-    width: 200,
-    marginVertical: 30,
-  },
-
-  txtButton: {
-    color: grey,
-    fontSize: 20,
-    fontWeight: "bold",
-  },
-
-  msgAlert: {
-    color: purplePrimary,
-  },
-
-  txtLink: {
-    justifyContent: "center",
-    alignItems: "center",
-  },
-});

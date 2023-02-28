@@ -23,29 +23,9 @@ export const loginScreenStyle = StyleSheet.create({
     height: windowHeight,
     alignItems: "center",
   },
-
-  formContent: {
-    backgroundColor: "white",
-    borderRadius: 20,
-    padding: 20,
-    marginTop: 20,
-    marginBottom: 20,
-    width: "90%",
-    justifyContent: "center",
-    alignItems: "center",
-    justifyContent: "space-between",
-    shadowColor: "#000",
-    shadowOffset: {
-      width: 0,
-      height: 4,
-    },
-    shadowOpacity: 0.3,
-    shadowRadius: 4.65,
-    elevation: 8,
-  },
-
-  inputContent: {
-    alignItems: "center",
-    width: "100%",
+  emoRegister: {
+    aspectRatio: 0.5,
+    resizeMode: "contain",
+    margin: -30,
   },
 });
