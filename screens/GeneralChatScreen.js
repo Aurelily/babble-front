@@ -12,9 +12,10 @@ import { stylesChat } from "../utils/styles";
 //👇🏻 Import socket from the socket.js file in utils folder
 import socket from "../utils/socket";
 
-export default function GeneralChatScreen({ url }) {
+export default function GeneralChatScreen({ url, userToken }) {
   const [visible, setVisible] = useState(false);
   const [rooms, setRooms] = useState([]);
+  const [roomsLoading, setRoomsLoading] = useState(true);
 
   //👇🏻 Dummy list of rooms
   /*   const rooms = [
@@ -58,11 +59,23 @@ export default function GeneralChatScreen({ url }) {
 
   //👇🏻 Runs when the component mounts
   useLayoutEffect(() => {
-    function fetchGroups() {
-      fetch(`${url}rooms`)
-        .then((res) => res.json())
-        .then((data) => setRooms(data))
-        .catch((err) => console.error(err));
+    async function fetchGroups() {
+      try {
+        await fetch(`${url}rooms`, {
+          headers: {
+            Authorization: `Bearer ${userToken}`,
+          },
+        }).then((response) => {
+          response.json().then((data) => {
+            if (data.status == 200) {
+              setRooms(data.data);
+              setRoomsLoading(false);
+            }
+          });
+        });
+      } catch (e) {
+        console.log(e);
+      }
     }
     fetchGroups();
   }, []);
