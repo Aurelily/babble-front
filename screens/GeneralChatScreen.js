@@ -86,6 +86,9 @@ export default function GeneralChatScreen({ url, userToken }) {
       setRooms(rooms);
     });
   }, [socket]);
+
+  const handleCreateGroup = () => setVisible(true);
+
   return (
     <SafeAreaView style={stylesChat.chatscreen}>
       <View style={stylesChat.chattopContainer}>
@@ -93,7 +96,7 @@ export default function GeneralChatScreen({ url, userToken }) {
           <Text style={stylesChat.chatheading}>Babbler's rooms</Text>
 
           {/* Displays the Modal component when clicked */}
-          <Pressable onPress={() => setVisible(true)}>
+          <Pressable onPress={handleCreateGroup}>
             <Feather name="edit" size={24} color="green" />
           </Pressable>
         </View>

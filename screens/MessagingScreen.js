@@ -1,51 +1,54 @@
-import React, { useLayoutEffect, useState } from "react";
+import React, { useLayoutEffect, useState, useEffect } from "react";
 import { View, TextInput, Text, FlatList, Pressable } from "react-native";
 /* import AsyncStorage from "@react-native-async-storage/async-storage"; */
 import MessageComponent from "../components/molecules/MessageComponent";
 import { stylesChat } from "../utils/styles";
 
-const MessagingScreen = ({ route, navigation }) => {
+//👇🏻 Import socket from the socket.js file in utils folder
+import socket from "../utils/socket";
+
+const MessagingScreen = ({ route, navigation, userId, url, userToken }) => {
   const [chatMessages, setChatMessages] = useState([
-    {
+    /*     {
       id: "1",
-      text: "Hello guys, welcome!",
-      time: "07:50",
-      user: "Tomer",
+      content: "Hello guys, welcome!",
+      datePublished: "07:50",
+      author: "Tomer",
     },
     {
       id: "2",
-      text: "Hi Tomer, thank you! 😇",
-      time: "08:50",
-      user: "David",
-    },
+      content: "Hi Tomer, thank you! 😇",
+      datePublished: "08:50",
+      author: "David",
+    }, */
   ]);
-  const [message, setMessage] = useState("");
   const [user, setUser] = useState("");
+  const [message, setMessage] = useState("");
+  const [messagesLoading, setMessageLoading] = useState(true);
 
   //👇🏻 Access the chatroom's name and id
   const { name, id } = route.params;
 
-  //👇🏻 This function gets the username saved on AsyncStorage
-  /*   const getUsername = async () => {
+  //👇🏻 This function gets the username with id
+  async function getUsername() {
     try {
-      const value = await AsyncStorage.getItem("username");
-      if (value !== null) {
-        setUser(value);
-      }
+      await fetch(`${url}users/details/${userId}`, {
+        headers: {
+          Authorization: `Bearer ${userToken}`,
+        },
+      }).then((response) => {
+        response.json().then((data) => {
+          if (data.status == 200) {
+            setUser(data.data);
+            setMessageLoading(false);
+          }
+        });
+      });
     } catch (e) {
-      console.error("Error while loading username!");
+      console.log(e);
     }
-  }; */
-  const getUsername = () => {
-    setUser("testUser");
-  };
-
-  //👇🏻 Sets the header title to the name chatroom's name
-  useLayoutEffect(() => {
-    navigation.setOptions({ title: name });
-    getUsername();
-  }, []);
-
+  }
+  getUsername();
   /*👇🏻 
         This function gets the time the user sends a message, then 
         logs the username, message, and the timestamp to the console.
@@ -61,12 +64,28 @@ const MessagingScreen = ({ route, navigation }) => {
         ? `0${new Date().getMinutes()}`
         : `${new Date().getMinutes()}`;
 
-    console.log({
-      message,
-      user,
-      timestamp: { hour, mins },
-    });
+    if (user) {
+      socket.emit("newMessage", {
+        message,
+        room_id: id,
+        user,
+        timestamp: { hour, mins },
+      });
+    }
   };
+
+  //👇🏻 Sets the header title to the name chatroom's name
+  useLayoutEffect(() => {
+    navigation.setOptions({ title: name });
+    //👇🏻 Sends the id to the server to fetch all its messages
+    socket.emit("findRoom", id);
+    socket.on("foundRoom", (roomChats) => setChatMessages(roomChats));
+  }, []);
+
+  //👇🏻 This runs when the messages are updated.
+  useEffect(() => {
+    socket.on("foundRoom", (roomChats) => setChatMessages(roomChats));
+  }, [socket]);
 
   return (
     <View style={stylesChat.messagingscreen}>
