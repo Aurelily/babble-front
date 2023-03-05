@@ -19,6 +19,10 @@ export const genStyles = StyleSheet.create({
     fontSize: 14,
     color: colors.purplePrimary,
   },
+  miniPurpleText: {
+    fontSize: 10,
+    color: colors.purplePrimary,
+  },
 
   textAlignCenter: {
     textAlign: "center",
@@ -72,6 +76,7 @@ export const genStyles = StyleSheet.create({
   inputContent: {
     alignItems: "center",
     width: "100%",
+    marginBottom: -5,
   },
 
   buttonForm: {

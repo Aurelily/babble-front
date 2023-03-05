@@ -32,4 +32,12 @@ export const registerScreenStyle = StyleSheet.create({
     shadowRadius: 4.65,
     elevation: 8,
   },
+  rgpdZone: {
+    flexDirection: "row",
+    width: "90%",
+  },
+  rgpdText: {
+    width: "80%",
+    marginLeft: 20,
+  },
 });

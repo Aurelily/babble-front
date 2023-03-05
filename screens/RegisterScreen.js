@@ -4,7 +4,7 @@ import {
   Text,
   View,
   TouchableOpacity,
-  StyleSheet,
+  Switch,
   SafeAreaView,
   Image,
   ImageBackground,
@@ -18,7 +18,7 @@ import BtForm from "../components/atoms/BtForm";
 
 // Colors and styles:
 import colors from "../assets/colors";
-const { purplePrimary, grey } = colors;
+const { purplePrimary, purpleSecondary, grey } = colors;
 import { genStyles } from "../styles/genStyles";
 import { registerScreenStyle } from "../styles/registerScreenStyles";
 
@@ -34,6 +34,10 @@ import { useNavigation } from "@react-navigation/core";
 export default function RegisterScreen({ url, setUserDatas }) {
   const navigation = useNavigation();
 
+  // Pour le switch RGPD
+  const [isEnabled, setIsEnabled] = useState(false);
+  const toggleSwitch = () => setIsEnabled((previousState) => !previousState);
+
   //States of input
   const [firstname, setFirstname] = useState("");
   const [lastname, setLastname] = useState("");
@@ -47,41 +51,43 @@ export default function RegisterScreen({ url, setUserDatas }) {
       // Si tous les champs sont remplis
       if (password === confirmPassword) {
         // si les 2 MDP sont identiques
-
-        var userToCreate = {
-          firstname: firstname,
-          lastname: lastname,
-          email: email,
-          password: password,
-          avatarPath:
-            "https://res.cloudinary.com/lilycloud/image/upload/v1675756437/babble/users/avatar-default_tpd0vq.jpg",
-        };
-        const requestOptions = {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(userToCreate),
-        };
-        try {
-          await fetch(`${url}users/register`, requestOptions).then(
-            (response) => {
-              response.json().then((data) => {
-                if (data.status == 200) {
-                  setAlert(data.message);
-                  console.log(data.status);
-                  navigation.navigate("Login");
-                }
-                if (data.status == 409) {
-                  setAlert(data.message);
-                }
-                if (data.status == 500) {
-                  setAlert(data.message);
-                }
-              });
-            }
-          );
-        } catch (e) {
-          console.log(e.message);
-          j;
+        if (isEnabled) {
+          var userToCreate = {
+            firstname: firstname,
+            lastname: lastname,
+            email: email,
+            password: password,
+            avatarPath:
+              "https://res.cloudinary.com/lilycloud/image/upload/v1675756437/babble/users/avatar-default_tpd0vq.jpg",
+          };
+          const requestOptions = {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(userToCreate),
+          };
+          try {
+            await fetch(`${url}users/register`, requestOptions).then(
+              (response) => {
+                response.json().then((data) => {
+                  if (data.status == 200) {
+                    setAlert(data.message);
+                    console.log(data.status);
+                    navigation.navigate("Login");
+                  }
+                  if (data.status == 409) {
+                    setAlert(data.message);
+                  }
+                  if (data.status == 500) {
+                    setAlert(data.message);
+                  }
+                });
+              }
+            );
+          } catch (e) {
+            console.log(e.message);
+          }
+        } else {
+          setAlert("Veuillez accepter les conditions");
         }
       } else {
         // si les 2 MDP ne sont pas identiques
@@ -164,6 +170,23 @@ export default function RegisterScreen({ url, setUserDatas }) {
                 </Text>
               </TouchableOpacity>
             </View>
+          </View>
+          <View style={registerScreenStyle.rgpdZone}>
+            <Switch
+              trackColor={{ false: "#767577", true: "#FE9920" }}
+              thumbColor={isEnabled ? "#f4f3f4" : "#f4f3f4"}
+              ios_backgroundColor="#3e3e3e"
+              onValueChange={toggleSwitch}
+              value={isEnabled}
+            />
+            <Text
+              style={[genStyles.miniPurpleText, registerScreenStyle.rgpdText]}
+            >
+              En soumettant ce formulaire, j'accepte que les informations
+              saisies soient exploitées dans le cadre de la demande d'accès à
+              l'application BABBLE et de la relation commerciale qui peut en
+              découler (Envoi de newsletter de la part de BABBLE).
+            </Text>
           </View>
         </ImageBackground>
       </SafeAreaView>
