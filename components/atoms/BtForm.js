@@ -17,7 +17,9 @@ const BtForm = ({ colorStart, colorEnd, action, text }) => {
           source={require("../../assets/img/shiny.png")}
           style={genStyles.shiny}
         />
-        <Text style={genStyles.buttonsClearText}>{text}</Text>
+        <Text style={[genStyles.buttonsClearText, genStyles.textAlignCenter]}>
+          {text}
+        </Text>
       </LinearGradient>
     </TouchableOpacity>
   );

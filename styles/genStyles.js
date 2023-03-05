@@ -1,5 +1,8 @@
-import { StyleSheet } from "react-native";
+import { StyleSheet, Dimensions } from "react-native";
 import colors from "../assets/colors";
+
+const windowWidth = Dimensions.get("window").width;
+const windowHeight = Dimensions.get("window").height;
 
 export const genStyles = StyleSheet.create({
   genCenter: {
@@ -25,6 +28,10 @@ export const genStyles = StyleSheet.create({
     fontSize: 20,
     color: colors.purplePrimary,
     fontWeight: "bold",
+  },
+  textContainerWidth: {
+    marginRight: 10,
+    marginLeft: 10,
   },
 
   // FORMULAIRES

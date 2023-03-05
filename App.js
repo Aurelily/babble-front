@@ -96,7 +96,7 @@ export default function App() {
             options={{
               title: "Bienvenue sur",
               headerStyle: {
-                backgroundColor: "#ffb863",
+                backgroundColor: "#feb863",
               },
               headerShadowVisible: false,
               headerTintColor: "#fff",
@@ -115,7 +115,21 @@ export default function App() {
               />
             )}
           </Stack.Screen>
-          <Stack.Screen name="Register">
+          <Stack.Screen
+            name="Register"
+            options={{
+              title: "Inscription",
+              headerStyle: {
+                backgroundColor: "#b182fa",
+              },
+              headerShadowVisible: false,
+              headerTintColor: "#fff",
+              headerTitleStyle: {
+                fontWeight: "bold",
+              },
+              headerLeft: () => <Text></Text>,
+            }}
+          >
             {() => <RegisterScreen url={url} setUserDatas={setUserDatas} />}
           </Stack.Screen>
         </Stack.Navigator>

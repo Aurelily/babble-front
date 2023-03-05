@@ -7,16 +7,20 @@ import {
   StyleSheet,
   SafeAreaView,
   Image,
+  ImageBackground,
 } from "react-native";
 
 // Import components
 import InputText from "../components/atoms/InputText";
 import InputEmail from "../components/atoms/InputEmail";
 import InputPassword from "../components/atoms/InputPassword";
+import BtForm from "../components/atoms/BtForm";
 
-// Colors:
+// Colors and styles:
 import colors from "../assets/colors";
 const { purplePrimary, grey } = colors;
+import { genStyles } from "../styles/genStyles";
+import { registerScreenStyle } from "../styles/registerScreenStyles";
 
 // Constant pour récupérer las dimensions des devices
 import Constants from "expo-constants";
@@ -91,159 +95,78 @@ export default function RegisterScreen({ url, setUserDatas }) {
 
   return (
     <KeyboardAwareScrollView>
-      <SafeAreaView style={styles.container}>
-        <View style={styles.logoZone}>
-          {/*           <Image
-            source={require("../assets/img/logo.png")}
-            style={styles.logoSign}
-          /> */}
-          <Text style={styles.signTitle}>Inscription </Text>
-          <Text style={styles.subTitle}>
-            Créez votre compte pour pouvoir chatter avec les “babblers”.
-          </Text>
-          <Text style={styles.subTitle}>
-            Vous pourrez modifier votre avatar par la suite.
-          </Text>
-        </View>
-        <View style={styles.formContent}>
-          <Image
-            source={require("../assets/img/avatar-default.jpg")}
-            style={styles.avatar}
-          />
-          <View style={styles.inputContent}>
-            <InputText
-              placeholder="Prénom"
-              value={firstname}
-              setValue={setFirstname}
+      <SafeAreaView style={registerScreenStyle.container}>
+        <ImageBackground
+          source={require("../assets/img/fond-bulles-violet.png")}
+          style={registerScreenStyle.bgImage}
+        >
+          <View style={registerScreenStyle.avatarZone}>
+            <Image
+              source={require("../assets/img/avatar-defaut.png")}
+              style={registerScreenStyle.avatar}
             />
-            <InputText
-              placeholder="Nom"
-              value={lastname}
-              setValue={setLastname}
-            />
-            <InputEmail placeholder="email" value={email} setValue={setEmail} />
-            <InputPassword placeholder="Mot de passe" setValue={setPassword} />
-            <InputPassword
-              placeholder="Confirmez votre mot de passe"
-              setValue={setConfirmPassword}
-            />
-          </View>
-          <View style={styles.buttonsContent}>
-            <Text style={styles.msgAlert}>{alert}</Text>
-            <TouchableOpacity
-              style={styles.button}
-              disabled={false}
-              onPress={handleSubmit}
+            <Text
+              style={[
+                genStyles.basicClearText,
+                genStyles.textAlignCenter,
+                genStyles.textContainerWidth,
+              ]}
             >
-              <Text style={styles.txtButton}>Créer votre compte</Text>
-            </TouchableOpacity>
-            <TouchableOpacity
-              style={styles.txtLink}
-              onPress={() => {
-                navigation.navigate("Login");
-              }}
-            >
-              <Text>Already have an account? Sign in</Text>
-            </TouchableOpacity>
+              Créez votre compte pour pouvoir chatter avec les “babblers”. Vous
+              pourrez modifier votre avatar plus tard.
+            </Text>
           </View>
-        </View>
+          <View style={genStyles.formContent}>
+            <View style={genStyles.inputContent}>
+              <InputText
+                placeholder="Prénom"
+                value={firstname}
+                setValue={setFirstname}
+              />
+              <InputText
+                placeholder="Nom"
+                value={lastname}
+                setValue={setLastname}
+              />
+              <InputEmail
+                placeholder="email"
+                value={email}
+                setValue={setEmail}
+              />
+              <InputPassword
+                placeholder="Mot de passe"
+                setValue={setPassword}
+              />
+              <InputPassword
+                placeholder="Confirmez votre mot de passe"
+                setValue={setConfirmPassword}
+              />
+            </View>
+            <View style={genStyles.buttonsContent}>
+              <Text style={genStyles.msgAlert}>{alert}</Text>
+              <BtForm
+                action={handleSubmit}
+                text={"Créer mon compte"}
+                colorStart={colors.purplePrimary}
+                colorEnd={colors.purpleSecondary}
+              />
+              <TouchableOpacity
+                style={genStyles.genCenter}
+                onPress={() => {
+                  navigation.navigate("Login");
+                }}
+              >
+                <Text style={genStyles.titlePurpleText}>
+                  J'ai déjà un compte !
+                </Text>
+                <Text style={genStyles.basicPurpleText}>
+                  Je me connecte ici.
+                </Text>
+              </TouchableOpacity>
+            </View>
+          </View>
+        </ImageBackground>
       </SafeAreaView>
     </KeyboardAwareScrollView>
   );
 }
-const styles = StyleSheet.create({
-  // *---- GLOBAL ----*
-
-  container: {
-    alignItems: "center",
-    paddingTop: Platform.OS === "android" ? Constants.statusBarHeight : 0,
-  },
-
-  // *---- LOGO ZONE ----*
-  logoZone: {
-    justifyContent: "center",
-    alignItems: "center",
-    marginVertical: 30,
-  },
-
-  logoSign: {
-    height: 100,
-    width: 100,
-  },
-
-  signTitle: {
-    fontSize: 20,
-    fontWeight: "bold",
-    color: grey,
-  },
-  subTitle: {
-    fontSize: 12,
-    color: grey,
-    textAlign: "center",
-  },
-
-  // *---- FORM ----*
-
-  avatar: {
-    height: 100,
-    width: 100,
-    borderRadius: 999,
-  },
-
-  formContent: {
-    // backgroundColor: "purple",
-    width: "80%",
-    alignItems: "center",
-    justifyContent: "space-between",
-    flex: 1,
-  },
-
-  inputContent: {
-    alignItems: "center",
-    width: "100%",
-  },
-
-  input: {
-    width: "100%",
-    height: 50,
-    // backgroundColor: "blue",
-    borderBottomColor: purplePrimary,
-    borderBottomWidth: 1,
-  },
-
-  inputArea: {
-    height: 100,
-    width: "100%",
-    borderColor: purplePrimary,
-    borderWidth: 1,
-    marginVertical: 10,
-    padding: 10,
-    textAlignVertical: "top",
-  },
-
-  buttonsContent: {
-    justifyContent: "center",
-    alignItems: "center",
-  },
-
-  button: {
-    borderColor: purplePrimary,
-    borderRadius: 30,
-    borderWidth: 2,
-    justifyContent: "center",
-    alignItems: "center",
-    height: 60,
-    width: 200,
-    marginVertical: 20,
-  },
-
-  txtButton: {
-    color: grey,
-    fontSize: 20,
-    fontWeight: "bold",
-  },
-
-  msgAlert: {
-    color: purplePrimary,
-  },
-});

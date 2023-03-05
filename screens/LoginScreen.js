@@ -127,16 +127,23 @@ export default function LoginScreen({
             source={require("../assets/img/emo-violet-01.png")}
             style={loginScreenStyle.emoRegister}
           />
-          <Text style={genStyles.titlePurpleText}>Pas encore inscrit ?</Text>
-          <Text style={genStyles.basicPurpleText}>
-            Créez votre compte Babble et chattez avec vos amis !
-          </Text>
-          <BtForm
-            action={() => navigation.navigate("Register")}
-            text={"S'inscrire"}
-            colorStart={colors.purplePrimary}
-            colorEnd={colors.purpleSecondary}
-          />
+          <TouchableOpacity
+            style={genStyles.genCenter}
+            onPress={() => {
+              navigation.navigate("Register");
+            }}
+          >
+            <Text style={genStyles.titlePurpleText}>Pas encore inscrit ?</Text>
+            <Text
+              style={[
+                genStyles.basicPurpleText,
+                genStyles.textContainerWidth,
+                genStyles.textAlignCenter,
+              ]}
+            >
+              Créez votre compte Babble pour chatter avec d'autres babblers.
+            </Text>
+          </TouchableOpacity>
         </ImageBackground>
       </SafeAreaView>
     </KeyboardAwareScrollView>
