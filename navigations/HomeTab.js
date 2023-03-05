@@ -62,7 +62,14 @@ const HomeTabs = ({ deleteInStore, userToken, setUserToken, url, userId }) => {
         }}
       >
         {(props) => (
-          <GeneralChatScreen {...props} url={url} userToken={userToken} />
+          <GeneralChatScreen
+            {...props}
+            url={url}
+            userToken={userToken}
+            userId={userId}
+            userInfos={userInfos}
+            setUserInfos={setUserInfos}
+          />
         )}
       </Tab.Screen>
       <Tab.Screen

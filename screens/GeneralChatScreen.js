@@ -1,18 +1,33 @@
 import React, { useEffect, useLayoutEffect } from "react";
-import { View, Text, Pressable, SafeAreaView, FlatList } from "react-native";
+import {
+  View,
+  Text,
+  Pressable,
+  SafeAreaView,
+  FlatList,
+  TouchableOpacity,
+} from "react-native";
 import { Feather } from "@expo/vector-icons";
 import { useState } from "react";
 
 import ChatComponent from "../components/molecules/ChatComponent";
 //👇🏻 The Modal component
-import Modal from "../components/molecules/ModalChat";
+import ModalChat from "../components/molecules/ModalChat";
 
 import { stylesChat } from "../utils/styles";
 
 //👇🏻 Import socket from the socket.js file in utils folder
 import socket from "../utils/socket";
+import { socketConnect } from "../utils/socket";
+import { socketDisconnect } from "../utils/socket";
 
-export default function GeneralChatScreen({ url, userToken }) {
+export default function GeneralChatScreen({
+  url,
+  userToken,
+  userInfos,
+  setUserInfos,
+  userId,
+}) {
   const [visible, setVisible] = useState(false);
   const [rooms, setRooms] = useState([]);
   const [roomsLoading, setRoomsLoading] = useState(true);
@@ -58,7 +73,7 @@ export default function GeneralChatScreen({ url, userToken }) {
   ]; */
 
   //👇🏻 Runs when the component mounts
-  useLayoutEffect(() => {
+  /*   useLayoutEffect(() => {
     async function fetchGroups() {
       try {
         await fetch(`${url}rooms`, {
@@ -78,9 +93,10 @@ export default function GeneralChatScreen({ url, userToken }) {
       }
     }
     fetchGroups();
-  }, []);
+  }, []); */
 
   //👇🏻 Runs whenever there is new trigger from the backend
+  socketConnect();
   useEffect(() => {
     socket.on("roomsList", (rooms) => {
       setRooms(rooms);
@@ -107,7 +123,9 @@ export default function GeneralChatScreen({ url, userToken }) {
           <FlatList
             data={rooms}
             renderItem={({ item }) => <ChatComponent item={item} />}
-            keyExtractor={(item) => item.id}
+            keyExtractor={(item, index) => {
+              return index;
+            }}
           />
         ) : (
           <View style={stylesChat.chatemptyContainer}>
@@ -116,7 +134,18 @@ export default function GeneralChatScreen({ url, userToken }) {
           </View>
         )}
       </View>
-      {visible ? <Modal setVisible={setVisible} /> : ""}
+      {visible ? (
+        <ModalChat
+          setVisible={setVisible}
+          url={url}
+          userInfos={userInfos}
+          userId={userId}
+          userToken={userToken}
+          setUserInfos={setUserInfos}
+        />
+      ) : (
+        ""
+      )}
     </SafeAreaView>
   );
 }

@@ -32,10 +32,10 @@ export default function MessageComponent({ item, user }) {
                   ]
             }
           >
-            <Text>{item.text}</Text>
+            <Text>{item.content}</Text>
           </View>
         </View>
-        <Text style={{ marginLeft: 40 }}>{item.time}</Text>
+        <Text style={{ marginLeft: 40 }}>{item.datePublished}</Text>
       </View>
     </View>
   );

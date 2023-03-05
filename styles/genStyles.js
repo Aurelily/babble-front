@@ -36,6 +36,7 @@ export const genStyles = StyleSheet.create({
     padding: 20,
     borderRadius: 10,
     marginBottom: 10,
+    color: "white",
   },
   msgAlert: {
     color: colors.purplePrimary,

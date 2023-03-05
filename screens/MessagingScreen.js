@@ -8,8 +8,8 @@ import { stylesChat } from "../utils/styles";
 import socket from "../utils/socket";
 
 const MessagingScreen = ({ route, navigation, userId, url, userToken }) => {
-  const [chatMessages, setChatMessages] = useState([
-    /*     {
+  /*   const [chatMessages, setChatMessages] = useState([
+    {
       id: "1",
       content: "Hello guys, welcome!",
       datePublished: "07:50",
@@ -20,14 +20,16 @@ const MessagingScreen = ({ route, navigation, userId, url, userToken }) => {
       content: "Hi Tomer, thank you! 😇",
       datePublished: "08:50",
       author: "David",
-    }, */
-  ]);
+    },
+  ]); */
   const [user, setUser] = useState("");
   const [message, setMessage] = useState("");
   const [messagesLoading, setMessageLoading] = useState(true);
 
   //👇🏻 Access the chatroom's name and id
   const { name, id } = route.params;
+
+  const [chatMessages, setChatMessages] = useState([]);
 
   //👇🏻 This function gets the username with id
   async function getUsername() {
@@ -39,7 +41,7 @@ const MessagingScreen = ({ route, navigation, userId, url, userToken }) => {
       }).then((response) => {
         response.json().then((data) => {
           if (data.status == 200) {
-            setUser(data.data);
+            setUser(data.data.firstname);
             setMessageLoading(false);
           }
         });
@@ -48,7 +50,7 @@ const MessagingScreen = ({ route, navigation, userId, url, userToken }) => {
       console.log(e);
     }
   }
-  getUsername();
+
   /*👇🏻 
         This function gets the time the user sends a message, then 
         logs the username, message, and the timestamp to the console.
@@ -77,6 +79,7 @@ const MessagingScreen = ({ route, navigation, userId, url, userToken }) => {
   //👇🏻 Sets the header title to the name chatroom's name
   useLayoutEffect(() => {
     navigation.setOptions({ title: name });
+    getUsername();
     //👇🏻 Sends the id to the server to fetch all its messages
     socket.emit("findRoom", id);
     socket.on("foundRoom", (roomChats) => setChatMessages(roomChats));

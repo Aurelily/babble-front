@@ -35,12 +35,12 @@ const ChatComponent = ({ item }) => {
           <Text style={stylesChat.cusername}>{item.name}</Text>
 
           <Text style={stylesChat.cmessage}>
-            {messages?.text ? messages.text : "Tap to start chatting"}
+            {messages?.content ? messages.content : "Tap to start chatting"}
           </Text>
         </View>
         <View>
           <Text style={stylesChat.ctime}>
-            {messages?.time ? messages.time : "now"}
+            {messages?.datePublished ? messages.datePublished : "now"}
           </Text>
         </View>
       </View>
