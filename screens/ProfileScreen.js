@@ -7,16 +7,22 @@ import {
   StyleSheet,
   SafeAreaView,
   Image,
+  Switch,
+  ImageBackground,
 } from "react-native";
 
 // Import components
 import InputText from "../components/atoms/InputText";
 import InputEmail from "../components/atoms/InputEmail";
 import InputPassword from "../components/atoms/InputPassword";
+import BtForm from "../components/atoms/BtForm";
 
 // Colors:
 import colors from "../assets/colors";
 const { purplePrimary, grey } = colors;
+import { genStyles } from "../styles/genStyles";
+import { registerScreenStyle } from "../styles/registerScreenStyles";
+import { profilScreenStyle } from "../styles/profilScreenStyle";
 
 // Constant pour récupérer las dimensions des devices
 import Constants from "expo-constants";
@@ -38,6 +44,10 @@ export default function ProfileScreen({
 }) {
   const navigation = useNavigation();
 
+  // Pour le switch RGPD
+  const [isEnabled, setIsEnabled] = useState(false);
+  const toggleSwitch = () => setIsEnabled((previousState) => !previousState);
+
   //States of input
   const [firstname, setFirstname] = useState(userInfos.firstname);
   const [lastname, setLastname] = useState(userInfos.lastname);
@@ -51,44 +61,47 @@ export default function ProfileScreen({
       // Si tous les champs sont remplis
       if (password === confirmPassword) {
         // si les 2 MDP sont identiques
-
-        var userToUpdate = {
-          _id: userId,
-          firstname: firstname,
-          lastname: lastname,
-          email: email,
-          password: password,
-          avatarPath:
-            "https://res.cloudinary.com/lilycloud/image/upload/v1675756437/babble/users/avatar-default_tpd0vq.jpg",
-        };
-        const requestOptions = {
-          method: "PUT",
-          headers: {
-            Accept: "application/json",
-            "Content-Type": "application/json",
-            Authorization: "Bearer " + userToken,
-          },
-          body: JSON.stringify(userToUpdate),
-        };
-        await fetch(`${url}users/update/profil`, requestOptions)
-          .then((response) => {
-            /* console.log(response); */
-            response.json().then((data) => {
-              if (data.status == 200) {
-                /*  console.log(data.status); */
-                setAlert("Update OK");
-                deleteInStore("jwtToken");
-                setUserToken(null);
-              }
-              if (data.status == 409) {
-                /*  console.log(data.status); */
-                setAlert("cet email possède déjà un compte");
-              }
+        if (isEnabled) {
+          var userToUpdate = {
+            _id: userId,
+            firstname: firstname,
+            lastname: lastname,
+            email: email,
+            password: password,
+            avatarPath:
+              "https://res.cloudinary.com/lilycloud/image/upload/v1675756437/babble/users/avatar-default_tpd0vq.jpg",
+          };
+          const requestOptions = {
+            method: "PUT",
+            headers: {
+              Accept: "application/json",
+              "Content-Type": "application/json",
+              Authorization: "Bearer " + userToken,
+            },
+            body: JSON.stringify(userToUpdate),
+          };
+          await fetch(`${url}users/update/profil`, requestOptions)
+            .then((response) => {
+              /* console.log(response); */
+              response.json().then((data) => {
+                if (data.status == 200) {
+                  /*  console.log(data.status); */
+                  setAlert("Update OK");
+                  deleteInStore("jwtToken");
+                  setUserToken(null);
+                }
+                if (data.status == 409) {
+                  /*  console.log(data.status); */
+                  setAlert("cet email possède déjà un compte");
+                }
+              });
+            })
+            .catch((e) => {
+              console.log(e);
             });
-          })
-          .catch((e) => {
-            console.log(e);
-          });
+        } else {
+          setAlert("Veuillez accepter les conditions");
+        }
       } else {
         // si les 2 MDP ne sont pas identiques
         setAlert("MDP doivent être identiques");
@@ -101,57 +114,113 @@ export default function ProfileScreen({
 
   return (
     <KeyboardAwareScrollView>
-      <SafeAreaView style={styles.container}>
-        <View style={styles.logoZone}>
-          {/*           <Image
-            source={require("../assets/img/logo.png")}
-            style={styles.logoSign}
-          /> */}
-          <Text style={styles.signTitle}>Profil </Text>
-          <Text style={styles.subTitle}>
-            Ici vous pouvez modifier les informations de votre profil..
-          </Text>
-          <Text style={styles.subTitle}>
-            Vous pouvez également créer un avatar.
-          </Text>
-        </View>
-        <View style={styles.formContent}>
-          <Image
-            source={require("../assets/img/avatar-default.jpg")}
-            style={styles.avatar}
-          />
-          <InputText
-            placeholder="Prénom"
-            value={firstname}
-            setValue={setFirstname}
-          />
-          <InputText
-            placeholder="Nom"
-            value={lastname}
-            setValue={setLastname}
-          />
-          <InputEmail placeholder="email" value={email} setValue={setEmail} />
-          <InputPassword placeholder="Mot de passe" setValue={setPassword} />
-          <InputPassword
-            placeholder="Confirmez votre mot de passe"
-            setValue={setConfirmPassword}
-          />
-        </View>
-        <View style={styles.buttonsContent}>
-          <Text style={styles.msgAlert}>{alert}</Text>
-          <TouchableOpacity style={styles.button} onPress={handleSubmitUpdate}>
-            <Text>Mettre à jour</Text>
-          </TouchableOpacity>
-          <TouchableOpacity
-            style={styles.button}
-            onPress={() => {
-              deleteInStore("jwtToken");
-              setUserToken(null);
-            }}
-          >
-            <Text>Se déconnecter</Text>
-          </TouchableOpacity>
-        </View>
+      <SafeAreaView style={registerScreenStyle.container}>
+        <ImageBackground
+          source={require("../assets/img/fond-bulles-violet3.png")}
+          style={registerScreenStyle.bgImage}
+        >
+          <View style={profilScreenStyle.avatarZone}>
+            <View
+              style={[
+                profilScreenStyle.btDecoPos,
+                profilScreenStyle.btLabelZone,
+              ]}
+            >
+              <TouchableOpacity
+                onPress={() => {
+                  deleteInStore("jwtToken");
+                  setUserToken(null);
+                }}
+              >
+                <Image
+                  source={require("../assets/img/bt-deco.png")}
+                  style={profilScreenStyle.btOrange}
+                />
+              </TouchableOpacity>
+              <Text style={genStyles.basicClearText}>Déconnexion</Text>
+            </View>
+            <TouchableOpacity
+              style={profilScreenStyle.btEditPos}
+              onPress={() => {
+                console.log("Modal avatar");
+              }}
+            >
+              <Image
+                source={require("../assets/img/bt-editer.png")}
+                style={profilScreenStyle.btOrange}
+              />
+            </TouchableOpacity>
+
+            <Image
+              source={require("../assets/img/avatar-defaut.png")}
+              style={profilScreenStyle.avatar}
+            />
+            <Text
+              style={[
+                genStyles.basicClearText,
+                genStyles.textAlignCenter,
+                genStyles.textContainerWidth,
+              ]}
+            >
+              Ici vous pouvez modifier les informations de votre profil, ainsi
+              que votre avatar en cliquant sur le bouton "Editer".
+            </Text>
+          </View>
+          <View style={genStyles.formContent}>
+            <View style={genStyles.inputContent}>
+              <InputText
+                placeholder="Prénom"
+                value={firstname}
+                setValue={setFirstname}
+              />
+              <InputText
+                placeholder="Nom"
+                value={lastname}
+                setValue={setLastname}
+              />
+              <InputEmail
+                placeholder="email"
+                value={email}
+                setValue={setEmail}
+              />
+              <InputPassword
+                placeholder="Mot de passe"
+                setValue={setPassword}
+              />
+              <InputPassword
+                placeholder="Confirmez votre mot de passe"
+                setValue={setConfirmPassword}
+              />
+            </View>
+
+            <View style={genStyles.buttonsContent}>
+              <Text style={genStyles.msgAlert}>{alert}</Text>
+              <BtForm
+                action={handleSubmitUpdate}
+                text={"Mettre à jour mes infos"}
+                colorStart={colors.purplePrimary}
+                colorEnd={colors.purpleSecondary}
+              />
+            </View>
+          </View>
+          <View style={registerScreenStyle.rgpdZone}>
+            <Switch
+              trackColor={{ false: "#767577", true: "#FE9920" }}
+              thumbColor={isEnabled ? "#f4f3f4" : "#f4f3f4"}
+              ios_backgroundColor="#3e3e3e"
+              onValueChange={toggleSwitch}
+              value={isEnabled}
+            />
+            <Text
+              style={[genStyles.miniPurpleText, registerScreenStyle.rgpdText]}
+            >
+              En soumettant ce formulaire, j'accepte que les informations
+              saisies soient exploitées dans le cadre de la demande d'accès à
+              l'application BABBLE et de la relation commerciale qui peut en
+              découler (Envoi de newsletter de la part de BABBLE).
+            </Text>
+          </View>
+        </ImageBackground>
       </SafeAreaView>
     </KeyboardAwareScrollView>
   );

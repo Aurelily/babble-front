@@ -58,7 +58,8 @@ export const genStyles = StyleSheet.create({
   inputOrange: {
     backgroundColor: colors.orangePrimary,
     width: "100%",
-    padding: 20,
+    height: 50,
+    padding: 10,
     borderRadius: 10,
     marginBottom: 10,
     color: "white",
@@ -95,7 +96,7 @@ export const genStyles = StyleSheet.create({
 
   buttonForm: {
     position: "relative",
-    width: 150,
+    width: "100%",
     borderRadius: 25,
     padding: 20,
     margin: 10,
@@ -109,7 +110,7 @@ export const genStyles = StyleSheet.create({
   shiny: {
     position: "absolute",
     top: 0,
-    left: "115%",
+    right: 5,
     width: 20,
     aspectRatio: 2.5,
     resizeMode: "contain",

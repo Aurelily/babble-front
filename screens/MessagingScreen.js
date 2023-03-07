@@ -29,6 +29,7 @@ const MessagingScreen = ({ route, navigation, userId, url, userToken }) => {
       author: "David",
     },
   ]); */
+
   const [user, setUser] = useState("");
   const [message, setMessage] = useState("");
   const [messagesLoading, setMessageLoading] = useState(true);

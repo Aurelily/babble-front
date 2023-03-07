@@ -103,9 +103,9 @@ export default function HomeScreen({
               homeScreenStyles.marginBottomMedium,
             ]}
           >
-            Vous pouvez maintenant accéder au chat général, mais aussi papoter
-            en privé avec un autre babbler. Vous pouvez également modifier votre
-            avatar ou les informations de votre profil.
+            Vous pouvez maintenant accéder aux salons de discussions, mais aussi
+            papoter avec un autre babbler dans un salon privé. Vous pouvez
+            également modifier votre avatar ou les informations de votre profil.
           </Text>
           <View style={homeScreenStyles.buttonsContent}>
             <BtForm

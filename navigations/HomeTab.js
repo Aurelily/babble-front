@@ -5,6 +5,7 @@ import { StyleSheet, TouchableOpacity, Text } from "react-native";
 
 //import icons tab navigator
 import { AntDesign, FontAwesome5, Entypo } from "@expo/vector-icons";
+import { MaterialIcons } from "@expo/vector-icons";
 
 //Navigation
 const Tab = createBottomTabNavigator();
@@ -64,9 +65,9 @@ const HomeTabs = ({ deleteInStore, userToken, setUserToken, url, userId }) => {
       <Tab.Screen
         name="Discussion"
         options={{
-          tabBarLabel: "Discussion",
+          tabBarLabel: "Salons",
           tabBarIcon: ({ color, size }) => (
-            <AntDesign name="message1" size={size} color={color} />
+            <MaterialIcons name="meeting-room" size={size} color={color} />
           ),
         }}
       >
@@ -84,7 +85,7 @@ const HomeTabs = ({ deleteInStore, userToken, setUserToken, url, userId }) => {
       <Tab.Screen
         name="Messaging"
         options={{
-          tabBarLabel: "Messaging",
+          tabBarLabel: "Discussions",
           tabBarIcon: ({ color, size }) => (
             <AntDesign name="message1" size={size} color={color} />
           ),
@@ -103,9 +104,18 @@ const HomeTabs = ({ deleteInStore, userToken, setUserToken, url, userId }) => {
         name="Profile"
         options={{
           tabBarLabel: "Profile",
+          title: "Votre profil Babble",
           tabBarIcon: ({ color, size }) => (
             <FontAwesome5 name="user-edit" size={size} color={color} />
           ),
+          headerStyle: {
+            backgroundColor: "#b182fa",
+          },
+          headerShadowVisible: false,
+          headerTintColor: "#fff",
+          headerTitleStyle: {
+            fontWeight: "bold",
+          },
         }}
       >
         {(props) => (

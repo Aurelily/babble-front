@@ -35,6 +35,9 @@ export const registerScreenStyle = StyleSheet.create({
   rgpdZone: {
     flexDirection: "row",
     width: "90%",
+    backgroundColor: "white",
+    borderRadius: 20,
+    padding: 10,
   },
   rgpdText: {
     width: "80%",

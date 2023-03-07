@@ -23,6 +23,7 @@ import HomeScreen from "./screens/HomeScreen";
 import LoginScreen from "./screens/LoginScreen";
 import RegisterScreen from "./screens/RegisterScreen";
 import SplashScreen from "./screens/SplashScreen";
+import MessagingScreen from "./screens/MessagingScreen";
 import GeneralChatScreen from "./screens/GeneralChatScreen";
 import ProfileScreen from "./screens/ProfileScreen";
 import UserDetailsScreen from "./screens/UserDetailsScreen";
@@ -33,7 +34,6 @@ import HomeTabs from "./navigations/HomeTab";
 
 // Definition of stack navigator
 const Stack = createNativeStackNavigator();
-const Tab = createBottomTabNavigator();
 
 // variable URL
 const url = "http://192.168.1.110:3000/";
