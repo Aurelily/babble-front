@@ -1,5 +1,6 @@
 import { io } from "socket.io-client";
-const socket = io("http://192.168.1.110:3000");
+import * as Server from "../env";
+const socket = io("http://" + Server.SERVER_IP + ":3000/");
 export default socket;
 
 export function socketConnect() {

@@ -73,7 +73,7 @@ export default function GeneralChatScreen({
   ]; */
 
   //👇🏻 Runs when the component mounts
-  /*   useLayoutEffect(() => {
+  useLayoutEffect(() => {
     async function fetchGroups() {
       try {
         await fetch(`${url}rooms`, {
@@ -93,7 +93,7 @@ export default function GeneralChatScreen({
       }
     }
     fetchGroups();
-  }, []); */
+  }, [socket]);
 
   //👇🏻 Runs whenever there is new trigger from the backend
   socketConnect();
@@ -101,7 +101,7 @@ export default function GeneralChatScreen({
     socket.on("roomsList", (rooms) => {
       setRooms(rooms);
     });
-  }, [socket]);
+  }, [rooms]);
 
   const handleCreateGroup = () => setVisible(true);
 

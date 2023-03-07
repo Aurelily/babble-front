@@ -13,6 +13,7 @@ import {
   TouchableOpacity,
 } from "react-native";
 import * as SecureStore from "expo-secure-store";
+import * as Server from "./env";
 
 // Import icons
 import { Entypo } from "@expo/vector-icons";
@@ -36,7 +37,7 @@ import HomeTabs from "./navigations/HomeTab";
 const Stack = createNativeStackNavigator();
 
 // variable URL
-const url = "http://192.168.1.110:3000/";
+const url = "http://" + Server.SERVER_IP + ":3000/";
 
 export default function App() {
   const [isLoading, setIsLoading] = useState(true);
