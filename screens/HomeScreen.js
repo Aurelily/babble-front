@@ -1,10 +1,23 @@
 import * as React from "react";
 import { useState, useEffect } from "react";
-import { Image, View, TouchableOpacity, Text, StyleSheet } from "react-native";
+import {
+  Image,
+  View,
+  TouchableOpacity,
+  Text,
+  StyleSheet,
+  SafeAreaView,
+  ImageBackground,
+} from "react-native";
+
+//Components :
+import BtForm from "../components/atoms/BtForm";
 
 //Colors:
 import colors from "../assets/colors";
-const { purplePrimary, grey } = colors;
+const { orangePrimary } = colors;
+import { genStyles } from "../styles/genStyles";
+import { homeScreenStyles } from "../styles/homeScreenStyle";
 
 //UseNavigation pour pouvoir mettre des liens
 import { useNavigation } from "@react-navigation/core";
@@ -60,70 +73,52 @@ export default function HomeScreen({
       </TouchableOpacity>
     </View>
   ) : (
-    <View style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>
-      <Text>Screen Home : connexion confirmée pour le user ID : {userId} </Text>
-      <View style={homeScreenStyles.container}>
-        <Image
-          source={{
-            uri: "https://res.cloudinary.com/lilycloud/image/upload/v1675756437/babble/users/avatar-default_tpd0vq.jpg",
-          }}
-          style={homeScreenStyles.avatar}
-        />
-      </View>
-      <Text>Bienvenue {userInfos.firstname}</Text>
-      <View style={homeScreenStyles.buttonsContent}>
-        <TouchableOpacity
-          style={homeScreenStyles.button}
-          onPress={() => {
-            navigation.navigate("Discussion");
-          }}
-        >
-          <Text style={homeScreenStyles.txtButton}>
-            Entrez dans la discussion
+    <SafeAreaView>
+      <ImageBackground
+        source={require("../assets/img/fond-bulles-violet2.png")}
+        style={homeScreenStyles.bgImage}
+      >
+        <View style={[homeScreenStyles.container]}>
+          {/*     <Text>Screen Home : connexion confirmée pour le user ID : {userId} </Text> */}
+          <View>
+            <Image
+              source={require("../assets/img/avatar-defaut.png")}
+              style={homeScreenStyles.avatar}
+            />
+          </View>
+          <Text
+            style={[
+              genStyles.titleClearText,
+              genStyles.textAlignCenter,
+              homeScreenStyles.marginBottomLarge,
+            ]}
+          >
+            Bienvenue {userInfos.firstname} !
           </Text>
-        </TouchableOpacity>
-      </View>
-    </View>
+          <Text
+            style={[
+              genStyles.basicClearText,
+              genStyles.textContainerWidth,
+              genStyles.textAlignCenter,
+              homeScreenStyles.marginBottomMedium,
+            ]}
+          >
+            Vous pouvez maintenant accéder au chat général, mais aussi papoter
+            en privé avec un autre babbler. Vous pouvez également modifier votre
+            avatar ou les informations de votre profil.
+          </Text>
+          <View style={homeScreenStyles.buttonsContent}>
+            <BtForm
+              action={() => {
+                navigation.navigate("Discussion");
+              }}
+              text={"Entrez dans la discussion"}
+              colorStart={colors.orangePrimary}
+              colorEnd={colors.orangeSecondary}
+            />
+          </View>
+        </View>
+      </ImageBackground>
+    </SafeAreaView>
   );
 }
-
-const homeScreenStyles = StyleSheet.create({
-  container: {
-    elevation: 2,
-    height: 200,
-    width: 200,
-    backgroundColor: "#efefef",
-    position: "relative",
-    borderRadius: 999,
-    overflow: "hidden",
-  },
-
-  avatar: {
-    width: 400,
-    height: 400,
-    marginLeft: -100,
-    marginTop: -100,
-  },
-
-  buttonsContent: {
-    justifyContent: "center",
-    alignItems: "center",
-  },
-
-  button: {
-    borderColor: purplePrimary,
-    borderRadius: 30,
-    borderWidth: 2,
-    justifyContent: "center",
-    alignItems: "center",
-    height: 60,
-    width: 200,
-    marginVertical: 30,
-  },
-
-  txtButton: {
-    color: grey,
-    fontSize: 20,
-    fontWeight: "bold",
-  },
-});

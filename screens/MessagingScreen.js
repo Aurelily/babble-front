@@ -1,5 +1,12 @@
 import React, { useLayoutEffect, useState, useEffect } from "react";
-import { View, TextInput, Text, FlatList, Pressable } from "react-native";
+import {
+  View,
+  TextInput,
+  Text,
+  FlatList,
+  Pressable,
+  TouchableOpacity,
+} from "react-native";
 /* import AsyncStorage from "@react-native-async-storage/async-storage"; */
 import MessageComponent from "../components/molecules/MessageComponent";
 import { stylesChat } from "../utils/styles";
@@ -56,6 +63,7 @@ const MessagingScreen = ({ route, navigation, userId, url, userToken }) => {
         logs the username, message, and the timestamp to the console.
      */
   const handleNewMessage = () => {
+    console.log("coucou");
     const hour =
       new Date().getHours() < 10
         ? `0${new Date().getHours()}`
@@ -67,6 +75,7 @@ const MessagingScreen = ({ route, navigation, userId, url, userToken }) => {
         : `${new Date().getMinutes()}`;
 
     if (user) {
+      console.log("coucou2");
       socket.emit("newMessage", {
         message,
         room_id: id,
@@ -116,14 +125,14 @@ const MessagingScreen = ({ route, navigation, userId, url, userToken }) => {
           style={stylesChat.messaginginput}
           onChangeText={(value) => setMessage(value)}
         />
-        <Pressable
+        <TouchableOpacity
           style={stylesChat.messagingbuttonContainer}
           onPress={handleNewMessage}
         >
           <View>
             <Text style={{ color: "#f2f0f1", fontSize: 20 }}>SEND</Text>
           </View>
-        </Pressable>
+        </TouchableOpacity>
       </View>
     </View>
   );

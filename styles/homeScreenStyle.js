@@ -1,27 +1,18 @@
 import { StyleSheet, Dimensions } from "react-native";
 import colors from "../assets/colors";
+const { purplePrimary, grey } = colors;
 
 const windowWidth = Dimensions.get("window").width;
 const windowHeight = Dimensions.get("window").height;
 
-export const registerScreenStyle = StyleSheet.create({
+export const homeScreenStyles = StyleSheet.create({
   container: {
     alignItems: "center",
   },
 
-  avatarZone: {
-    justifyContent: "center",
-    alignItems: "center",
-  },
-
-  bgImage: {
-    width: windowWidth,
-    height: windowHeight,
-    alignItems: "center",
-  },
   avatar: {
-    height: 110,
-    width: 110,
+    height: 200,
+    width: 200,
     borderRadius: 999,
     shadowColor: "#000",
     shadowOffset: {
@@ -31,13 +22,23 @@ export const registerScreenStyle = StyleSheet.create({
     shadowOpacity: 0.3,
     shadowRadius: 4.65,
     elevation: 8,
+    marginTop: 100,
+    marginBottom: 20,
   },
-  rgpdZone: {
-    flexDirection: "row",
-    width: "90%",
+  bgImage: {
+    width: windowWidth,
+    height: windowHeight,
+    alignItems: "center",
   },
-  rgpdText: {
-    width: "80%",
-    marginLeft: 20,
+
+  buttonsContent: {
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  marginBottomLarge: {
+    marginBottom: 100,
+  },
+  marginBottomMedium: {
+    marginBottom: 50,
   },
 });

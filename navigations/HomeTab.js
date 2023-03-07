@@ -33,10 +33,19 @@ const HomeTabs = ({ deleteInStore, userToken, setUserToken, url, userId }) => {
       <Tab.Screen
         name="Home"
         options={{
+          title: "",
           tabBarLabel: "Home",
           tabBarIcon: ({ color, size }) => (
             <Entypo name="home" size={size} color={color} />
           ),
+          headerStyle: {
+            backgroundColor: "#b182fa",
+          },
+          headerShadowVisible: false,
+          headerTintColor: "#fff",
+          headerTitleStyle: {
+            fontWeight: "bold",
+          },
         }}
       >
         {(props) => (

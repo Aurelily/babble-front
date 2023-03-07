@@ -22,7 +22,6 @@ import { AntDesign } from "@expo/vector-icons";
 import HomeScreen from "./screens/HomeScreen";
 import LoginScreen from "./screens/LoginScreen";
 import RegisterScreen from "./screens/RegisterScreen";
-import RegisterScreenStep2 from "./screens/RegisterScreenStep2";
 import SplashScreen from "./screens/SplashScreen";
 import GeneralChatScreen from "./screens/GeneralChatScreen";
 import ProfileScreen from "./screens/ProfileScreen";
@@ -37,7 +36,7 @@ const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
 
 // variable URL
-const url = "http://localhost:3000/";
+const url = "http://192.168.1.110:3000/";
 
 export default function App() {
   const [isLoading, setIsLoading] = useState(true);
