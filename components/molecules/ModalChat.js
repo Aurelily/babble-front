@@ -20,6 +20,7 @@ const ModalChat = ({
   userToken,
   rooms,
   setRooms,
+  fetchGroups,
 }) => {
   const [groupName, setGroupName] = useState("");
   const [infosLoading, setInfosLoading] = useState(true);
@@ -76,7 +77,6 @@ const ModalChat = ({
         });
       } catch (e) {
         console.log(e.message);
-        j;
       }
     } else {
       // Si tous les champs ne sont pas remplis
