@@ -6,13 +6,13 @@ export default socket;
 export function socketConnect() {
   // client-side
   socket.on("connect", () => {
-    console.log(socket.id); // x8WIv7-mJelg7on_ALbx
+    console.log(`⚡: ${socket.id} vient de se connecter!`); // x8WIv7-mJelg7on_ALbx
   });
 }
 
 export function socketDisconnect() {
   // client-side
   socket.on("disconnect", () => {
-    console.log(socket.id); // undefined
+    console.log(`🔻: ${socket.id} est déconnecté !`); // undefined
   });
 }

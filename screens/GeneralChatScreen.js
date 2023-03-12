@@ -73,7 +73,7 @@ export default function GeneralChatScreen({
   ]; */
 
   //👇🏻 Runs when the component mounts
-  useLayoutEffect(() => {
+  /*   useLayoutEffect(() => {
     async function fetchGroups() {
       try {
         await fetch(`${url}rooms`, {
@@ -93,15 +93,36 @@ export default function GeneralChatScreen({
       }
     }
     fetchGroups();
-  }, [socket]);
+  }, [rooms]); */
 
   //👇🏻 Runs whenever there is new trigger from the backend
   socketConnect();
   useEffect(() => {
-    socket.on("roomsList", (rooms) => {
-      setRooms(rooms);
+    async function fetchGroups() {
+      try {
+        await fetch(`${url}rooms`, {
+          headers: {
+            Authorization: `Bearer ${userToken}`,
+          },
+        }).then((response) => {
+          response.json().then((data) => {
+            if (data.status == 200) {
+              setRooms(data.data);
+              setRoomsLoading(false);
+            }
+          });
+        });
+      } catch (e) {
+        console.log(e);
+      }
+    }
+    fetchGroups();
+
+    socket.on("roomsList", () => {
+      fetchGroups();
+      console.log("Front : Mise à jour de la liste de rooms");
     });
-  }, [rooms]);
+  }, []);
 
   const handleCreateGroup = () => setVisible(true);
 
@@ -142,6 +163,8 @@ export default function GeneralChatScreen({
           userId={userId}
           userToken={userToken}
           setUserInfos={setUserInfos}
+          rooms={rooms}
+          setRooms={setRooms}
         />
       ) : (
         ""

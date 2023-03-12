@@ -18,6 +18,8 @@ const ModalChat = ({
   setUserInfos,
   userId,
   userToken,
+  rooms,
+  setRooms,
 }) => {
   const [groupName, setGroupName] = useState("");
   const [infosLoading, setInfosLoading] = useState(true);
@@ -67,6 +69,8 @@ const ModalChat = ({
           response.json().then((data) => {
             if (data.status == 200) {
               console.log(data.status);
+              //👇🏻 sends a message containing the group name to the server
+              socket.emit("create-room", groupName);
             }
           });
         });
@@ -78,14 +82,14 @@ const ModalChat = ({
       // Si tous les champs ne sont pas remplis
       setAlert("Indiquer un nom de salon");
     }
-  };
-
-  const handleCreateRoom = () => {
-    //👇🏻 sends a message containing the group name to the server
-    socket.emit("create-room", groupName);
-    handleSubmitRoom();
     closeModal();
   };
+
+  /*   const handleCreateRoom = () => {
+    handleSubmitRoom();
+
+    
+  }; */
   return (
     <View style={stylesChat.modalContainer}>
       <Text style={stylesChat.modalsubheading}>Enter your Group name</Text>
@@ -99,7 +103,7 @@ const ModalChat = ({
       <View style={stylesChat.modalbuttonContainer}>
         <TouchableOpacity
           style={stylesChat.modalbutton}
-          onPress={handleCreateRoom}
+          onPress={handleSubmitRoom}
         >
           <Text style={stylesChat.modaltext}>CREATE</Text>
         </TouchableOpacity>
