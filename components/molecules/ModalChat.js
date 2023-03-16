@@ -71,7 +71,7 @@ const ModalChat = ({
             if (data.status == 200) {
               console.log(data.status);
               //👇🏻 sends a message containing the group name to the server
-              socket.emit("create-room", groupName);
+              /* socket.emit("create-room", groupName); */
             }
           });
         });
@@ -85,11 +85,6 @@ const ModalChat = ({
     closeModal();
   };
 
-  /*   const handleCreateRoom = () => {
-    handleSubmitRoom();
-
-    
-  }; */
   return (
     <View style={stylesChat.modalContainer}>
       <Text style={stylesChat.modalsubheading}>Enter your Group name</Text>

@@ -32,73 +32,10 @@ export default function GeneralChatScreen({
   const [rooms, setRooms] = useState([]);
   const [roomsLoading, setRoomsLoading] = useState(true);
 
-  //👇🏻 Dummy list of rooms
-  /*   const rooms = [
-    {
-      id: "1",
-      name: "Pokemons",
-      messages: [
-        {
-          id: "1a",
-          content: "Hello guys, welcome!",
-          datePublished: "07:50",
-          author: "Tomer",
-        },
-        {
-          id: "1b",
-          content: "Hi Tomer, thank you! 😇",
-          datePublished: "08:50",
-          author: "David",
-        },
-      ],
-    },
-    {
-      id: "2",
-      name: "Les ptits potes",
-      messages: [
-        {
-          id: "2a",
-          content: "Guys, who's awake? 🙏🏽",
-          datePublished: "12:50",
-          author: "Team Leader",
-        },
-        {
-          id: "2b",
-          content: "What's up? 🧑🏻‍💻",
-          datePublished: "03:50",
-          author: "Victoria",
-        },
-      ],
-    },
-  ]; */
-
-  //👇🏻 Runs when the component mounts
-  /*   useLayoutEffect(() => {
-    async function fetchGroups() {
-      try {
-        await fetch(`${url}rooms`, {
-          headers: {
-            Authorization: `Bearer ${userToken}`,
-          },
-        }).then((response) => {
-          response.json().then((data) => {
-            if (data.status == 200) {
-              setRooms(data.data);
-              setRoomsLoading(false);
-            }
-          });
-        });
-      } catch (e) {
-        console.log(e);
-      }
-    }
-    fetchGroups();
-  }, [rooms]); */
-
   //👇🏻 Runs whenever there is new trigger from the backend
   socketConnect();
 
-  const fetchGroups = async () => {
+  async function fetchGroups() {
     try {
       await fetch(`${url}rooms`, {
         headers: {
@@ -115,35 +52,16 @@ export default function GeneralChatScreen({
     } catch (e) {
       console.log(e);
     }
-  };
+  }
 
+  //👇🏻 Runs when the component mounts
   useEffect(() => {
-    fetchGroups();
-    /*  async function fetchGroups() {
-      try {
-        await fetch(`${url}rooms`, {
-          headers: {
-            Authorization: `Bearer ${userToken}`,
-          },
-        }).then((response) => {
-          response.json().then((data) => {
-            if (data.status == 200) {
-              setRooms(data.data);
-              setRoomsLoading(false);
-            }
-          });
-        });
-      } catch (e) {
-        console.log(e);
-      }
-    }
-    fetchGroups(); */
-    socket.on("roomsList", () => {
-      fetchGroups;
-      console.log("Front : Mise à jour de la liste de rooms");
-      console.log(rooms);
+    socket.on("newRoom", (room) => {
+      setRooms((rooms) => [...rooms, room]);
     });
-  }, [rooms]);
+
+    fetchGroups();
+  }, []);
 
   const handleCreateGroup = () => {
     setVisible(true);
@@ -188,7 +106,6 @@ export default function GeneralChatScreen({
           setUserInfos={setUserInfos}
           rooms={rooms}
           setRooms={setRooms}
-          fetchGroups={fetchGroups}
         />
       ) : (
         ""
