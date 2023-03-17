@@ -5,7 +5,6 @@ import {
   View,
   TouchableOpacity,
   Text,
-  StyleSheet,
   SafeAreaView,
   ImageBackground,
 } from "react-native";
@@ -15,11 +14,10 @@ import BtForm from "../components/atoms/BtForm";
 
 //Colors:
 import colors from "../assets/colors";
-const { orangePrimary } = colors;
 import { genStyles } from "../styles/genStyles";
 import { homeScreenStyles } from "../styles/homeScreenStyle";
 
-//UseNavigation pour pouvoir mettre des liens
+//UseNavigation : to use link toward other screens
 import { useNavigation } from "@react-navigation/core";
 
 export default function HomeScreen({
@@ -33,8 +31,7 @@ export default function HomeScreen({
 }) {
   const navigation = useNavigation();
 
-  //Pour stocker les infos utilisateurs
-  /*  const [userInfos, setUserInfos] = useState(); */
+  // States :
   const [infosLoading, setInfosLoading] = useState(true);
 
   useEffect(() => {

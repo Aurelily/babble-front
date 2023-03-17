@@ -131,26 +131,34 @@ export default function ProfileScreen({
                   deleteInStore("jwtToken");
                   setUserToken(null);
                 }}
+                style={genStyles.genCenter}
               >
                 <Image
                   source={require("../assets/img/bt-deco.png")}
                   style={profilScreenStyle.btOrange}
                 />
+                <Text style={genStyles.basicClearText}>Déconnexion</Text>
               </TouchableOpacity>
-              <Text style={genStyles.basicClearText}>Déconnexion</Text>
             </View>
-            <TouchableOpacity
-              style={profilScreenStyle.btEditPos}
-              onPress={() => {
-                console.log("Modal avatar");
-              }}
+            <View
+              style={[
+                profilScreenStyle.btEditPos,
+                profilScreenStyle.btLabelZone,
+              ]}
             >
-              <Image
-                source={require("../assets/img/bt-editer.png")}
-                style={profilScreenStyle.btOrange}
-              />
-            </TouchableOpacity>
-
+              <TouchableOpacity
+                style={profilScreenStyle.btEditPos}
+                onPress={() => {
+                  console.log("Modal avatar");
+                }}
+              >
+                <Image
+                  source={require("../assets/img/bt-editer.png")}
+                  style={profilScreenStyle.btOrange}
+                />
+                <Text style={genStyles.basicClearText}>Avatar</Text>
+              </TouchableOpacity>
+            </View>
             <Image
               source={require("../assets/img/avatar-defaut.png")}
               style={profilScreenStyle.avatar}
@@ -163,7 +171,7 @@ export default function ProfileScreen({
               ]}
             >
               Ici vous pouvez modifier les informations de votre profil, ainsi
-              que votre avatar en cliquant sur le bouton "Editer".
+              que votre avatar.
             </Text>
           </View>
           <View style={genStyles.formContent}>
@@ -225,92 +233,3 @@ export default function ProfileScreen({
     </KeyboardAwareScrollView>
   );
 }
-const styles = StyleSheet.create({
-  // *---- GLOBAL ----*
-
-  container: {
-    alignItems: "center",
-  },
-
-  // *---- LOGO ZONE ----*
-  logoZone: {
-    justifyContent: "center",
-    alignItems: "center",
-    marginVertical: 50,
-  },
-
-  logoSign: {
-    height: 100,
-    width: 100,
-  },
-
-  signTitle: {
-    fontSize: 20,
-    fontWeight: "bold",
-    color: grey,
-  },
-
-  subTitle: {
-    fontSize: 12,
-    color: grey,
-  },
-
-  // *---- FORM ----*
-  avatar: {
-    height: 100,
-    width: 100,
-    borderRadius: 999,
-  },
-
-  formContent: {
-    // backgroundColor: "purple",
-    width: "80%",
-    height: 300,
-    alignItems: "center",
-    justifyContent: "space-between",
-  },
-
-  inputContent: {
-    alignItems: "center",
-    width: "100%",
-  },
-
-  input: {
-    width: "100%",
-    height: 50,
-    borderBottomColor: purplePrimary,
-    borderBottomWidth: 1,
-  },
-
-  buttonsContent: {
-    justifyContent: "center",
-    alignItems: "center",
-    marginTop: 50,
-  },
-
-  button: {
-    borderColor: purplePrimary,
-    borderRadius: 30,
-    borderWidth: 2,
-    justifyContent: "center",
-    alignItems: "center",
-    height: 60,
-    width: 200,
-    marginVertical: 30,
-  },
-
-  txtButton: {
-    color: grey,
-    fontSize: 20,
-    fontWeight: "bold",
-  },
-
-  msgAlert: {
-    color: purplePrimary,
-  },
-
-  txtLink: {
-    justifyContent: "center",
-    alignItems: "center",
-  },
-});

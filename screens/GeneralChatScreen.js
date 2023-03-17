@@ -7,12 +7,17 @@ import {
   FlatList,
   TouchableOpacity,
 } from "react-native";
+import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { Feather } from "@expo/vector-icons";
 import { useState } from "react";
 
-import ChatComponent from "../components/molecules/ChatComponent";
-//👇🏻 The Modal component
+// Definition of stack navigator
+
+const Stack = createNativeStackNavigator();
+
+//Components
 import ModalChat from "../components/molecules/ModalChat";
+import ChatComponent from "../components/molecules/ChatComponent";
 
 import { stylesChat } from "../utils/styles";
 

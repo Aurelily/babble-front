@@ -1,7 +1,6 @@
 import React from "react";
 import { useState } from "react";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import { StyleSheet, TouchableOpacity, Text } from "react-native";
 
 //import icons tab navigator
 import { AntDesign, FontAwesome5, Entypo } from "@expo/vector-icons";
@@ -21,7 +20,7 @@ import UsersDirScreen from "../screens/UsersDirScreen";
 import colors from "../assets/colors";
 const { purplePrimary } = colors;
 
-const HomeTabs = ({ deleteInStore, userToken, setUserToken, url, userId }) => {
+const HomeTab = ({ deleteInStore, userToken, setUserToken, url, userId }) => {
   const [userInfos, setUserInfos] = useState();
 
   return (
@@ -146,11 +145,4 @@ const HomeTabs = ({ deleteInStore, userToken, setUserToken, url, userId }) => {
   );
 };
 
-export default HomeTabs;
-
-const styles = StyleSheet.create({
-  container: {
-    justifyContent: "center",
-    alignItems: "center",
-  },
-});
+export default HomeTab;

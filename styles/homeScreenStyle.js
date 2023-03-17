@@ -22,7 +22,7 @@ export const homeScreenStyles = StyleSheet.create({
     shadowOpacity: 0.3,
     shadowRadius: 4.65,
     elevation: 8,
-    marginTop: 100,
+    marginTop: 50,
     marginBottom: 20,
   },
   bgImage: {

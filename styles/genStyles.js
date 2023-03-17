@@ -34,7 +34,7 @@ export const genStyles = StyleSheet.create({
     color: colors.purplePrimary,
   },
   miniPurpleText: {
-    fontSize: 10,
+    fontSize: 9,
     color: colors.purplePrimary,
   },
 
@@ -71,7 +71,7 @@ export const genStyles = StyleSheet.create({
   formContent: {
     backgroundColor: "white",
     borderRadius: 20,
-    padding: 20,
+    padding: 10,
     marginTop: 20,
     marginBottom: 20,
     width: "90%",

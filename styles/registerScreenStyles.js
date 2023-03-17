@@ -37,7 +37,7 @@ export const registerScreenStyle = StyleSheet.create({
     width: "90%",
     backgroundColor: "white",
     borderRadius: 20,
-    padding: 10,
+    padding: 0,
   },
   rgpdText: {
     width: "80%",
