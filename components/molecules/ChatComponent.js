@@ -15,7 +15,7 @@ const ChatComponent = ({ item }) => {
 
   ///👇🏻 Navigates to the Messaging screen
   const handleNavigation = () => {
-    navigation.navigate("Messaging", {
+    navigation.navigate("messages", {
       id: item.id,
       name: item.name,
     });

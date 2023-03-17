@@ -11,11 +11,7 @@ import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { Feather } from "@expo/vector-icons";
 import { useState } from "react";
 
-// Definition of stack navigator
-
-const Stack = createNativeStackNavigator();
-
-//Components
+//👇🏻 The Modal component
 import ModalChat from "../components/molecules/ModalChat";
 import ChatComponent from "../components/molecules/ChatComponent";
 
