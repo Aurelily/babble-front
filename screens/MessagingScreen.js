@@ -14,43 +14,36 @@ import { stylesChat } from "../utils/styles";
 //👇🏻 Import socket from the socket.js file in utils folder
 import socket from "../utils/socket";
 
-const MessagingScreen = ({ route, navigation, userId, url, userToken }) => {
-  /*   const [chatMessages, setChatMessages] = useState([
-    {
-      id: "1",
-      content: "Hello guys, welcome!",
-      datePublished: "07:50",
-      author: "Tomer",
-    },
-    {
-      id: "2",
-      content: "Hi Tomer, thank you! 😇",
-      datePublished: "08:50",
-      author: "David",
-    },
-  ]); */
-
-  const [user, setUser] = useState("");
+const MessagingScreen = ({
+  route,
+  navigation,
+  userId,
+  url,
+  userToken,
+  userInfos,
+  setUserInfos,
+}) => {
   const [message, setMessage] = useState("");
   const [messagesLoading, setMessageLoading] = useState(true);
+  const [chatMessages, setChatMessages] = useState([]);
+  const [roomInfos, setRoomInfos] = useState([]);
+  const [infosLoading, setInfosLoading] = useState(true);
 
   //👇🏻 Access the chatroom's name and id
   const { name, id } = route.params;
 
-  const [chatMessages, setChatMessages] = useState([]);
-
-  //👇🏻 This function gets the username with id
-  async function getUsername() {
+  // Function to get all user connected informations
+  async function getRoomInfos() {
     try {
-      await fetch(`${url}users/details/${userId}`, {
+      await fetch(`${url}rooms/details/${id}`, {
         headers: {
           Authorization: `Bearer ${userToken}`,
         },
       }).then((response) => {
         response.json().then((data) => {
           if (data.status == 200) {
-            setUser(data.data.firstname);
-            setMessageLoading(false);
+            setRoomInfos(data.data);
+            setInfosLoading(false);
           }
         });
       });
@@ -63,7 +56,7 @@ const MessagingScreen = ({ route, navigation, userId, url, userToken }) => {
         This function gets the time the user sends a message, then 
         logs the username, message, and the timestamp to the console.
      */
-  const handleNewMessage = () => {
+  /*   const handleNewMessage = () => {
     console.log("coucou");
     const hour =
       new Date().getHours() < 10
@@ -84,21 +77,72 @@ const MessagingScreen = ({ route, navigation, userId, url, userToken }) => {
         timestamp: { hour, mins },
       });
     }
+  }; */
+
+  async function fetchMessages() {
+    try {
+      await fetch(`${url}messages`, {
+        headers: {
+          Authorization: `Bearer ${userToken}`,
+        },
+      }).then((response) => {
+        response.json().then((data) => {
+          if (data.status == 200) {
+            setChatMessages(data.data);
+            setMessageLoading(false);
+          }
+        });
+      });
+    } catch (e) {
+      console.log(e);
+    }
+  }
+
+  const handleSubmitMessage = async () => {
+    if (message) {
+      // Si tous les champs sont remplis
+
+      var messageToCreate = {
+        id_room: roomInfos._id,
+        content: message,
+        id_author: userInfos._id,
+      };
+      const requestOptions = {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(messageToCreate),
+      };
+      try {
+        await fetch(`${url}rooms/post`, requestOptions).then((response) => {
+          response.json().then((data) => {
+            if (data.status == 200) {
+              console.log(data.status);
+            }
+          });
+        });
+      } catch (e) {
+        console.log(e.message);
+      }
+    } else {
+      // Si tous les champs ne sont pas remplis
+      setAlert("Indiquer un message");
+    }
   };
 
   //👇🏻 Sets the header title to the name chatroom's name
   useLayoutEffect(() => {
     navigation.setOptions({ title: name });
-    getUsername();
-    //👇🏻 Sends the id to the server to fetch all its messages
-    socket.emit("findRoom", id);
-    socket.on("foundRoom", (roomChats) => setChatMessages(roomChats));
+    /*     getUserInfos(); */
   }, []);
 
   //👇🏻 This runs when the messages are updated.
   useEffect(() => {
-    socket.on("foundRoom", (roomChats) => setChatMessages(roomChats));
-  }, [socket]);
+    socket.on("newMessage", (message) => {
+      setRooms((chatMessages) => [...chatMessages, message]);
+    });
+    getRoomInfos();
+    fetchMessages();
+  }, [userId]);
 
   return (
     <View style={stylesChat.messagingscreen}>
@@ -125,10 +169,11 @@ const MessagingScreen = ({ route, navigation, userId, url, userToken }) => {
         <TextInput
           style={stylesChat.messaginginput}
           onChangeText={(value) => setMessage(value)}
+          defaultValue={message}
         />
         <TouchableOpacity
           style={stylesChat.messagingbuttonContainer}
-          onPress={handleNewMessage}
+          onPress={handleSubmitMessage}
         >
           <View>
             <Text style={{ color: "#f2f0f1", fontSize: 20 }}>SEND</Text>

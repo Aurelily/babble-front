@@ -79,6 +79,8 @@ export default function RoomsScreen({
             userId={userId}
             url={url}
             userToken={userToken}
+            userInfos={userInfos}
+            setUserInfos={setUserInfos}
           />
         )}
       </Stack.Screen>
