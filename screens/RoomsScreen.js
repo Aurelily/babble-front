@@ -1,22 +1,8 @@
-import React, { useEffect, useLayoutEffect } from "react";
-import {
-  View,
-  Text,
-  Pressable,
-  SafeAreaView,
-  FlatList,
-  TouchableOpacity,
-} from "react-native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import { Feather } from "@expo/vector-icons";
-import { useState } from "react";
 
 //Screens
 import GeneralChatScreen from "./GeneralChatScreen";
 import MessagingScreen from "./MessagingScreen";
-
-// Styles
-import { stylesChat } from "../utils/styles";
 
 // Definition of stack navigator
 const Stack = createNativeStackNavigator();
@@ -28,10 +14,6 @@ export default function RoomsScreen({
   setUserInfos,
   userId,
 }) {
-  const [visible, setVisible] = useState(false);
-  const [rooms, setRooms] = useState([]);
-  const [roomsLoading, setRoomsLoading] = useState(true);
-
   return (
     <Stack.Navigator>
       <Stack.Screen

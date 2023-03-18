@@ -26,7 +26,7 @@ const MessagingScreen = ({
   const [message, setMessage] = useState("");
   const [messagesLoading, setMessageLoading] = useState(true);
   const [chatMessages, setChatMessages] = useState([]);
-  const [roomInfos, setRoomInfos] = useState([]);
+  const [roomInfos, setRoomInfos] = useState();
   const [infosLoading, setInfosLoading] = useState(true);
 
   //👇🏻 Access the chatroom's name and id
@@ -43,6 +43,26 @@ const MessagingScreen = ({
         response.json().then((data) => {
           if (data.status == 200) {
             setRoomInfos(data.data);
+            setInfosLoading(false);
+          }
+        });
+      });
+    } catch (e) {
+      console.log(e);
+    }
+  }
+
+  // Function to get connected user info
+  async function getUserInfos() {
+    try {
+      await fetch(`${url}users/details/${userId}`, {
+        headers: {
+          Authorization: `Bearer ${userToken}`,
+        },
+      }).then((response) => {
+        response.json().then((data) => {
+          if (data.status == 200) {
+            setUserInfos(data.data);
             setInfosLoading(false);
           }
         });
@@ -101,6 +121,7 @@ const MessagingScreen = ({
   const handleSubmitMessage = async () => {
     if (message) {
       // Si tous les champs sont remplis
+      console.log(roomInfos);
 
       var messageToCreate = {
         id_room: roomInfos._id,
@@ -132,17 +153,17 @@ const MessagingScreen = ({
   //👇🏻 Sets the header title to the name chatroom's name
   useLayoutEffect(() => {
     navigation.setOptions({ title: name });
-    /*     getUserInfos(); */
   }, []);
 
   //👇🏻 This runs when the messages are updated.
   useEffect(() => {
     socket.on("newMessage", (message) => {
-      setRooms((chatMessages) => [...chatMessages, message]);
+      setChatMessages((chatMessages) => [...chatMessages, message]);
     });
+    getUserInfos();
     getRoomInfos();
     fetchMessages();
-  }, [userId]);
+  }, [socket]);
 
   return (
     <View style={stylesChat.messagingscreen}>
