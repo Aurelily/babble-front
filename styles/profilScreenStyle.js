@@ -29,12 +29,12 @@ export const profilScreenStyle = StyleSheet.create({
   },
   btDecoPos: {
     position: "absolute",
-    right: 10,
+    left: 10,
     top: 0,
   },
   btEditPos: {
     position: "absolute",
-    left: 10,
+    right: 10,
     top: 0,
     zIndex: 2,
   },

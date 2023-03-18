@@ -58,7 +58,7 @@ const ModalChat = ({
       var roomToCreate = {
         name: groupName,
         creator: userInfos._id,
-        message: [],
+        dateCreation: new Date(),
       };
       const requestOptions = {
         method: "POST",

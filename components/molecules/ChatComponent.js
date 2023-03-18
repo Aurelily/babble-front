@@ -6,18 +6,14 @@ import { stylesChat } from "../../utils/styles";
 
 const ChatComponent = ({ item }) => {
   const navigation = useNavigation();
-  const [messages, setMessages] = useState({});
-
-  //👇🏻 Retrieves the last message in the array from the item prop
-  useLayoutEffect(() => {
-    setMessages(item.messages[item.messages.length - 1]);
-  }, []);
 
   ///👇🏻 Navigates to the Messaging screen
   const handleNavigation = () => {
     navigation.navigate("messages", {
       id: item._id,
       name: item.name,
+      creator: item.creator,
+      dateCreation: item.dateCreation,
     });
   };
 
@@ -34,14 +30,10 @@ const ChatComponent = ({ item }) => {
         <View>
           <Text style={stylesChat.cusername}>{item.name}</Text>
 
-          <Text style={stylesChat.cmessage}>
-            {messages?.content ? messages.content : "Tap to start chatting"}
-          </Text>
+          <Text style={stylesChat.cmessage}>Tap to start chatting</Text>
         </View>
         <View>
-          <Text style={stylesChat.ctime}>
-            {messages?.datePublished ? messages.datePublished : "now"}
-          </Text>
+          <Text style={stylesChat.ctime}>{item.dateCreation}</Text>
         </View>
       </View>
     </Pressable>

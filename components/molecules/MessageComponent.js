@@ -4,7 +4,7 @@ import { Ionicons } from "@expo/vector-icons";
 import { stylesChat } from "../../utils/styles";
 
 export default function MessageComponent({ item, userId }) {
-  const status = item.userId !== userId;
+  const status = item.id_author !== userId;
 
   return (
     <View>

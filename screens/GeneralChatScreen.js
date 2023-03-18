@@ -47,6 +47,7 @@ export default function GeneralChatScreen({
           if (data.status == 200) {
             setRooms(data.data);
             setRoomsLoading(false);
+            console.log("POPOPOPO");
           }
         });
       });
@@ -68,7 +69,11 @@ export default function GeneralChatScreen({
     setVisible(true);
   };
 
-  return (
+  return roomsLoading ? (
+    <View style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>
+      <Text>Loading ...</Text>
+    </View>
+  ) : (
     <SafeAreaView style={stylesChat.chatscreen}>
       <View style={stylesChat.chattopContainer}>
         <View style={stylesChat.chatheader}>
