@@ -72,42 +72,16 @@ const MessagingScreen = ({
     }
   }
 
-  /*👇🏻 
-        This function gets the time the user sends a message, then 
-        logs the username, message, and the timestamp to the console.
-     */
-  /*   const handleNewMessage = () => {
-    console.log("coucou");
-    const hour =
-      new Date().getHours() < 10
-        ? `0${new Date().getHours()}`
-        : `${new Date().getHours()}`;
-
-    const mins =
-      new Date().getMinutes() < 10
-        ? `0${new Date().getMinutes()}`
-        : `${new Date().getMinutes()}`;
-
-    if (user) {
-      console.log("coucou2");
-      socket.emit("newMessage", {
-        message,
-        room_id: id,
-        user,
-        timestamp: { hour, mins },
-      });
-    }
-  }; */
-
-  async function fetchMessages() {
+  async function fetchMessagesByRoomId() {
     try {
-      await fetch(`${url}messages`, {
+      await fetch(`${url}messages/room/${id}`, {
         headers: {
           Authorization: `Bearer ${userToken}`,
         },
       }).then((response) => {
         response.json().then((data) => {
           if (data.status == 200) {
+            console.log(chatMessages);
             setChatMessages(data.data);
             setMessageLoading(false);
           }
@@ -134,7 +108,7 @@ const MessagingScreen = ({
         body: JSON.stringify(messageToCreate),
       };
       try {
-        await fetch(`${url}rooms/post`, requestOptions).then((response) => {
+        await fetch(`${url}messages/post`, requestOptions).then((response) => {
           response.json().then((data) => {
             if (data.status == 200) {
               console.log(data.status);
@@ -150,20 +124,16 @@ const MessagingScreen = ({
     }
   };
 
-  //👇🏻 Sets the header title to the name chatroom's name
-  useLayoutEffect(() => {
-    navigation.setOptions({ title: name });
-  }, []);
-
   //👇🏻 This runs when the messages are updated.
   useEffect(() => {
-    socket.on("newMessage", (message) => {
-      setChatMessages((chatMessages) => [...chatMessages, message]);
+    navigation.setOptions({ title: name });
+    socket.on("newMessage", (content) => {
+      setChatMessages((chatMessages) => [...chatMessages, content]);
     });
     getUserInfos();
     getRoomInfos();
-    fetchMessages();
-  }, [socket]);
+    fetchMessagesByRoomId();
+  }, []);
 
   return (
     <View style={stylesChat.messagingscreen}>
@@ -177,9 +147,11 @@ const MessagingScreen = ({
           <FlatList
             data={chatMessages}
             renderItem={({ item }) => (
-              <MessageComponent item={item} user={user} />
+              <MessageComponent item={item} userId={userId} />
             )}
-            keyExtractor={(item) => item.id}
+            keyExtractor={(item, index) => {
+              return index;
+            }}
           />
         ) : (
           ""

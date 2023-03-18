@@ -3,8 +3,8 @@ import React from "react";
 import { Ionicons } from "@expo/vector-icons";
 import { stylesChat } from "../../utils/styles";
 
-export default function MessageComponent({ item, user }) {
-  const status = item.user !== user;
+export default function MessageComponent({ item, userId }) {
+  const status = item.userId !== userId;
 
   return (
     <View>
