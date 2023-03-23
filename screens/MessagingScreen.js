@@ -13,7 +13,6 @@ import { stylesChat } from "../utils/styles";
 
 //👇🏻 Import socket from the socket.js file in utils folder
 import socket from "../utils/socket";
-import { leaveRoom } from "../utils/socket";
 
 const MessagingScreen = ({
   route,
@@ -129,7 +128,9 @@ const MessagingScreen = ({
   useEffect(() => {
     navigation.setOptions({ title: name });
     socket.on("newMessage", (content) => {
-      setChatMessages((chatMessages) => [...chatMessages, content]);
+      if (id === content.id_room) {
+        setChatMessages((chatMessages) => [...chatMessages, content]);
+      }
     });
     getUserInfos();
     getRoomInfos();
