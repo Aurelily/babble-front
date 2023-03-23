@@ -12,6 +12,7 @@ const ChatComponent = ({ item, roomName, setRoomName, url, userToken }) => {
   const navigation = useNavigation();
 
   const [roomCreator, setRoomCreator] = useState("");
+  const [roomCreator2, setRoomCreator2] = useState("");
 
   const dateRoomCreation = new Date(item.dateCreation);
   const options = {
@@ -46,6 +47,7 @@ const ChatComponent = ({ item, roomName, setRoomName, url, userToken }) => {
         response.json().then((data) => {
           console.log(data); // affiche la réponse JSON dans la console du navigateur
           if (data.status == 200) {
+            console.log("POPO1");
             console.log(data.data.firstname);
             setRoomCreator(data.data.firstname);
           }
@@ -57,7 +59,30 @@ const ChatComponent = ({ item, roomName, setRoomName, url, userToken }) => {
     }
   }
 
+  async function getUserCreatorInfos2(creatorId) {
+    try {
+      await fetch(`${url}users/details/${creatorId}`, {
+        headers: {
+          Authorization: `Bearer ${userToken}`,
+        },
+      }).then((response) => {
+        response.json().then((data) => {
+          console.log(data); // affiche la réponse JSON dans la console du navigateur
+          if (data.status == 200) {
+            console.log("POPO2");
+            console.log(data.data.firstname);
+            setRoomCreator2(data.data.firstname);
+          }
+        });
+        return roomCreator2;
+      });
+    } catch (e) {
+      console.log(e);
+    }
+  }
+
   useEffect(() => {
+    socket.on("newCreator", getUserCreatorInfos);
     getUserCreatorInfos();
   }, []);
 

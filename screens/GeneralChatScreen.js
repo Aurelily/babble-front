@@ -62,7 +62,6 @@ export default function GeneralChatScreen({
     socket.on("newRoom", (room) => {
       setRooms((rooms) => [...rooms, room]);
     });
-
     fetchGroups();
   }, []);
 
