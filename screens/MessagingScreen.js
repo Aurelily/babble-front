@@ -13,6 +13,7 @@ import { stylesChat } from "../utils/styles";
 
 //👇🏻 Import socket from the socket.js file in utils folder
 import socket from "../utils/socket";
+import { leaveRoom } from "../utils/socket";
 
 const MessagingScreen = ({
   route,

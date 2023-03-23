@@ -16,3 +16,12 @@ export function socketDisconnect() {
     console.log(`🔻: ${socket.id} est déconnecté !`); // undefined
   });
 }
+
+export function subscribeToRoom(room) {
+  socket.emit("subscribe", room);
+  console.log(room);
+}
+
+export function leaveRoom(room) {
+  socket.emit("unsubscribe", room);
+}

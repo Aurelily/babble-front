@@ -28,6 +28,8 @@ export default function GeneralChatScreen({
   userInfos,
   setUserInfos,
   userId,
+  roomName,
+  setRoomName,
 }) {
   const [visible, setVisible] = useState(false);
   const [rooms, setRooms] = useState([]);
@@ -47,7 +49,6 @@ export default function GeneralChatScreen({
           if (data.status == 200) {
             setRooms(data.data);
             setRoomsLoading(false);
-            console.log("POPOPOPO");
           }
         });
       });
@@ -90,7 +91,13 @@ export default function GeneralChatScreen({
         {rooms.length > 0 ? (
           <FlatList
             data={rooms}
-            renderItem={({ item }) => <ChatComponent item={item} />}
+            renderItem={({ item }) => (
+              <ChatComponent
+                item={item}
+                roomName={roomName}
+                setRoomName={setRoomName}
+              />
+            )}
             keyExtractor={(item, index) => {
               return index;
             }}

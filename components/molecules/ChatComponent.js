@@ -4,11 +4,16 @@ import { Ionicons } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
 import { stylesChat } from "../../utils/styles";
 
-const ChatComponent = ({ item }) => {
+//👇🏻 Import socket from the socket.js file in utils folder
+import { subscribeToRoom } from "../../utils/socket";
+
+const ChatComponent = ({ item, roomName, setRoomName }) => {
   const navigation = useNavigation();
 
   ///👇🏻 Navigates to the Messaging screen
   const handleNavigation = () => {
+    subscribeToRoom(item.name);
+    setRoomName(item.name);
     navigation.navigate("messages", {
       id: item._id,
       name: item.name,

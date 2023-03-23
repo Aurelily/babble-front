@@ -9,15 +9,10 @@ import * as SecureStore from "expo-secure-store";
 import * as Server from "./env";
 
 // Import screens
-import HomeScreen from "./screens/HomeScreen";
+
 import LoginScreen from "./screens/LoginScreen";
 import RegisterScreen from "./screens/RegisterScreen";
 import SplashScreen from "./screens/SplashScreen";
-import MessagingScreen from "./screens/MessagingScreen";
-import GeneralChatScreen from "./screens/GeneralChatScreen";
-import ProfileScreen from "./screens/ProfileScreen";
-import UserDetailsScreen from "./screens/UserDetailsScreen";
-import UsersDirScreen from "./screens/UsersDirScreen";
 
 // Component
 import HomeTab from "./navigations/HomeTab";

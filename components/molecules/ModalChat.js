@@ -8,9 +8,6 @@ import {
 import React, { useState, useEffect } from "react";
 import { stylesChat } from "../../utils/styles";
 
-//👇🏻 Import socket from the socket.js file in utils folder
-import socket from "../../utils/socket";
-
 const ModalChat = ({
   setVisible,
   url,
