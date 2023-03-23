@@ -1,13 +1,12 @@
-import React, { useLayoutEffect, useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import {
   View,
   TextInput,
   Text,
   FlatList,
-  Pressable,
   TouchableOpacity,
 } from "react-native";
-/* import AsyncStorage from "@react-native-async-storage/async-storage"; */
+
 import MessageComponent from "../components/molecules/MessageComponent";
 import { stylesChat } from "../utils/styles";
 
@@ -81,7 +80,6 @@ const MessagingScreen = ({
       }).then((response) => {
         response.json().then((data) => {
           if (data.status == 200) {
-            console.log(chatMessages);
             setChatMessages(data.data);
             setMessageLoading(false);
           }
@@ -135,6 +133,7 @@ const MessagingScreen = ({
     getUserInfos();
     getRoomInfos();
     fetchMessagesByRoomId();
+    console.log(chatMessages);
   }, []);
 
   return (

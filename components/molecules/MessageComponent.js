@@ -4,13 +4,14 @@ import { Ionicons } from "@expo/vector-icons";
 import { stylesChat } from "../../utils/styles";
 
 export default function MessageComponent({ item, userId }) {
-  const status = item.id_author !== userId;
+  const status = item.id_author._id !== userId;
+  const status2 = item.id_author !== userId;
 
   return (
     <View>
       <View
         style={
-          status
+          status && status2
             ? stylesChat.mmessageWrapper
             : [stylesChat.mmessageWrapper, { alignItems: "flex-end" }]
         }
@@ -24,7 +25,7 @@ export default function MessageComponent({ item, userId }) {
           />
           <View
             style={
-              status
+              status && status2
                 ? stylesChat.mmessage
                 : [
                     stylesChat.mmessage,
