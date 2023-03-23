@@ -96,6 +96,8 @@ export default function GeneralChatScreen({
                 item={item}
                 roomName={roomName}
                 setRoomName={setRoomName}
+                url={url}
+                userToken={userToken}
               />
             )}
             keyExtractor={(item, index) => {

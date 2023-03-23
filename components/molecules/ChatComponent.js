@@ -1,14 +1,27 @@
 import { View, Text, Pressable } from "react-native";
-import React, { useLayoutEffect, useState } from "react";
+import React, { useEffect, useLayoutEffect, useState } from "react";
 import { Ionicons } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
 import { stylesChat } from "../../utils/styles";
 
 //👇🏻 Import socket from the socket.js file in utils folder
 import { subscribeToRoom } from "../../utils/socket";
+import socket from "../../utils/socket";
 
-const ChatComponent = ({ item, roomName, setRoomName }) => {
+const ChatComponent = ({ item, roomName, setRoomName, url, userToken }) => {
   const navigation = useNavigation();
+
+  const [roomCreator, setRoomCreator] = useState("");
+
+  const dateRoomCreation = new Date(item.dateCreation);
+  const options = {
+    day: "numeric",
+    month: "numeric",
+    year: "numeric",
+    hour: "numeric",
+    minute: "numeric",
+  };
+  const formattedDate = dateRoomCreation.toLocaleTimeString("fr-FR", options);
 
   ///👇🏻 Navigates to the Messaging screen
   const handleNavigation = () => {
@@ -21,6 +34,32 @@ const ChatComponent = ({ item, roomName, setRoomName }) => {
       dateCreation: item.dateCreation,
     });
   };
+
+  // Function to get user creator info
+  async function getUserCreatorInfos() {
+    try {
+      await fetch(`${url}users/details/${item.creator._id}`, {
+        headers: {
+          Authorization: `Bearer ${userToken}`,
+        },
+      }).then((response) => {
+        response.json().then((data) => {
+          console.log(data); // affiche la réponse JSON dans la console du navigateur
+          if (data.status == 200) {
+            console.log(data.data.firstname);
+            setRoomCreator(data.data.firstname);
+          }
+        });
+        return roomCreator;
+      });
+    } catch (e) {
+      console.log(e);
+    }
+  }
+
+  useEffect(() => {
+    getUserCreatorInfos();
+  }, []);
 
   return (
     <Pressable style={stylesChat.cchat} onPress={handleNavigation}>
@@ -35,10 +74,10 @@ const ChatComponent = ({ item, roomName, setRoomName }) => {
         <View>
           <Text style={stylesChat.cusername}>{item.name}</Text>
 
-          <Text style={stylesChat.cmessage}>Tap to start chatting</Text>
+          <Text style={stylesChat.cmessage}>Par : {roomCreator}</Text>
         </View>
         <View>
-          <Text style={stylesChat.ctime}>{item.dateCreation}</Text>
+          <Text style={stylesChat.ctime}>{formattedDate}</Text>
         </View>
       </View>
     </Pressable>

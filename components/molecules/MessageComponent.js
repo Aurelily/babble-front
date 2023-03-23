@@ -7,6 +7,14 @@ export default function MessageComponent({ item, userId }) {
   const status = item.id_author._id !== userId;
   const status2 = item.id_author !== userId;
 
+  const dateMessage = new Date(item.datePublished);
+  const options = {
+    hour: "numeric",
+    minute: "numeric",
+    second: "numeric",
+  };
+  const formattedDate = dateMessage.toLocaleTimeString("fr-FR", options);
+
   return (
     <View>
       <View
@@ -36,7 +44,7 @@ export default function MessageComponent({ item, userId }) {
             <Text>{item.content}</Text>
           </View>
         </View>
-        <Text style={{ marginLeft: 40 }}>{item.datePublished}</Text>
+        <Text style={{ marginLeft: 40 }}>{formattedDate}</Text>
       </View>
     </View>
   );
