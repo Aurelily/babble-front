@@ -1,7 +1,6 @@
 import React from "react";
 import { useState } from "react";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import { createNativeStackNavigator } from "@react-navigation/native-stack";
 
 //import icons tab navigator
 import { AntDesign, FontAwesome5, Entypo } from "@expo/vector-icons";
@@ -10,20 +9,14 @@ import { MaterialIcons } from "@expo/vector-icons";
 //Navigation
 const Tab = createBottomTabNavigator();
 
-// Definition of stack navigator
-const Stack = createNativeStackNavigator();
-
 //import Screens
 import HomeScreen from "../screens/HomeScreen";
-import GeneralChatScreen from "../screens/GeneralChatScreen";
-import MessagingScreen from "../screens/MessagingScreen";
 import ProfileScreen from "../screens/ProfileScreen";
 import UsersDirScreen from "../screens/UsersDirScreen";
 import RoomsScreen from "../screens/RoomsScreen";
 
 //import colors
 import colors from "../assets/colors";
-const { purplePrimary } = colors;
 
 const HomeTab = ({ deleteInStore, userToken, setUserToken, url, userId }) => {
   const [userInfos, setUserInfos] = useState();
@@ -31,7 +24,7 @@ const HomeTab = ({ deleteInStore, userToken, setUserToken, url, userId }) => {
   return (
     <Tab.Navigator
       screenOptions={{
-        tabBarActiveTintColor: purplePrimary,
+        tabBarActiveTintColor: colors.purplePrimary,
         tabBarInactiveTintColor: "gray",
       }}
     >
@@ -44,7 +37,7 @@ const HomeTab = ({ deleteInStore, userToken, setUserToken, url, userId }) => {
             <Entypo name="home" size={size} color={color} />
           ),
           headerStyle: {
-            backgroundColor: "#b182fa",
+            backgroundColor: colors.purpleThird,
           },
           headerShadowVisible: false,
           headerTintColor: "#fff",
@@ -69,10 +62,19 @@ const HomeTab = ({ deleteInStore, userToken, setUserToken, url, userId }) => {
       <Tab.Screen
         name="Discussion"
         options={{
+          title: "",
           tabBarLabel: "Salons",
           tabBarIcon: ({ color, size }) => (
             <MaterialIcons name="meeting-room" size={size} color={color} />
           ),
+          headerStyle: {
+            backgroundColor: colors.purpleThird,
+          },
+          headerShadowVisible: false,
+          headerTintColor: "#fff",
+          headerTitleStyle: {
+            fontWeight: "bold",
+          },
         }}
       >
         {(props) => (
@@ -80,30 +82,14 @@ const HomeTab = ({ deleteInStore, userToken, setUserToken, url, userId }) => {
             {...props}
             url={url}
             userToken={userToken}
+            setUserToken={setUserToken}
             userId={userId}
             userInfos={userInfos}
             setUserInfos={setUserInfos}
+            deleteInStore={deleteInStore}
           />
         )}
       </Tab.Screen>
-      {/* <Tab.Screen
-        name="Messaging"
-        options={{
-          tabBarLabel: "Discussions",
-          tabBarIcon: ({ color, size }) => (
-            <AntDesign name="message1" size={size} color={color} />
-          ),
-        }}
-      >
-        {(props) => (
-          <MessagingScreen
-            {...props}
-            userId={userId}
-            url={url}
-            userToken={userToken}
-          />
-        )}
-      </Tab.Screen> */}
       <Tab.Screen
         name="Profile"
         options={{

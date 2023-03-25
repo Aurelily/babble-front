@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import { View, Text, TouchableOpacity } from "react-native";
+import { Text, TouchableOpacity } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 
 //Screens
@@ -10,15 +10,20 @@ import MessagingScreen from "./MessagingScreen";
 // Definition of stack navigator
 const Stack = createNativeStackNavigator();
 
-//👇🏻 Import socket from the socket.js file in utils folder
+// Import socket from the socket.js file in utils folder
 import { leaveRoom } from "../utils/socket";
+
+// Import colors
+import colors from "../assets/colors";
 
 export default function RoomsScreen({
   url,
   userToken,
+  setUserToken,
   userInfos,
   setUserInfos,
   userId,
+  deleteInStore,
 }) {
   const navigation = useNavigation();
   const [roomName, setRoomName] = useState("");
@@ -34,9 +39,9 @@ export default function RoomsScreen({
       <Stack.Screen
         name="roomsList"
         options={{
-          title: "Babbler's Rooms",
+          title: "Salons de discussion",
           headerStyle: {
-            backgroundColor: "#feb863",
+            backgroundColor: colors.purpleThird,
           },
           headerShadowVisible: false,
           headerTintColor: "#fff",
@@ -50,11 +55,13 @@ export default function RoomsScreen({
             {...props}
             url={url}
             userToken={userToken}
+            setUserToken={setUserToken}
             userId={userId}
             userInfos={userInfos}
             setUserInfos={setUserInfos}
             roomName={roomName}
             setRoomName={setRoomName}
+            deleteInStore={deleteInStore}
           />
         )}
       </Stack.Screen>
@@ -63,7 +70,7 @@ export default function RoomsScreen({
         options={{
           title: "Messages",
           headerStyle: {
-            backgroundColor: "#b182fa",
+            backgroundColor: colors.purpleThird,
           },
           headerShadowVisible: false,
           headerTintColor: "#fff",

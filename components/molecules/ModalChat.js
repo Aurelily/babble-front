@@ -6,7 +6,15 @@ import {
   TouchableOpacity,
 } from "react-native";
 import React, { useState, useEffect } from "react";
-import { stylesChat } from "../../utils/styles";
+
+// Import styles and colors
+import colors from "../../assets/colors";
+import { chatScreensStyles } from "../../styles/chatScreensStyles";
+import { genStyles } from "../../styles/genStyles";
+
+// Import components
+import InputText from "../atoms/InputText";
+import BtForm from "../atoms/BtForm";
 
 const ModalChat = ({
   setVisible,
@@ -21,6 +29,7 @@ const ModalChat = ({
 }) => {
   const [groupName, setGroupName] = useState("");
   const [infosLoading, setInfosLoading] = useState(true);
+  const [alert, setAlert] = useState("");
 
   useEffect(() => {
     // Function to get all user connected informations
@@ -45,13 +54,11 @@ const ModalChat = ({
     getUserInfos();
   }, [userId]);
 
-  //👇🏻 Function that closes the Modal component
+  // Function that closes the Modal component
   const closeModal = () => setVisible(false);
 
   const handleSubmitRoom = async () => {
     if (groupName) {
-      // Si tous les champs sont remplis
-
       var roomToCreate = {
         name: groupName,
         creator: userInfos._id,
@@ -73,36 +80,37 @@ const ModalChat = ({
       } catch (e) {
         console.log(e.message);
       }
+      closeModal();
     } else {
-      // Si tous les champs ne sont pas remplis
       setAlert("Indiquer un nom de salon");
     }
-    closeModal();
   };
 
   return (
-    <View style={stylesChat.modalContainer}>
-      <Text style={stylesChat.modalsubheading}>Enter your Group name</Text>
-      <TextInput
-        style={stylesChat.modalinput}
-        placeholder="Group name"
-        onChangeText={(value) => setGroupName(value)}
-        defaultValue={groupName}
-      />
+    <View style={chatScreensStyles.formContent}>
+      <Text style={[genStyles.titlePurpleText, chatScreensStyles.titleModal]}>
+        Entrez le nom de votre salon
+      </Text>
 
-      <View style={stylesChat.modalbuttonContainer}>
-        <TouchableOpacity
-          style={stylesChat.modalbutton}
-          onPress={handleSubmitRoom}
-        >
-          <Text style={stylesChat.modaltext}>CREATE</Text>
-        </TouchableOpacity>
-        <TouchableOpacity
-          style={[stylesChat.modalbutton, { backgroundColor: "#E14D2A" }]}
-          onPress={closeModal}
-        >
-          <Text style={stylesChat.modaltext}>CANCEL</Text>
-        </TouchableOpacity>
+      <InputText
+        placeholder="Nom du salon"
+        value={groupName}
+        setValue={setGroupName}
+      />
+      <Text style={genStyles.msgAlert}>{alert}</Text>
+      <View style={chatScreensStyles.modalbuttonContainer}>
+        <BtForm
+          action={handleSubmitRoom}
+          text={"Créer le salon"}
+          colorStart={colors.purplePrimary}
+          colorEnd={colors.purpleSecondary}
+        />
+        <BtForm
+          action={closeModal}
+          text={"Annuler"}
+          colorStart={colors.orangePrimary}
+          colorEnd={colors.orangeSecondary}
+        />
       </View>
     </View>
   );

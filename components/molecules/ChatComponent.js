@@ -2,7 +2,11 @@ import { View, Text, Pressable } from "react-native";
 import React, { useEffect, useLayoutEffect, useState } from "react";
 import { Ionicons } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
+
+//import styles
 import { stylesChat } from "../../utils/styles";
+import { chatScreensStyles } from "../../styles/chatScreensStyles";
+import { genStyles } from "../../styles/genStyles";
 
 //👇🏻 Import socket from the socket.js file in utils folder
 import { subscribeToRoom } from "../../utils/socket";
@@ -21,6 +25,7 @@ const ChatComponent = ({ item, roomName, setRoomName, url, userToken }) => {
     hour: "numeric",
     minute: "numeric",
   };
+
   const formattedDate = dateRoomCreation.toLocaleTimeString("fr-FR", options);
 
   ///👇🏻 Navigates to the Messaging screen
@@ -84,24 +89,25 @@ const ChatComponent = ({ item, roomName, setRoomName, url, userToken }) => {
   }, [roomCreator]);
 
   return (
-    <Pressable style={stylesChat.cchat} onPress={handleNavigation}>
+    <Pressable style={chatScreensStyles.component} onPress={handleNavigation}>
       <Ionicons
         name="person-circle-outline"
         size={45}
         color="black"
-        style={stylesChat.cavatar}
+        style={chatScreensStyles.cavatar}
       />
 
-      <View style={stylesChat.crightContainer}>
+      <View style={chatScreensStyles.cContainer}>
         <View>
-          <Text style={stylesChat.cusername}>{item.name}</Text>
+          <Text style={chatScreensStyles.cRoomName}>{item.name}</Text>
 
-          <Text style={stylesChat.cmessage}>Par : {roomCreator}</Text>
+          <Text style={genStyles.basicPurpleText}>Par : {roomCreator}</Text>
         </View>
         <View>
-          <Text style={stylesChat.ctime}>{formattedDate}</Text>
+          <Text style={genStyles.basicPurpleText}>{formattedDate}</Text>
         </View>
       </View>
+      <View style={chatScreensStyles.bgOpacity}></View>
     </Pressable>
   );
 };

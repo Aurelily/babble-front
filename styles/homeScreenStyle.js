@@ -1,6 +1,5 @@
 import { StyleSheet, Dimensions } from "react-native";
 import colors from "../assets/colors";
-const { purplePrimary, grey } = colors;
 
 const windowWidth = Dimensions.get("window").width;
 const windowHeight = Dimensions.get("window").height;
