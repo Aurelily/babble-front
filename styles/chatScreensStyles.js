@@ -143,7 +143,7 @@ export const chatScreensStyles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "space-between",
-    width: "90%",
+    width: "100%",
   },
   modaltext: {
     color: "#fff",
@@ -152,5 +152,21 @@ export const chatScreensStyles = StyleSheet.create({
   modalinput: {
     borderWidth: 2,
     padding: 15,
+  },
+  switchZone: {
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "flex-start",
+    width: "100%",
+    backgroundColor: "white",
+    marginTop: -20,
+  },
+  illus: {
+    width: 150,
+    height: 150,
+  },
+  btSignal: {
+    width: 50,
+    height: 50,
   },
 });

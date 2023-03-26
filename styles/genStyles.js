@@ -5,7 +5,7 @@ const windowWidth = Dimensions.get("window").width;
 const windowHeight = Dimensions.get("window").height;
 
 export const genStyles = StyleSheet.create({
-  // Formats de Flex Box
+  // Formats de Box
   // --------------------
   genCenter: {
     alignItems: "center",
@@ -14,7 +14,19 @@ export const genStyles = StyleSheet.create({
   colSpaceBetween: {
     flexDirection: "column",
     justifyContent: "space-between",
-    /*     backgroundColor: "red", */
+  },
+  rowSpaceBetween: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+  },
+  totalWidth: {
+    width: windowWidth,
+  },
+
+  // Padding
+  // --------------------
+  paddingBase: {
+    padding: 20,
   },
 
   // Types de textes
@@ -45,6 +57,21 @@ export const genStyles = StyleSheet.create({
   titlePurpleText: {
     fontSize: 20,
     color: colors.purplePrimary,
+    fontWeight: "bold",
+  },
+  subtitlePurpleText: {
+    fontSize: 16,
+    color: colors.purplePrimary,
+    fontWeight: "bold",
+  },
+  titleOrangeText: {
+    fontSize: 20,
+    color: colors.orangePrimary,
+    fontWeight: "bold",
+  },
+  subtitleOrangeText: {
+    fontSize: 16,
+    color: colors.orangePrimary,
     fontWeight: "bold",
   },
   textContainerWidth: {
