@@ -80,6 +80,7 @@ const ModalChat = ({
           creator: userInfos._id,
           dateCreation: new Date(),
           private: false,
+          signal: 0,
         };
       }
 

@@ -60,12 +60,22 @@ export default function GeneralChatScreen({
     }
   }
 
-  //Runs when the component mounts
+  // Get and sort rooms by creation date in descending order
   useEffect(() => {
-    rooms.sort((a, b) => b.dateCreation - a.dateCreation);
     socket.on("newRoom", (room) => {
-      setRooms((rooms) => [...rooms, room]);
+      setRooms((rooms) =>
+        [...rooms, room].sort((a, b) => {
+          if (a.dateCreation > b.dateCreation) {
+            return -1;
+          }
+          if (a.dateCreation < b.dateCreation) {
+            return 1;
+          }
+          return 0;
+        })
+      );
     });
+
     fetchGroups();
   }, []);
 
