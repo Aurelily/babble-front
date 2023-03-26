@@ -22,6 +22,9 @@ export const chatScreensStyles = StyleSheet.create({
     flex: 1,
     flexGrow: 1,
   },
+  flatlistContainer: {
+    marginBottom: 100,
+  },
   chatemptyContainer: {
     width: "100%",
     height: "80%",
@@ -71,6 +74,20 @@ export const chatScreensStyles = StyleSheet.create({
     shadowOpacity: 0.3,
     shadowRadius: 4.65,
     elevation: 8,
+  },
+  avatar: {
+    height: 50,
+    width: 50,
+    borderRadius: 999,
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 4,
+    },
+    shadowOpacity: 0.3,
+    shadowRadius: 4.65,
+    elevation: 8,
+    marginRight: 10,
   },
   //// ROOM LIST : CHAT COMPONENT
 

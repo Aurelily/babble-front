@@ -1,4 +1,4 @@
-import { View, Text, Pressable } from "react-native";
+import { View, Text, Pressable, Image } from "react-native";
 import React, { useEffect, useLayoutEffect, useState } from "react";
 import { Ionicons } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
@@ -12,7 +12,14 @@ import { genStyles } from "../../styles/genStyles";
 import { subscribeToRoom } from "../../utils/socket";
 import socket from "../../utils/socket";
 
-const ChatComponent = ({ item, roomName, setRoomName, url, userToken }) => {
+const ChatComponent = ({
+  item,
+  roomName,
+  setRoomName,
+  url,
+  userToken,
+  userId,
+}) => {
   const navigation = useNavigation();
 
   const [roomCreator, setRoomCreator] = useState("");
@@ -56,45 +63,29 @@ const ChatComponent = ({ item, roomName, setRoomName, url, userToken }) => {
             setRoomCreator(data.data.firstname);
           }
         });
-        return roomCreator;
       });
     } catch (e) {
       console.log(e);
     }
   }
+  //SOCKET NEW CREATOR
+  socket.on("newCreator", (creator) => {
+    if (item.creator === creator._id) {
+      setRoomCreator(creator.firstname);
+    } else {
+      setRoomCreator(item.creator.firstname);
+    }
+  });
 
   useEffect(() => {
-    socket.on("newCreator", (creator) => {
-      try {
-        fetch(`${url}users/details/${creator._id}`, {
-          headers: {
-            Authorization: `Bearer ${userToken}`,
-          },
-        }).then((response) => {
-          response.json().then((data) => {
-            console.log(data); // affiche la réponse JSON dans la console du navigateur
-            if (data.status == 200) {
-              console.log("NEWCREATOR");
-              console.log(data.data.firstname);
-              setRoomCreator(data.data.firstname);
-            }
-          });
-          return roomCreator;
-        });
-      } catch (e) {
-        console.log(e);
-      }
-    });
     getUserCreatorInfos();
-  }, [roomCreator]);
+  }, []);
 
   return (
     <Pressable style={chatScreensStyles.component} onPress={handleNavigation}>
-      <Ionicons
-        name="person-circle-outline"
-        size={45}
-        color="black"
-        style={chatScreensStyles.cavatar}
+      <Image
+        source={require("../../assets/img/avatar-defaut.png")}
+        style={chatScreensStyles.avatar}
       />
 
       <View style={chatScreensStyles.cContainer}>

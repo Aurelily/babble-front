@@ -62,6 +62,7 @@ export default function GeneralChatScreen({
 
   //Runs when the component mounts
   useEffect(() => {
+    rooms.sort((a, b) => b.dateCreation - a.dateCreation);
     socket.on("newRoom", (room) => {
       setRooms((rooms) => [...rooms, room]);
     });
@@ -131,11 +132,13 @@ export default function GeneralChatScreen({
                   setRoomName={setRoomName}
                   url={url}
                   userToken={userToken}
+                  userId={userId}
                 />
               )}
               keyExtractor={(item, index) => index.toString()}
               nestedScrollEnabled={true}
               scrollEnabled={true}
+              style={chatScreensStyles.flatlistContainer}
             />
           ) : (
             <View
