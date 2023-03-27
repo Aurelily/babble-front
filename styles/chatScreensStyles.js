@@ -75,6 +75,10 @@ export const chatScreensStyles = StyleSheet.create({
     shadowRadius: 4.65,
     elevation: 8,
   },
+  btOrangeFlat: {
+    height: 50,
+    width: 50,
+  },
   avatar: {
     height: 50,
     width: 50,
@@ -93,7 +97,6 @@ export const chatScreensStyles = StyleSheet.create({
 
   component: {
     width: windowWidth,
-    /* backgroundColor: "#fff", */
     height: 80,
     marginBottom: 10,
     flexDirection: "row",
@@ -185,5 +188,52 @@ export const chatScreensStyles = StyleSheet.create({
   btSignal: {
     width: 50,
     height: 50,
+  },
+
+  // MESSENGING SCREEN
+
+  messagingscreen: {
+    flex: 1,
+    width: windowWidth,
+  },
+
+  // MESSAGE FORM
+
+  messaginginputContainer: {
+    position: "relative",
+    backgroundColor: "white",
+    borderRadius: 30,
+    padding: 20,
+    paddingLeft: 50,
+    width: "100%",
+    minHeight: 100,
+    justifyContent: "center",
+    flexDirection: "row",
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 5,
+    },
+    shadowOpacity: 0.34,
+    shadowRadius: 6.27,
+    elevation: 10,
+  },
+  messaginginput: {
+    borderWidth: 1,
+    padding: 15,
+    flex: 1,
+    marginRight: 10,
+    borderRadius: 20,
+  },
+  messagingbuttonContainer: {
+    position: "abolute",
+    right: 10,
+    top: -5,
+    width: "20%",
+    /*    backgroundColor: "green", */
+    borderRadius: 3,
+    alignItems: "center",
+    justifyContent: "center",
+    borderRadius: 50,
   },
 });

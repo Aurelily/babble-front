@@ -5,10 +5,19 @@ import {
   Text,
   FlatList,
   TouchableOpacity,
+  Image,
+  SafeAreaView,
+  ImageBackground,
 } from "react-native";
 
+//Import components
 import MessageComponent from "../components/molecules/MessageComponent";
+import InputText from "../components/atoms/InputText";
+
+//Import styles
 import { stylesChat } from "../utils/styles";
+import { chatScreensStyles } from "../styles/chatScreensStyles";
+import { genStyles } from "../styles/genStyles";
 
 //👇🏻 Import socket from the socket.js file in utils folder
 import socket from "../utils/socket";
@@ -28,7 +37,7 @@ const MessagingScreen = ({
   const [roomInfos, setRoomInfos] = useState();
   const [infosLoading, setInfosLoading] = useState(true);
 
-  //👇🏻 Access the chatroom's name and id
+  // Access the chatroom's name and id
   const { name, id } = route.params;
 
   // Function to get all user connected informations
@@ -137,10 +146,14 @@ const MessagingScreen = ({
   }, []);
 
   return (
-    <View style={stylesChat.messagingscreen}>
+    <View style={chatScreensStyles.messagingscreen}>
+      {/*     <ImageBackground
+        source={require("../assets/img/fond-bulles-violet5.png")}
+        style={chatScreensStyles.bgImage}
+      > */}
       <View
         style={[
-          stylesChat.messagingscreen,
+          chatScreensStyles.messagingscreen,
           { paddingVertical: 15, paddingHorizontal: 10 },
         ]}
       >
@@ -159,21 +172,28 @@ const MessagingScreen = ({
         )}
       </View>
 
-      <View style={stylesChat.messaginginputContainer}>
-        <TextInput
-          style={stylesChat.messaginginput}
+      <View style={chatScreensStyles.messaginginputContainer}>
+        {/*      <TextInput
+          style={chatScreensStyles.messaginginput}
           onChangeText={(value) => setMessage(value)}
           defaultValue={message}
+        /> */}
+        <InputText
+          placeholder="Message"
+          value={message}
+          setValue={setMessage}
         />
         <TouchableOpacity
-          style={stylesChat.messagingbuttonContainer}
+          style={chatScreensStyles.messagingbuttonContainer}
           onPress={handleSubmitMessage}
         >
-          <View>
-            <Text style={{ color: "#f2f0f1", fontSize: 20 }}>SEND</Text>
-          </View>
+          <Image
+            source={require("../assets/img/bt-send.png")}
+            style={chatScreensStyles.btOrangeFlat}
+          />
         </TouchableOpacity>
       </View>
+      {/*  </ImageBackground> */}
     </View>
   );
 };
