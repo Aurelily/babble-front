@@ -70,10 +70,10 @@ const ChatComponent = ({
   }
   //SOCKET NEW CREATOR
   socket.on("newCreator", (creator) => {
-    if (item.creator === creator._id) {
-      setRoomCreator(creator.firstname);
-    } else {
+    if (item.creator.firstname) {
       setRoomCreator(item.creator.firstname);
+    } else {
+      setRoomCreator(creator.firstname);
     }
   });
 
