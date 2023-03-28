@@ -146,55 +146,45 @@ const MessagingScreen = ({
   }, []);
 
   return (
-    <View style={chatScreensStyles.messagingscreen}>
-      {/*     <ImageBackground
-        source={require("../assets/img/fond-bulles-violet5.png")}
-        style={chatScreensStyles.bgImage}
-      > */}
-      <View
-        style={[
-          chatScreensStyles.messagingscreen,
-          { paddingVertical: 15, paddingHorizontal: 10 },
-        ]}
-      >
-        {chatMessages[0] ? (
-          <FlatList
-            data={chatMessages}
-            renderItem={({ item }) => (
-              <MessageComponent item={item} userId={userId} />
-            )}
-            keyExtractor={(item, index) => {
-              return index;
-            }}
-          />
-        ) : (
-          ""
-        )}
-      </View>
+    <ImageBackground
+      source={require("../assets/img/fond-bulles-violet5.png")}
+      style={chatScreensStyles.bgImage}
+    >
+      <View style={chatScreensStyles.messagingscreenContainer}>
+        <View style={[chatScreensStyles.messagingscreen]}>
+          {chatMessages[0] ? (
+            <FlatList
+              data={chatMessages}
+              renderItem={({ item }) => (
+                <MessageComponent item={item} userId={userId} />
+              )}
+              keyExtractor={(item, index) => {
+                return index;
+              }}
+            />
+          ) : (
+            ""
+          )}
+        </View>
 
-      <View style={chatScreensStyles.messaginginputContainer}>
-        {/*      <TextInput
-          style={chatScreensStyles.messaginginput}
-          onChangeText={(value) => setMessage(value)}
-          defaultValue={message}
-        /> */}
-        <InputText
-          placeholder="Message"
-          value={message}
-          setValue={setMessage}
-        />
-        <TouchableOpacity
-          style={chatScreensStyles.messagingbuttonContainer}
-          onPress={handleSubmitMessage}
-        >
-          <Image
-            source={require("../assets/img/bt-send.png")}
-            style={chatScreensStyles.btOrangeFlat}
+        <View style={chatScreensStyles.messaginginputContainer}>
+          <InputText
+            placeholder="Message"
+            value={message}
+            setValue={setMessage}
           />
-        </TouchableOpacity>
+          <TouchableOpacity
+            style={chatScreensStyles.messagingbuttonContainer}
+            onPress={handleSubmitMessage}
+          >
+            <Image
+              source={require("../assets/img/bt-send.png")}
+              style={chatScreensStyles.btOrangeFlat}
+            />
+          </TouchableOpacity>
+        </View>
       </View>
-      {/*  </ImageBackground> */}
-    </View>
+    </ImageBackground>
   );
 };
 

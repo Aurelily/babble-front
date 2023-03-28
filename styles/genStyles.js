@@ -39,11 +39,13 @@ export const genStyles = StyleSheet.create({
   basicClearText: {
     fontSize: 14,
     color: "#fff",
-    fontWeight: "bold",
   },
   basicPurpleText: {
     fontSize: 14,
     color: colors.purplePrimary,
+  },
+  boldText: {
+    fontWeight: "bold",
   },
   miniPurpleText: {
     fontSize: 9,

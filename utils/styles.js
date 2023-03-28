@@ -151,7 +151,7 @@ export const stylesChat = StyleSheet.create({
     borderRadius: 10,
     marginBottom: 2,
   },
-  mvatar: {
+  mavatar: {
     marginRight: 5,
   },
   cchat: {

@@ -1,7 +1,10 @@
-import { View, Text } from "react-native";
+import { View, Text, Image } from "react-native";
 import React from "react";
-import { Ionicons } from "@expo/vector-icons";
-import { stylesChat } from "../../utils/styles";
+
+// Import styles
+import { chatScreensStyles } from "../../styles/chatScreensStyles";
+import { genStyles } from "../../styles/genStyles";
+import colors from "../../assets/colors";
 
 export default function MessageComponent({ item, userId }) {
   const status = item.id_author._id !== userId;
@@ -20,31 +23,42 @@ export default function MessageComponent({ item, userId }) {
       <View
         style={
           status && status2
-            ? stylesChat.mmessageWrapper
-            : [stylesChat.mmessageWrapper, { alignItems: "flex-end" }]
+            ? chatScreensStyles.mmessageWrapper
+            : [chatScreensStyles.mmessageWrapper, { alignItems: "flex-end" }]
         }
       >
         <View style={{ flexDirection: "row", alignItems: "center" }}>
-          <Ionicons
-            name="person-circle-outline"
-            size={30}
-            color="black"
-            style={stylesChat.mavatar}
+          <Image
+            source={require("../../assets/img/avatar-defaut.png")}
+            style={chatScreensStyles.avatar}
           />
           <View
             style={
               status && status2
-                ? stylesChat.mmessage
-                : [
-                    stylesChat.mmessage,
-                    { backgroundColor: "rgb(194, 243, 194)" },
-                  ]
+                ? chatScreensStyles.messageOther
+                : chatScreensStyles.messageCreator
             }
           >
-            <Text>{item.content}</Text>
+            <Text
+              style={
+                status && status2
+                  ? genStyles.basicPurpleText
+                  : genStyles.basicClearText
+              }
+            >
+              {item.content}
+            </Text>
+            <Text
+              style={
+                status && status2
+                  ? [genStyles.basicPurpleText, chatScreensStyles.messageDate]
+                  : [genStyles.basicClearText, chatScreensStyles.messageDate]
+              }
+            >
+              {formattedDate}
+            </Text>
           </View>
         </View>
-        <Text style={{ marginLeft: 40 }}>{formattedDate}</Text>
       </View>
     </View>
   );

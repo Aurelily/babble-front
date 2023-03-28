@@ -4,7 +4,7 @@ import { Ionicons } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
 
 //import styles
-import { stylesChat } from "../../utils/styles";
+
 import { chatScreensStyles } from "../../styles/chatScreensStyles";
 import { genStyles } from "../../styles/genStyles";
 

@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import { Text, TouchableOpacity } from "react-native";
+import { Text, TouchableOpacity, Image } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 
 //Screens
@@ -13,8 +13,10 @@ const Stack = createNativeStackNavigator();
 // Import socket from the socket.js file in utils folder
 import { leaveRoom } from "../utils/socket";
 
-// Import colors
+// Import colors and styles
 import colors from "../assets/colors";
+import { chatScreensStyles } from "../styles/chatScreensStyles";
+import { genStyles } from "../styles/genStyles";
 
 export default function RoomsScreen({
   url,
@@ -71,6 +73,7 @@ export default function RoomsScreen({
           title: "Messages",
           headerStyle: {
             backgroundColor: colors.purpleThird,
+            height: 500,
           },
           headerShadowVisible: false,
           headerTintColor: "#fff",
@@ -78,8 +81,23 @@ export default function RoomsScreen({
             fontWeight: "bold",
           },
           headerLeft: () => (
-            <TouchableOpacity onPress={handleNavigation}>
-              <Text>Sortir</Text>
+            <TouchableOpacity
+              onPress={handleNavigation}
+              style={[genStyles.rowSpaceBetween, genStyles.genCenter]}
+            >
+              <Image
+                source={require("../assets/img/bt-leave.png")}
+                style={[chatScreensStyles.btLeave]}
+              />
+              <Text
+                style={[
+                  genStyles.basicClearText,
+                  genStyles.textContainerWidth,
+                  genStyles.boldText,
+                ]}
+              >
+                Sortir
+              </Text>
             </TouchableOpacity>
           ),
         }}

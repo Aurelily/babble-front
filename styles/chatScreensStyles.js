@@ -46,6 +46,10 @@ export const chatScreensStyles = StyleSheet.create({
     right: 100,
     top: 0,
   },
+  btLeave: {
+    height: 45,
+    width: 45,
+  },
   btAddPos: {
     position: "absolute",
     left: 90,
@@ -192,9 +196,14 @@ export const chatScreensStyles = StyleSheet.create({
 
   // MESSENGING SCREEN
 
-  messagingscreen: {
+  messagingscreenContainer: {
     flex: 1,
     width: windowWidth,
+  },
+  messagingscreen: {
+    paddingVertical: 15,
+    paddingHorizontal: 10,
+    minHeight: "60%",
   },
 
   // MESSAGE FORM
@@ -206,7 +215,7 @@ export const chatScreensStyles = StyleSheet.create({
     padding: 20,
     paddingLeft: 50,
     width: "100%",
-    minHeight: 100,
+    minHeight: 300,
     justifyContent: "center",
     flexDirection: "row",
     shadowColor: "#000",
@@ -217,6 +226,7 @@ export const chatScreensStyles = StyleSheet.create({
     shadowOpacity: 0.34,
     shadowRadius: 6.27,
     elevation: 10,
+    zIndex: 999,
   },
   messaginginput: {
     borderWidth: 1,
@@ -228,12 +238,51 @@ export const chatScreensStyles = StyleSheet.create({
   messagingbuttonContainer: {
     position: "abolute",
     right: 10,
-    top: -5,
+    top: -105,
     width: "20%",
     /*    backgroundColor: "green", */
     borderRadius: 3,
     alignItems: "center",
     justifyContent: "center",
     borderRadius: 50,
+  },
+
+  // MESSAGE COMPONENT
+  mmessageWrapper: {
+    width: "100%",
+    alignItems: "flex-start",
+    marginBottom: 15,
+  },
+
+  mavatar: {
+    marginRight: 5,
+  },
+
+  messageOther: {
+    width: "80%",
+    backgroundColor: colors.purpleSecondary,
+    padding: 15,
+    borderTopLeftRadius: 20,
+    borderTopRightRadius: 20,
+    borderBottomRightRadius: 20,
+    borderBottomLeftRadius: 0,
+    marginBottom: 2,
+  },
+
+  messageCreator: {
+    width: "80%",
+    backgroundColor: colors.orangePrimary,
+    padding: 15,
+    borderTopLeftRadius: 20,
+    borderTopRightRadius: 20,
+    borderBottomRightRadius: 0,
+    borderBottomLeftRadius: 20,
+    marginBottom: 2,
+  },
+
+  messageDate: {
+    position: "absolute",
+    right: 5,
+    padding: 10,
   },
 });
