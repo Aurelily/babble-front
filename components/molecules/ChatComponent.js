@@ -58,7 +58,6 @@ const ChatComponent = ({
         response.json().then((data) => {
           console.log(data); // affiche la réponse JSON dans la console du navigateur
           if (data.status == 200) {
-            console.log("POPO1");
             console.log(data.data.firstname);
             setRoomCreator(data.data.firstname);
           }

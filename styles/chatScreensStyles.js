@@ -203,13 +203,14 @@ export const chatScreensStyles = StyleSheet.create({
   messagingscreen: {
     paddingVertical: 15,
     paddingHorizontal: 10,
-    minHeight: "60%",
+    minHeight: "40%",
   },
 
   // MESSAGE FORM
 
   messaginginputContainer: {
-    position: "relative",
+    position: "absolute",
+    bottom: 0,
     backgroundColor: "white",
     borderRadius: 30,
     padding: 20,
@@ -228,22 +229,12 @@ export const chatScreensStyles = StyleSheet.create({
     elevation: 10,
     zIndex: 999,
   },
-  messaginginput: {
-    borderWidth: 1,
-    padding: 15,
-    flex: 1,
-    marginRight: 10,
-    borderRadius: 20,
-  },
+
   messagingbuttonContainer: {
-    position: "abolute",
-    right: 10,
-    top: -105,
     width: "20%",
-    /*    backgroundColor: "green", */
     borderRadius: 3,
-    alignItems: "center",
-    justifyContent: "center",
+    alignItems: "flex-start",
+    justifyContent: "flex-start",
     borderRadius: 50,
   },
 
@@ -261,7 +252,7 @@ export const chatScreensStyles = StyleSheet.create({
   messageOther: {
     width: "80%",
     backgroundColor: colors.purpleSecondary,
-    padding: 15,
+    padding: 20,
     borderTopLeftRadius: 20,
     borderTopRightRadius: 20,
     borderBottomRightRadius: 20,
@@ -272,7 +263,7 @@ export const chatScreensStyles = StyleSheet.create({
   messageCreator: {
     width: "80%",
     backgroundColor: colors.orangePrimary,
-    padding: 15,
+    padding: 20,
     borderTopLeftRadius: 20,
     borderTopRightRadius: 20,
     borderBottomRightRadius: 0,
@@ -284,5 +275,15 @@ export const chatScreensStyles = StyleSheet.create({
     position: "absolute",
     right: 5,
     padding: 10,
+  },
+  messageAuthor: {
+    position: "absolute",
+    top: 20,
+    right: 5,
+    padding: 10,
+  },
+  flatlistMessagesContainer: {
+    /*  marginBottom: 280, */
+    height: "64%",
   },
 });

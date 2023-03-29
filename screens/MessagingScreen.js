@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import {
   View,
   TextInput,
@@ -119,6 +119,7 @@ const MessagingScreen = ({
           response.json().then((data) => {
             if (data.status == 200) {
               console.log(data.status);
+              setMessage("");
             }
           });
         });
@@ -156,11 +157,19 @@ const MessagingScreen = ({
             <FlatList
               data={chatMessages}
               renderItem={({ item }) => (
-                <MessageComponent item={item} userId={userId} />
+                <MessageComponent
+                  item={item}
+                  url={url}
+                  userId={userId}
+                  userToken={userToken}
+                />
               )}
               keyExtractor={(item, index) => {
                 return index;
               }}
+              nestedScrollEnabled={true}
+              scrollEnabled={true}
+              style={chatScreensStyles.flatlistMessagesContainer}
             />
           ) : (
             ""

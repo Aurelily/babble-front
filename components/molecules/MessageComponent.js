@@ -1,12 +1,17 @@
 import { View, Text, Image } from "react-native";
-import React from "react";
+import React, { useEffect, useState } from "react";
 
 // Import styles
 import { chatScreensStyles } from "../../styles/chatScreensStyles";
 import { genStyles } from "../../styles/genStyles";
 import colors from "../../assets/colors";
 
-export default function MessageComponent({ item, userId }) {
+//👇🏻 Import socket from the socket.js file in utils folder
+import socket from "../../utils/socket";
+
+export default function MessageComponent({ item, userId, userToken, url }) {
+  const [messageCreator, setMessageCreator] = useState("");
+
   const status = item.id_author._id !== userId;
   const status2 = item.id_author !== userId;
 
@@ -17,6 +22,40 @@ export default function MessageComponent({ item, userId }) {
     second: "numeric",
   };
   const formattedDate = dateMessage.toLocaleTimeString("fr-FR", options);
+
+  // Function to get user creator info
+  async function getMessageAuthorInfos() {
+    try {
+      await fetch(`${url}users/details/${item.id_author._id}`, {
+        headers: {
+          Authorization: `Bearer ${userToken}`,
+        },
+      }).then((response) => {
+        response.json().then((data) => {
+          console.log(data); // affiche la réponse JSON dans la console du navigateur
+          if (data.status == 200) {
+            console.log(data.data.firstname);
+            setMessageCreator(data.data.firstname);
+          }
+        });
+      });
+    } catch (e) {
+      console.log(e);
+    }
+  }
+
+  //SOCKET NEW MESSAGE AUTHOR
+  socket.on("newMessageAuthor", (messageAuthor) => {
+    if (item.id_author.firstname) {
+      setMessageCreator(item.id_author.firstname);
+    } else {
+      setMessageCreator(messageAuthor.firstname);
+    }
+  });
+
+  useEffect(() => {
+    getMessageAuthorInfos();
+  }, []);
 
   return (
     <View>
@@ -47,6 +86,15 @@ export default function MessageComponent({ item, userId }) {
               }
             >
               {item.content}
+            </Text>
+            <Text
+              style={
+                status && status2
+                  ? [genStyles.basicPurpleText, chatScreensStyles.messageAuthor]
+                  : [genStyles.basicClearText, chatScreensStyles.messageAuthor]
+              }
+            >
+              Par: {messageCreator}
             </Text>
             <Text
               style={

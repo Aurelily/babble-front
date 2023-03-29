@@ -22,9 +22,6 @@ const { purplePrimary, purpleSecondary, grey } = colors;
 import { genStyles } from "../styles/genStyles";
 import { registerScreenStyle } from "../styles/registerScreenStyles";
 
-// Constant pour récupérer las dimensions des devices
-import Constants from "expo-constants";
-
 // Pour que le clavier du mobile ne supperpose pas le contenu
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 

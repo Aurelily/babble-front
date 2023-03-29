@@ -1,5 +1,5 @@
 import * as React from "react";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import {
   Text,
   View,
@@ -25,8 +25,6 @@ import { profilScreenStyle } from "../styles/profilScreenStyle";
 // Pour que le clavier du mobile ne supperpose pas le contenu
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 
-// UseNavigation pour pouvoir mettre des liens
-import { useNavigation } from "@react-navigation/core";
 
 export default function ProfileScreen({
   deleteInStore,
@@ -35,7 +33,6 @@ export default function ProfileScreen({
   userId,
   url,
   userInfos,
-  setUserInfos,
 }) {
   // Pour le switch RGPD
   const [isEnabled, setIsEnabled] = useState(false);
