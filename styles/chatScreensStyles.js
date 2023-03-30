@@ -49,6 +49,7 @@ export const chatScreensStyles = StyleSheet.create({
   btLeave: {
     height: 45,
     width: 45,
+    marginRight: 10,
   },
   btAddPos: {
     position: "absolute",

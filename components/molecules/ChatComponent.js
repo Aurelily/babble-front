@@ -1,4 +1,4 @@
-import { View, Text, Pressable, Image } from "react-native";
+import { View, Text, Pressable, Image, TouchableOpacity } from "react-native";
 import React, { useEffect, useLayoutEffect, useState } from "react";
 import { Ionicons } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
@@ -34,6 +34,13 @@ const ChatComponent = ({
   };
 
   const formattedDate = dateRoomCreation.toLocaleTimeString("fr-FR", options);
+
+  // Open confirm modal, delete room and navigates to the Roomlist screen
+  const handleDelete = () => {
+    //Open confirm modal
+    //Delete Room
+    console.log("DELETE ?");
+  };
 
   ///👇🏻 Navigates to the Messaging screen
   const handleNavigation = () => {
@@ -81,24 +88,39 @@ const ChatComponent = ({
   }, []);
 
   return (
-    <Pressable style={chatScreensStyles.component} onPress={handleNavigation}>
-      <Image
-        source={require("../../assets/img/avatar-defaut.png")}
-        style={chatScreensStyles.avatar}
-      />
+    <>
+      <Pressable style={chatScreensStyles.component} onPress={handleNavigation}>
+        <Image
+          source={require("../../assets/img/avatar-defaut.png")}
+          style={chatScreensStyles.avatar}
+        />
 
-      <View style={chatScreensStyles.cContainer}>
-        <View>
-          <Text style={chatScreensStyles.cRoomName}>{item.name}</Text>
+        <View style={chatScreensStyles.cContainer}>
+          <View>
+            <Text style={chatScreensStyles.cRoomName}>{item.name}</Text>
 
-          <Text style={genStyles.basicPurpleText}>Par : {roomCreator}</Text>
+            <Text style={genStyles.basicPurpleText}>Par : {roomCreator}</Text>
+          </View>
+          <View>
+            <Text style={genStyles.basicPurpleText}>{formattedDate}</Text>
+            {userId === item.creator._id ? (
+              <TouchableOpacity
+                onPress={handleDelete}
+                style={[genStyles.rowSpaceBetween, genStyles.genCenter]}
+              >
+                <Image
+                  source={require("../../assets/img/bt-delete.png")}
+                  style={[chatScreensStyles.btLeave]}
+                />
+              </TouchableOpacity>
+            ) : (
+              <Text></Text>
+            )}
+          </View>
         </View>
-        <View>
-          <Text style={genStyles.basicPurpleText}>{formattedDate}</Text>
-        </View>
-      </View>
-      <View style={chatScreensStyles.bgOpacity}></View>
-    </Pressable>
+        <View style={chatScreensStyles.bgOpacity}></View>
+      </Pressable>
+    </>
   );
 };
 

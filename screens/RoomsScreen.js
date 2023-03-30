@@ -30,11 +30,18 @@ export default function RoomsScreen({
   const navigation = useNavigation();
   const [roomName, setRoomName] = useState("");
 
-  ///👇🏻 Navigates to the Roomlist screen
+  // Navigates to the Roomlist screen
   const handleNavigation = () => {
     leaveRoom(roomName);
     navigation.navigate("roomsList");
   };
+
+  // Open confirm modal, delete room and navigates to the Roomlist screen
+  /*   const handleDelete = () => {
+    //Open confirm modal
+    leaveRoom(roomName);
+    navigation.navigate("roomsList");
+  }; */
 
   return (
     <Stack.Navigator>
@@ -89,15 +96,6 @@ export default function RoomsScreen({
                 source={require("../assets/img/bt-leave.png")}
                 style={[chatScreensStyles.btLeave]}
               />
-              <Text
-                style={[
-                  genStyles.basicClearText,
-                  genStyles.textContainerWidth,
-                  genStyles.boldText,
-                ]}
-              >
-                Sortir
-              </Text>
             </TouchableOpacity>
           ),
         }}

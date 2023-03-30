@@ -1,12 +1,15 @@
 import React from "react";
 import { TextInput, StyleSheet } from "react-native";
+
+//import styles and colors
+import colors from "../../assets/colors";
 import { genStyles } from "../../styles/genStyles";
 
 const InputEmail = ({ placeholder, value, setValue }) => {
   return (
     <TextInput
       placeholder={placeholder}
-      placeholderTextColor="#fff"
+      placeholderTextColor={colors.orangeThird}
       style={genStyles.inputOrange}
       value={value}
       keyboardType="email-adress"
