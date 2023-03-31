@@ -22,6 +22,7 @@ import { genStyles } from "../styles/genStyles";
 //👇🏻 Import socket from the socket.js file in utils folder
 import socket from "../utils/socket";
 import { socketConnect } from "../utils/socket";
+import { leaveRoom } from "../utils/socket";
 
 const MessagingScreen = ({
   route,
@@ -144,6 +145,10 @@ const MessagingScreen = ({
       if (id === content.id_room) {
         setChatMessages((chatMessages) => [...chatMessages, content]);
       }
+    });
+    socket.on("deleteRoom", (room) => {
+      leaveRoom(room.name);
+      navigation.navigate("roomsList");
     });
     getUserInfos();
     getRoomInfos();
