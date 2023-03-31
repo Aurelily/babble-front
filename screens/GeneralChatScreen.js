@@ -14,6 +14,7 @@ import { useState } from "react";
 //👇🏻 The Modal component
 import ModalChat from "../components/molecules/ModalChat";
 import ChatComponent from "../components/molecules/ChatComponent";
+import ModalDelete from "../components/molecules/ModalDelete";
 
 import { chatScreensStyles } from "../styles/chatScreensStyles";
 import { genStyles } from "../styles/genStyles";
@@ -33,10 +34,13 @@ export default function GeneralChatScreen({
   roomName,
   setRoomName,
   deleteInStore,
+  handleDelete,
 }) {
   const [visible, setVisible] = useState(false);
+  const [visibleDel, setVisibleDel] = useState(false);
   const [rooms, setRooms] = useState([]);
   const [roomsLoading, setRoomsLoading] = useState(true);
+  const [roomIdToDelete, setRoomIdToDelete] = useState();
 
   //Runs whenever there is new trigger from the backend
   socketConnect();
@@ -74,6 +78,10 @@ export default function GeneralChatScreen({
           return 0;
         })
       );
+    });
+    socket.on("deleteRoom", (room) => {
+      setRooms((rooms) => rooms.filter((r) => r.id !== room.id));
+      fetchGroups();
     });
 
     fetchGroups();
@@ -143,6 +151,8 @@ export default function GeneralChatScreen({
                   url={url}
                   userToken={userToken}
                   userId={userId}
+                  setVisibleDel={setVisibleDel}
+                  setRoomIdToDelete={setRoomIdToDelete}
                 />
               )}
               keyExtractor={(item, index) => index.toString()}
@@ -170,6 +180,16 @@ export default function GeneralChatScreen({
             </View>
           )}
         </View>
+        {visibleDel ? (
+          <ModalDelete
+            url={url}
+            userToken={userToken}
+            setVisibleDel={setVisibleDel}
+            roomIdToDelete={roomIdToDelete}
+          />
+        ) : (
+          ""
+        )}
         {visible ? (
           <ModalChat
             setVisible={setVisible}

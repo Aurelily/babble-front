@@ -1,12 +1,14 @@
 import { View, Text, Pressable, Image, TouchableOpacity } from "react-native";
 import React, { useEffect, useLayoutEffect, useState } from "react";
-import { Ionicons } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
 
 //import styles
 
 import { chatScreensStyles } from "../../styles/chatScreensStyles";
 import { genStyles } from "../../styles/genStyles";
+
+// import component
+import ModalDelete from "./ModalDelete";
 
 //👇🏻 Import socket from the socket.js file in utils folder
 import { subscribeToRoom } from "../../utils/socket";
@@ -16,9 +18,11 @@ const ChatComponent = ({
   item,
   roomName,
   setRoomName,
+  setRoomIdToDelete,
   url,
   userToken,
   userId,
+  setVisibleDel,
 }) => {
   const navigation = useNavigation();
 
@@ -38,8 +42,9 @@ const ChatComponent = ({
   // Open confirm modal, delete room and navigates to the Roomlist screen
   const handleDelete = () => {
     //Open confirm modal
-    //Delete Room
-    console.log("DELETE ?");
+    console.log("DELETE ?" + item._id);
+    setRoomIdToDelete(item._id);
+    setVisibleDel(true);
   };
 
   ///👇🏻 Navigates to the Messaging screen

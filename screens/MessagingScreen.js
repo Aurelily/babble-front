@@ -21,6 +21,7 @@ import { genStyles } from "../styles/genStyles";
 
 //👇🏻 Import socket from the socket.js file in utils folder
 import socket from "../utils/socket";
+import { socketConnect } from "../utils/socket";
 
 const MessagingScreen = ({
   route,
@@ -36,6 +37,9 @@ const MessagingScreen = ({
   const [chatMessages, setChatMessages] = useState([]);
   const [roomInfos, setRoomInfos] = useState();
   const [infosLoading, setInfosLoading] = useState(true);
+
+  //Runs whenever there is new trigger from the backend
+  socketConnect();
 
   // Access the chatroom's name and id
   const { name, id } = route.params;
@@ -136,6 +140,7 @@ const MessagingScreen = ({
   useEffect(() => {
     navigation.setOptions({ title: name });
     socket.on("newMessage", (content) => {
+      fetchMessagesByRoomId();
       if (id === content.id_room) {
         setChatMessages((chatMessages) => [...chatMessages, content]);
       }
