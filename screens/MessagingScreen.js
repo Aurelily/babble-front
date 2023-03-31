@@ -45,6 +45,9 @@ const MessagingScreen = ({
   // Access the chatroom's name and id
   const { name, id } = route.params;
 
+  // Pour le scrollToEnd de la Flatlist
+  const flatList = React.useRef(null);
+
   // Function to get all user connected informations
   async function getRoomInfos() {
     try {
@@ -165,6 +168,10 @@ const MessagingScreen = ({
         <View style={[chatScreensStyles.messagingscreen]}>
           {chatMessages[0] ? (
             <FlatList
+              ref={flatList}
+              onContentSizeChange={() => {
+                flatList.current.scrollToEnd();
+              }}
               data={chatMessages}
               renderItem={({ item }) => (
                 <MessageComponent
