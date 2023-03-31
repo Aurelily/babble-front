@@ -36,13 +36,6 @@ export default function RoomsScreen({
     navigation.navigate("roomsList");
   };
 
-  // Open confirm modal, delete room and navigates to the Roomlist screen
-  /*   const handleDelete = () => {
-    //Open confirm modal
-    leaveRoom(roomName);
-    navigation.navigate("roomsList");
-  }; */
-
   return (
     <Stack.Navigator>
       <Stack.Screen

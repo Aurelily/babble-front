@@ -97,7 +97,13 @@ export default function LoginScreen({
               source={require("../assets/img/logo-orange.png")}
               style={loginScreenStyle.logoSign}
             />
-            <Text style={[genStyles.basicClearText, genStyles.textAlignCenter]}>
+            <Text
+              style={[
+                genStyles.basicClearText,
+                genStyles.textAlignCenter,
+                genStyles.boldText,
+              ]}
+            >
               Veuillez vous connecter pour accéder aux salons de discussion, à
               vos favoris et à la liste des Babblers !.
             </Text>

@@ -113,6 +113,7 @@ export default function RegisterScreen({ url, setUserDatas }) {
                 genStyles.basicClearText,
                 genStyles.textAlignCenter,
                 genStyles.textContainerWidth,
+                genStyles.boldText,
               ]}
             >
               Créez votre compte pour pouvoir chatter avec les “babblers”. Vous

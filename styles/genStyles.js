@@ -48,7 +48,7 @@ export const genStyles = StyleSheet.create({
     fontWeight: "bold",
   },
   miniPurpleText: {
-    fontSize: 9,
+    fontSize: 10,
     color: colors.purplePrimary,
   },
 

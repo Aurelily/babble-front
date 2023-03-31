@@ -25,7 +25,6 @@ import { profilScreenStyle } from "../styles/profilScreenStyle";
 // Pour que le clavier du mobile ne supperpose pas le contenu
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 
-
 export default function ProfileScreen({
   deleteInStore,
   userToken,
@@ -127,7 +126,9 @@ export default function ProfileScreen({
                   source={require("../assets/img/bt-deco.png")}
                   style={profilScreenStyle.btOrange}
                 />
-                <Text style={genStyles.basicClearText}>Déconnexion</Text>
+                <Text style={[genStyles.basicClearText, genStyles.boldText]}>
+                  Déconnexion
+                </Text>
               </TouchableOpacity>
             </View>
             <View
@@ -146,7 +147,9 @@ export default function ProfileScreen({
                   source={require("../assets/img/bt-editer.png")}
                   style={profilScreenStyle.btOrange}
                 />
-                <Text style={genStyles.basicClearText}>Avatar</Text>
+                <Text style={[genStyles.basicClearText, genStyles.boldText]}>
+                  Avatar
+                </Text>
               </TouchableOpacity>
             </View>
             <Image
@@ -158,6 +161,7 @@ export default function ProfileScreen({
                 genStyles.basicClearText,
                 genStyles.textAlignCenter,
                 genStyles.textContainerWidth,
+                genStyles.boldText,
               ]}
             >
               Ici vous pouvez modifier les informations de votre profil, ainsi

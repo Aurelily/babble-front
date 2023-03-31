@@ -116,7 +116,9 @@ export default function GeneralChatScreen({
                 source={require("../assets/img/bt-deco.png")}
                 style={chatScreensStyles.btOrange}
               />
-              <Text style={genStyles.basicClearText}>Déconnexion</Text>
+              <Text style={[genStyles.basicClearText, genStyles.boldText]}>
+                Déconnexion
+              </Text>
             </TouchableOpacity>
           </View>
           <Image
@@ -134,7 +136,9 @@ export default function GeneralChatScreen({
                 source={require("../assets/img/bt-add-room.png")}
                 style={chatScreensStyles.btOrange}
               />
-              <Text style={genStyles.basicClearText}>Créer un salon</Text>
+              <Text style={[genStyles.basicClearText, genStyles.boldText]}>
+                Créer un salon
+              </Text>
             </TouchableOpacity>
           </View>
         </View>

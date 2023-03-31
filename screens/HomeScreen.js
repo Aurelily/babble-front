@@ -98,6 +98,7 @@ export default function HomeScreen({
               genStyles.textContainerWidth,
               genStyles.textAlignCenter,
               homeScreenStyles.marginBottomMedium,
+              genStyles.boldText,
             ]}
           >
             Vous pouvez maintenant accéder aux salons de discussions, mais aussi
