@@ -7,9 +7,13 @@ import { useNavigation } from "@react-navigation/native";
 import { usersScreenStyle } from "../../styles/usersScreenStyle";
 import { genStyles } from "../../styles/genStyles";
 
+//👇🏻 Import socket from the socket.js file in utils folder
+import socket from "../../utils/socket";
+
 const UserComponent = ({ item, url, userToken, userId }) => {
   const navigation = useNavigation();
   const [userInfos, setUserInfos] = useState();
+  const [connected, setConnected] = useState(false);
 
   ///👇🏻 Navigates to the User detail screen
   const handleNavigation = () => {
@@ -46,6 +50,28 @@ const UserComponent = ({ item, url, userToken, userId }) => {
 
   useEffect(() => {
     getUserInfos();
+
+    socket.on("user connected", (activeSockets) => {
+      console.log(activeSockets);
+      const index = activeSockets.indexOf(item._id);
+      if (index !== -1) {
+        setConnected(true);
+      } else {
+        setConnected(false);
+      }
+    });
+
+    socket.on("user disconnected", (activeSockets) => {
+      const index = activeSockets.indexOf(item._id);
+      if (index !== -1) {
+        setConnected(false);
+      }
+    });
+
+    // Clean up function
+    return () => {
+      socket.disconnect();
+    };
   }, []);
 
   return (
@@ -61,6 +87,7 @@ const UserComponent = ({ item, url, userToken, userId }) => {
             <Text style={usersScreenStyle.cUserName}>
               {item.firstname} {item.lastname}
             </Text>
+            <Text>{connected ? "Connected" : "Not Connected"}</Text>
           </View>
         </View>
         <View style={usersScreenStyle.bgOpacity}></View>
