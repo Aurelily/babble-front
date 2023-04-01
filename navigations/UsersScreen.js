@@ -4,8 +4,8 @@ import { Text, TouchableOpacity, Image } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 
 //Screens
-import GeneralChatScreen from "./GeneralChatScreen";
-import MessagingScreen from "./MessagingScreen";
+import UsersDirScreen from "../screens/UsersDirScreen";
+import UserDetailsScreen from "../screens/UserDetailsScreen";
 
 // Definition of stack navigator
 const Stack = createNativeStackNavigator();
@@ -18,7 +18,7 @@ import colors from "../assets/colors";
 import { chatScreensStyles } from "../styles/chatScreensStyles";
 import { genStyles } from "../styles/genStyles";
 
-export default function RoomsScreen({
+export default function UsersScreen({
   url,
   userToken,
   setUserToken,
@@ -28,22 +28,20 @@ export default function RoomsScreen({
   deleteInStore,
 }) {
   const navigation = useNavigation();
-  const [roomName, setRoomName] = useState("");
 
   // Navigates to the Roomlist screen
   const handleNavigation = () => {
-    leaveRoom(roomName);
-    navigation.navigate("roomsList");
+    navigation.navigate("usersList");
   };
 
   return (
     <Stack.Navigator>
       <Stack.Screen
-        name="roomsList"
+        name="usersList"
         options={{
-          title: "Salons de discussion",
+          title: "Annuaire des Babblers",
           headerStyle: {
-            backgroundColor: colors.purpleThird,
+            backgroundColor: colors.orangeFourth,
           },
           headerShadowVisible: false,
           headerTintColor: "#fff",
@@ -53,7 +51,7 @@ export default function RoomsScreen({
         }}
       >
         {(props) => (
-          <GeneralChatScreen
+          <UsersDirScreen
             {...props}
             url={url}
             userToken={userToken}
@@ -61,18 +59,16 @@ export default function RoomsScreen({
             userId={userId}
             userInfos={userInfos}
             setUserInfos={setUserInfos}
-            roomName={roomName}
-            setRoomName={setRoomName}
             deleteInStore={deleteInStore}
           />
         )}
       </Stack.Screen>
       <Stack.Screen
-        name="messages"
+        name="userDetail"
         options={{
-          title: "Messages",
+          title: "Babbler",
           headerStyle: {
-            backgroundColor: colors.purpleThird,
+            backgroundColor: colors.orangeFourth,
             height: 500,
           },
           headerShadowVisible: false,
@@ -94,7 +90,7 @@ export default function RoomsScreen({
         }}
       >
         {(props) => (
-          <MessagingScreen
+          <UserDetailsScreen
             {...props}
             userId={userId}
             url={url}

@@ -105,7 +105,7 @@ export default function GeneralChatScreen({
           <View
             style={[chatScreensStyles.btDecoPos, chatScreensStyles.btLabelZone]}
           >
-            <TouchableOpacity
+            {/*             <TouchableOpacity
               onPress={() => {
                 deleteInStore("jwtToken");
                 setUserToken(null);
@@ -119,7 +119,7 @@ export default function GeneralChatScreen({
               <Text style={[genStyles.basicClearText, genStyles.boldText]}>
                 Déconnexion
               </Text>
-            </TouchableOpacity>
+            </TouchableOpacity> */}
           </View>
           <Image
             source={require("../assets/img/couple-orange.png")}

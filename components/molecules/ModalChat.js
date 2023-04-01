@@ -133,23 +133,7 @@ const ModalChat = ({
         source={require("../../assets/img/illus-salon.png")}
         style={chatScreensStyles.illus}
       />
-      <View style={[genStyles.totalWidth, genStyles.paddingBase]}>
-        <Text style={genStyles.subtitlePurpleText}>Règlement du salon</Text>
-        <Text style={genStyles.miniPurpleText}>
-          1.Respectez les autres utilisateurs.
-        </Text>
-        <Text style={genStyles.miniPurpleText}>
-          2.Pas de contenu offensant.
-        </Text>
-        <Text style={genStyles.miniPurpleText}>
-          3.Ne partagez pas d'informations personnelles.
-        </Text>
-        <Text style={genStyles.miniPurpleText}>4.Ne publiez pas de spam.</Text>
-        <Text style={genStyles.miniPurpleText}>
-          5.Respectez les règles de propriété intellectuelle.
-        </Text>
-        <Text style={genStyles.miniPurpleText}>6.Pas de langage grossier.</Text>
-      </View>
+
       <View style={[genStyles.paddingBase, genStyles.rowSpaceBetween]}>
         <Image
           source={require("../../assets/img/bt-signal.png")}

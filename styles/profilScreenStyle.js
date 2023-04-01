@@ -40,8 +40,8 @@ export const profilScreenStyle = StyleSheet.create({
   },
 
   avatar: {
-    height: 110,
-    width: 110,
+    height: 100,
+    width: 100,
     borderRadius: 999,
     shadowColor: "#000",
     shadowOffset: {

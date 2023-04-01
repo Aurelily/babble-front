@@ -5,6 +5,7 @@ export default {
   orangePrimary: "#FE9920",
   orangeSecondary: "#f8d29f",
   orangeThird: "#FFC47D",
+  orangeFourth: "#ffb450",
   bluePrimary: "#14BDEB",
   grey: "#959595",
 };

@@ -102,8 +102,9 @@ export default function HomeScreen({
             ]}
           >
             Vous pouvez maintenant accéder aux salons de discussions, mais aussi
-            papoter avec un autre babbler dans un salon privé. Vous pouvez
-            également modifier votre avatar ou les informations de votre profil.
+            papoter avec d'autres babblers dans des salon privés ou publics.
+            Vous pouvez également modifier votre avatar ou les informations de
+            votre profil.
           </Text>
           <View style={homeScreenStyles.buttonsContent}>
             <BtForm

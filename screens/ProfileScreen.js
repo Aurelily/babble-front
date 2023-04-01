@@ -219,7 +219,7 @@ export default function ProfileScreen({
               En soumettant ce formulaire, j'accepte que les informations
               saisies soient exploitées dans le cadre de la demande d'accès à
               l'application BABBLE et de la relation commerciale qui peut en
-              découler (Envoi de newsletter de la part de BABBLE).
+              découler.
             </Text>
           </View>
         </ImageBackground>

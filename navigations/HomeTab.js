@@ -13,7 +13,8 @@ const Tab = createBottomTabNavigator();
 import HomeScreen from "../screens/HomeScreen";
 import ProfileScreen from "../screens/ProfileScreen";
 import UsersDirScreen from "../screens/UsersDirScreen";
-import RoomsScreen from "../screens/RoomsScreen";
+import RoomsScreen from "./RoomsScreen";
+import UsersScreen from "./UsersScreen";
 
 //import colors
 import colors from "../assets/colors";
@@ -90,6 +91,38 @@ const HomeTab = ({ deleteInStore, userToken, setUserToken, url, userId }) => {
           />
         )}
       </Tab.Screen>
+
+      <Tab.Screen
+        name="Annuaire"
+        options={{
+          title: "",
+          tabBarLabel: "Annuaire",
+          tabBarIcon: ({ color, size }) => (
+            <AntDesign name="contacts" size={size} color={color} />
+          ),
+          headerStyle: {
+            backgroundColor: colors.orangeFourth,
+          },
+          headerShadowVisible: false,
+          headerTintColor: "#fff",
+          headerTitleStyle: {
+            fontWeight: "bold",
+          },
+        }}
+      >
+        {(props) => (
+          <UsersScreen
+            {...props}
+            url={url}
+            userToken={userToken}
+            setUserToken={setUserToken}
+            userId={userId}
+            userInfos={userInfos}
+            setUserInfos={setUserInfos}
+            deleteInStore={deleteInStore}
+          />
+        )}
+      </Tab.Screen>
       <Tab.Screen
         name="Profile"
         options={{
@@ -120,17 +153,6 @@ const HomeTab = ({ deleteInStore, userToken, setUserToken, url, userId }) => {
             setUserInfos={setUserInfos}
           />
         )}
-      </Tab.Screen>
-      <Tab.Screen
-        name="Annuaire"
-        options={{
-          tabBarLabel: "Annuaire",
-          tabBarIcon: ({ color, size }) => (
-            <AntDesign name="contacts" size={size} color={color} />
-          ),
-        }}
-      >
-        {(props) => <UsersDirScreen {...props} />}
       </Tab.Screen>
     </Tab.Navigator>
   );

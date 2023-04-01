@@ -14,8 +14,10 @@ import {
 import MessageComponent from "../components/molecules/MessageComponent";
 import InputText from "../components/atoms/InputText";
 
+//Pour que le clavier du mobile ne supperpose pas le contenu
+import { KeyboardAvoidingView, Platform } from "react-native";
+
 //Import styles
-import { stylesChat } from "../utils/styles";
 import { chatScreensStyles } from "../styles/chatScreensStyles";
 import { genStyles } from "../styles/genStyles";
 
@@ -156,61 +158,65 @@ const MessagingScreen = ({
     getUserInfos();
     getRoomInfos();
     fetchMessagesByRoomId();
-    console.log(chatMessages);
   }, []);
 
   return (
-    <ImageBackground
-      source={require("../assets/img/fond-bulles-violet5.png")}
-      style={chatScreensStyles.bgImage}
+    <KeyboardAvoidingView
+      behavior={Platform.OS === "ios" ? "position" : "position"}
+      style={chatScreensStyles.keyboardAvoidingContainer}
     >
-      <View style={chatScreensStyles.messagingscreenContainer}>
-        <View style={[chatScreensStyles.messagingscreen]}>
-          {chatMessages[0] ? (
-            <FlatList
-              ref={flatList}
-              onContentSizeChange={() => {
-                flatList.current.scrollToEnd();
-              }}
-              data={chatMessages}
-              renderItem={({ item }) => (
-                <MessageComponent
-                  item={item}
-                  url={url}
-                  userId={userId}
-                  userToken={userToken}
-                />
-              )}
-              keyExtractor={(item, index) => {
-                return index;
-              }}
-              nestedScrollEnabled={true}
-              scrollEnabled={true}
-              style={chatScreensStyles.flatlistMessagesContainer}
-            />
-          ) : (
-            ""
-          )}
-        </View>
+      <ImageBackground
+        source={require("../assets/img/fond-bulles-violet5.png")}
+        style={chatScreensStyles.bgImage}
+      >
+        <View style={chatScreensStyles.messagingscreenContainer}>
+          <View style={[chatScreensStyles.messagingscreen]}>
+            {chatMessages[0] ? (
+              <FlatList
+                ref={flatList}
+                onContentSizeChange={() => {
+                  flatList.current.scrollToEnd();
+                }}
+                data={chatMessages}
+                renderItem={({ item }) => (
+                  <MessageComponent
+                    item={item}
+                    url={url}
+                    userId={userId}
+                    userToken={userToken}
+                  />
+                )}
+                keyExtractor={(item, index) => {
+                  return index;
+                }}
+                nestedScrollEnabled={true}
+                scrollEnabled={true}
+                style={chatScreensStyles.flatlistMessagesContainer}
+              />
+            ) : (
+              <Text></Text>
+            )}
+          </View>
 
-        <View style={chatScreensStyles.messaginginputContainer}>
-          <InputText
-            placeholder="Message"
-            value={message}
-            setValue={setMessage}
-          />
-          <TouchableOpacity
-            style={chatScreensStyles.messagingbuttonContainer}
-            onPress={handleSubmitMessage}
-          >
-            <Image
-              source={require("../assets/img/bt-send.png")}
-              style={chatScreensStyles.btOrangeFlat}
+          <View style={chatScreensStyles.messaginginputContainer}>
+            <InputText
+              placeholder="Message"
+              value={message}
+              setValue={setMessage}
             />
-          </TouchableOpacity>
+            <TouchableOpacity
+              style={chatScreensStyles.messagingbuttonContainer}
+              onPress={handleSubmitMessage}
+            >
+              <Image
+                source={require("../assets/img/bt-send.png")}
+                style={chatScreensStyles.btOrangeFlat}
+              />
+            </TouchableOpacity>
+          </View>
         </View>
-      </View>
-    </ImageBackground>
+      </ImageBackground>
+    </KeyboardAvoidingView>
   );
 };
 

@@ -4,7 +4,7 @@ import colors from "../assets/colors";
 const windowWidth = Dimensions.get("window").width;
 const windowHeight = Dimensions.get("window").height;
 
-export const chatScreensStyles = StyleSheet.create({
+export const usersScreenStyle = StyleSheet.create({
   //// ROOM LIST
 
   container: {
@@ -15,7 +15,7 @@ export const chatScreensStyles = StyleSheet.create({
     marginBottom: 20,
   },
 
-  chatlistContainer: {
+  userslistContainer: {
     marginTop: 100,
     marginBottom: 50,
     width: windowWidth,
@@ -25,7 +25,7 @@ export const chatScreensStyles = StyleSheet.create({
   flatlistContainer: {
     marginBottom: 100,
   },
-  chatemptyContainer: {
+  flatListEmptyContainer: {
     width: "100%",
     height: "80%",
     alignItems: "center",
@@ -98,7 +98,7 @@ export const chatScreensStyles = StyleSheet.create({
     elevation: 8,
     marginRight: 10,
   },
-  //// ROOM LIST : CHAT COMPONENT
+  //// USERS LIST : USER COMPONENT
 
   component: {
     width: windowWidth,
@@ -126,7 +126,7 @@ export const chatScreensStyles = StyleSheet.create({
     justifyContent: "space-between",
     flex: 1,
   },
-  cRoomName: {
+  cUserName: {
     color: "#fff",
     fontSize: 18,
     marginBottom: 5,
