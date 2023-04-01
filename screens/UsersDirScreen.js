@@ -10,12 +10,11 @@ import {
 } from "react-native";
 
 // Import colors ans style
-import { chatScreensStyles } from "../styles/chatScreensStyles";
+import { usersScreenStyle } from "../styles/usersScreenStyle";
 import { genStyles } from "../styles/genStyles";
 
 // Import components
 import UserComponent from "../components/molecules/UserComponent";
-import { usersScreenStyle } from "../styles/usersScreenStyle";
 
 export default function UsersDirScreen({
   url,

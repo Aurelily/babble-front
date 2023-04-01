@@ -15,7 +15,7 @@ const UserComponent = ({ item, url, userToken, userId }) => {
   const handleNavigation = () => {
     navigation.navigate("userDetail", {
       id: item._id,
-      firstname: item.name,
+      firstname: item.firstname,
       lastname: item.lastname,
       email: item.email,
       avatarPath: item.avatarPath,

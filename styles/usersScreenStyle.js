@@ -5,7 +5,7 @@ const windowWidth = Dimensions.get("window").width;
 const windowHeight = Dimensions.get("window").height;
 
 export const usersScreenStyle = StyleSheet.create({
-  //// ROOM LIST
+  //// USER LIST
 
   container: {
     alignItems: "center",
