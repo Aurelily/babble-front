@@ -162,6 +162,7 @@ const MessagingScreen = ({
     });
     getUserInfos();
     getRoomInfos();
+    console.log(privateCode);
     fetchMessagesByRoomId();
   }, []);
 
@@ -180,6 +181,7 @@ const MessagingScreen = ({
             roomInfos={roomInfos}
             url={url}
             userToken={userToken}
+            privateCode={privateCode}
           />
         ) : (
           ""

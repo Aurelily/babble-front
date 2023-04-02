@@ -175,6 +175,13 @@ export const chatScreensStyles = StyleSheet.create({
     justifyContent: "space-between",
     width: "100%",
   },
+  modalOneButtonContainer: {
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "center",
+    width: "100%",
+    paddingRight: 20,
+  },
   modaltext: {
     color: "#fff",
   },
