@@ -25,9 +25,7 @@ const ModalChat = ({
   setUserInfos,
   userId,
   userToken,
-
   rooms,
-  setRooms,
   fetchGroups,
 }) => {
   // Pour le switch RGPD
@@ -36,6 +34,7 @@ const ModalChat = ({
 
   // States
   const [groupName, setGroupName] = useState("");
+  const [roomCode, setRoomCode] = useState("");
   const [infosLoading, setInfosLoading] = useState(true);
   const [alert, setAlert] = useState("");
 
@@ -65,6 +64,22 @@ const ModalChat = ({
   // Function that closes the Modal component
   const closeModal = () => setVisible(false);
 
+  // Function to generate random letters private room code
+  const generateRandomCode = () => {
+    let code = "";
+    const alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+    for (let i = 0; i < 6; i++) {
+      const randomIndex = Math.floor(Math.random() * alphabet.length);
+      code += alphabet.charAt(randomIndex);
+    }
+    if (rooms.find((room) => room.code === code)) {
+      generateRandomCode;
+    } else {
+      setRoomCode(code);
+      return roomCode;
+    }
+  };
+
   const handleSubmitRoom = async () => {
     if (groupName) {
       if (isEnabled) {
@@ -73,6 +88,8 @@ const ModalChat = ({
           creator: userInfos._id,
           dateCreation: new Date(),
           private: true,
+          privateCode: roomCode,
+          signal: 0,
         };
       } else {
         var roomToCreate = {
@@ -80,6 +97,7 @@ const ModalChat = ({
           creator: userInfos._id,
           dateCreation: new Date(),
           private: false,
+          privateCode: "",
           signal: 0,
         };
       }
@@ -106,6 +124,12 @@ const ModalChat = ({
     }
   };
 
+  useEffect(() => {
+    if (isEnabled) {
+      generateRandomCode();
+    }
+  }, [isEnabled]);
+
   return (
     <View style={chatScreensStyles.formContent}>
       <Text style={[genStyles.titlePurpleText, chatScreensStyles.titleModal]}>
@@ -126,8 +150,19 @@ const ModalChat = ({
           onValueChange={toggleSwitch}
           value={isEnabled}
         />
-        <Text style={genStyles.subtitleOrangeText}> Salon privé</Text>
+        <Text style={genStyles.subtitleOrangeText}> Privé</Text>
       </View>
+      {isEnabled ? (
+        <>
+          <Text style={genStyles.titlePurpleText}>{roomCode}</Text>
+          <Text style={genStyles.miniPurpleText}>
+            Communiquez ce code aux Babblers que vous voulez inviter dans votre
+            salon.
+          </Text>
+        </>
+      ) : (
+        <Text></Text>
+      )}
 
       <Image
         source={require("../../assets/img/illus-salon.png")}
