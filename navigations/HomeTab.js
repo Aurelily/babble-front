@@ -1,5 +1,5 @@
 import React from "react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 
 //import icons tab navigator
@@ -12,14 +12,20 @@ const Tab = createBottomTabNavigator();
 //import Screens
 import HomeScreen from "../screens/HomeScreen";
 import ProfileScreen from "../screens/ProfileScreen";
-import UsersDirScreen from "../screens/UsersDirScreen";
 import RoomsScreen from "./RoomsScreen";
 import UsersScreen from "./UsersScreen";
 
 //import colors
 import colors from "../assets/colors";
 
-const HomeTab = ({ deleteInStore, userToken, setUserToken, url, userId }) => {
+const HomeTab = ({
+  deleteInStore,
+  userToken,
+  setUserToken,
+  url,
+  userId,
+  setUserId,
+}) => {
   const [userInfos, setUserInfos] = useState();
 
   return (
@@ -52,6 +58,7 @@ const HomeTab = ({ deleteInStore, userToken, setUserToken, url, userId }) => {
             {...props}
             url={url}
             userId={userId}
+            setUserId={setUserId}
             userToken={userToken}
             setUserToken={setUserToken}
             userInfos={userInfos}

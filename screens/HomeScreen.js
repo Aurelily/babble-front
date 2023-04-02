@@ -9,6 +9,9 @@ import {
   ImageBackground,
 } from "react-native";
 
+// jwt-decode library to decode jwtToken
+import jwtDecode from "jwt-decode";
+
 //Components :
 import BtForm from "../components/atoms/BtForm";
 
@@ -23,6 +26,7 @@ import { useNavigation } from "@react-navigation/core";
 export default function HomeScreen({
   url,
   userId,
+  setUserId,
   setUserToken,
   userToken,
   userInfos,
@@ -35,6 +39,10 @@ export default function HomeScreen({
   const [infosLoading, setInfosLoading] = useState(true);
 
   useEffect(() => {
+    if (userToken) {
+      const decodedToken = jwtDecode(userToken);
+      setUserId(decodedToken.userId);
+    }
     // Function to get all user connected informations
     async function getUserInfos() {
       try {
@@ -59,7 +67,7 @@ export default function HomeScreen({
 
   return infosLoading ? (
     <View style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>
-      <Text>Loading ...</Text>
+      <Text>Loading ...{userId}</Text>
       <TouchableOpacity
         onPress={() => {
           deleteInStore("jwtToken");

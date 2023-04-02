@@ -8,6 +8,9 @@ import { Text } from "react-native";
 import * as SecureStore from "expo-secure-store";
 import * as Server from "./env";
 
+// jwt-decode library to decode jwtToken
+import jwtDecode from "jwt-decode";
+
 // Import screens
 
 import LoginScreen from "./screens/LoginScreen";
@@ -121,6 +124,7 @@ export default function App() {
         <HomeTab
           deleteInStore={deleteInStore}
           userId={userId}
+          setUserId={setUserId}
           userToken={userToken}
           setUserToken={setUserToken}
           url={url}
