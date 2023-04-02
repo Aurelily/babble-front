@@ -56,6 +56,11 @@ export const chatScreensStyles = StyleSheet.create({
     left: 90,
     top: 0,
   },
+  privateImg: {
+    width: 20,
+    height: 30,
+    marginRight: 5,
+  },
   coupleOrange: {
     position: "absolute",
     right: -70,
@@ -292,5 +297,24 @@ export const chatScreensStyles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
     keyboardVerticalOffset: -60,
+  },
+
+  modalCodeContent: {
+    marginTop: 150,
+    backgroundColor: "white",
+    borderRadius: 50,
+    padding: 20,
+    width: windowWidth,
+    height: windowHeight,
+    justifyContent: "flex-start",
+    alignItems: "center",
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 5,
+    },
+    shadowOpacity: 0.34,
+    shadowRadius: 6.27,
+    elevation: 10,
   },
 });

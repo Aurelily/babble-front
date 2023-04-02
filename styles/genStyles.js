@@ -23,12 +23,17 @@ export const genStyles = StyleSheet.create({
     width: windowWidth,
   },
 
-  // Padding
+  // Padding et margin
   // --------------------
   paddingBase: {
     padding: 20,
   },
-
+  marginTopBase: {
+    marginTop: 20,
+  },
+  marginBottomBase: {
+    marginBottom: 20,
+  },
   // Types de textes
   // --------------------
   titleClearText: {

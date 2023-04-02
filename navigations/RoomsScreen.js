@@ -101,6 +101,7 @@ export default function RoomsScreen({
             userToken={userToken}
             userInfos={userInfos}
             setUserInfos={setUserInfos}
+            handleNavigation={handleNavigation}
           />
         )}
       </Stack.Screen>

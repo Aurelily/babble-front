@@ -15,32 +15,50 @@ const ModalCodeConfirm = ({
   roomIdToConfim,
   url,
   userToken,
-  rooms,
 }) => {
   // States
-  const [groupName, setGroupName] = useState("");
   const [roomCodeUse, setRoomCodeUse] = useState("");
-  const [infosLoading, setInfosLoading] = useState(true);
+  const [roomInfos, setRoomInfos] = useState();
   const [alert, setAlert] = useState("");
 
   // Function that closes the Modal component
   const closeModal = () => setVisibleCodeConf(false);
 
+  // Function to get all user connected informations
+  async function getRoomInfos() {
+    try {
+      await fetch(`${url}rooms/details/${roomIdToConfim}`, {
+        headers: {
+          Authorization: `Bearer ${userToken}`,
+        },
+      }).then((response) => {
+        response.json().then((data) => {
+          if (data.status == 200) {
+            setRoomInfos(data.data);
+          }
+        });
+      });
+    } catch (e) {
+      console.log(e);
+    }
+  }
+
   const handleValidCode = async () => {
-    console.log("ValidCode ?" + roomIdToConfim);
+    getRoomInfos();
+    if (roomInfos.privateCode === roomCodeUse) {
+      console.log("CODE OK");
+    } else {
+      setAlert("Ce n'est pas le bon code.");
+    }
   };
 
-  /*   useEffect(() => {
-    if (isEnabled) {
-      generateRandomCode();
-    }
-  }, [isEnabled]); */
-
   return (
-    <View style={chatScreensStyles.formContent}>
-      <Text style={[genStyles.titlePurpleText, chatScreensStyles.titleModal]}>
-        Ce salon est privé. Veuillez entrer le code que son créateur vous a
-        communiqué
+    <View style={chatScreensStyles.modalCodeContent}>
+      <Text style={[genStyles.titlePurpleText, genStyles.boldText]}>
+        Ce salon est privé.
+      </Text>
+      <Text style={[genStyles.msgAlert, genStyles.marginBottomBase]}>
+        {alert}
       </Text>
 
       <InputText
@@ -48,12 +66,16 @@ const ModalCodeConfirm = ({
         value={roomCodeUse}
         setValue={setRoomCodeUse}
       />
-      <Text style={genStyles.msgAlert}>{alert}</Text>
 
-      <Image
-        source={require("../../assets/img/illus-salon.png")}
-        style={chatScreensStyles.illus}
-      />
+      <Text
+        style={[
+          genStyles.basicPurpleText,
+          genStyles.boldText,
+          genStyles.marginBottomBase,
+        ]}
+      >
+        Veuillez entrer le code que son créateur vous a communiqué.
+      </Text>
 
       <View style={chatScreensStyles.modalbuttonContainer}>
         <BtForm
@@ -69,6 +91,10 @@ const ModalCodeConfirm = ({
           colorEnd={colors.orangeSecondary}
         />
       </View>
+      <Image
+        source={require("../../assets/img/illus-salon.png")}
+        style={chatScreensStyles.illus}
+      />
     </View>
   );
 };

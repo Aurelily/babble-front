@@ -48,13 +48,6 @@ const ChatComponent = ({
     setVisibleDel(true);
   };
 
-  // Open code confirm modal if room is private
-  const handleCodeConf = () => {
-    console.log("DELETE ?" + item._id);
-    setRoomIdToConfirm(item._id);
-    setVisibleCodeConf(true);
-  };
-
   ///👇🏻 Navigates to the Messaging screen
   const handleNavigation = () => {
     subscribeToRoom(item.name);
@@ -64,6 +57,7 @@ const ChatComponent = ({
       name: item.name,
       creator: item.creator,
       dateCreation: item.dateCreation,
+      privateCode: item.privateCode,
     });
   };
 
@@ -107,7 +101,14 @@ const ChatComponent = ({
           source={require("../../assets/img/avatar-defaut.png")}
           style={chatScreensStyles.avatar}
         />
-
+        {item.privateCode ? (
+          <Image
+            source={require("../../assets/img/private-room.png")}
+            style={[chatScreensStyles.privateImg]}
+          />
+        ) : (
+          <Text></Text>
+        )}
         <View style={chatScreensStyles.cContainer}>
           <View>
             <Text style={chatScreensStyles.cRoomName}>{item.name}</Text>
@@ -116,6 +117,7 @@ const ChatComponent = ({
           </View>
           <View>
             <Text style={genStyles.basicPurpleText}>{formattedDate}</Text>
+
             {userId === item.creator._id ? (
               <TouchableOpacity
                 onPress={handleDelete}

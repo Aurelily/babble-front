@@ -13,6 +13,7 @@ import {
 //Import components
 import MessageComponent from "../components/molecules/MessageComponent";
 import InputText from "../components/atoms/InputText";
+import ModalCodeConfirm from "../components/molecules/ModalCodeConfirm";
 
 //Pour que le clavier du mobile ne supperpose pas le contenu
 import { KeyboardAvoidingView, Platform } from "react-native";
@@ -40,12 +41,13 @@ const MessagingScreen = ({
   const [chatMessages, setChatMessages] = useState([]);
   const [roomInfos, setRoomInfos] = useState();
   const [infosLoading, setInfosLoading] = useState(true);
+  const [visibleCodeConf, setVisibleCodeConf] = useState(false);
 
   //Runs whenever there is new trigger from the backend
   socketConnect();
 
-  // Access the chatroom's name and id
-  const { name, id } = route.params;
+  // Access the chat component params
+  const { name, id, privateCode } = route.params;
 
   // Pour le scrollToEnd de la Flatlist
   const flatList = React.useRef(null);
@@ -145,6 +147,9 @@ const MessagingScreen = ({
   //👇🏻 This runs when the messages are updated.
   useEffect(() => {
     navigation.setOptions({ title: name });
+    if (privateCode) {
+      setVisibleCodeConf(true);
+    }
     socket.on("newMessage", (content) => {
       fetchMessagesByRoomId();
       if (id === content.id_room) {
@@ -169,6 +174,16 @@ const MessagingScreen = ({
         source={require("../assets/img/fond-bulles-violet5.png")}
         style={chatScreensStyles.bgImage}
       >
+        {visibleCodeConf ? (
+          <ModalCodeConfirm
+            setVisibleCodeConf={setVisibleCodeConf}
+            roomInfos={roomInfos}
+            url={url}
+            userToken={userToken}
+          />
+        ) : (
+          ""
+        )}
         <View style={chatScreensStyles.messagingscreenContainer}>
           <View style={[chatScreensStyles.messagingscreen]}>
             {chatMessages[0] ? (
