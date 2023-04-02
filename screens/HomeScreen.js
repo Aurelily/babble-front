@@ -87,7 +87,7 @@ export default function HomeScreen({
           {/*     <Text>Screen Home : connexion confirmée pour le user ID : {userId} </Text> */}
           <View>
             <Image
-              source={require("../assets/img/avatar-defaut.png")}
+              source={require("../assets/img/avatars/avatar-defaut.png")}
               style={homeScreenStyles.avatar}
             />
           </View>

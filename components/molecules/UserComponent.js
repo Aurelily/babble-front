@@ -78,7 +78,7 @@ const UserComponent = ({ item, url, userToken, userId }) => {
     <>
       <Pressable style={usersScreenStyle.component} onPress={handleNavigation}>
         <Image
-          source={require("../../assets/img/avatar-defaut.png")}
+          source={require("../../assets/img/avatars/avatar-defaut.png")}
           style={usersScreenStyle.avatar}
         />
 

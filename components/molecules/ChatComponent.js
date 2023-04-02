@@ -98,7 +98,7 @@ const ChatComponent = ({
     <>
       <Pressable style={chatScreensStyles.component} onPress={handleNavigation}>
         <Image
-          source={require("../../assets/img/avatar-defaut.png")}
+          source={require("../../assets/img/avatars/avatar-defaut.png")}
           style={chatScreensStyles.avatar}
         />
         {item.privateCode ? (

@@ -95,7 +95,7 @@ const ModalCodeConfirm = ({
         />
       </View>
       <Image
-        source={require("../../assets/img/illus-salon.png")}
+        source={require("../../assets/img/illus-private.png")}
         style={chatScreensStyles.illus}
       />
     </View>

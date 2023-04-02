@@ -37,7 +37,7 @@ export default function UserDetailsScreen({
         <View style={[homeScreenStyles.container]}>
           <View>
             <Image
-              source={require("../assets/img/avatar-defaut.png")}
+              source={require("../assets/img/avatars/avatar-defaut.png")}
               style={homeScreenStyles.avatar}
             />
           </View>

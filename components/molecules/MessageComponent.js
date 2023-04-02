@@ -69,7 +69,7 @@ export default function MessageComponent({ item, userId, userToken, url }) {
         <View style={{ flexDirection: "row", alignItems: "center" }}>
           {status && status2 ? (
             <Image
-              source={require("../../assets/img/avatar-defaut.png")}
+              source={require("../../assets/img/avatars/avatar-defaut.png")}
               style={chatScreensStyles.avatar}
             />
           ) : (

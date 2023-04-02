@@ -105,7 +105,7 @@ export default function RegisterScreen({ url, setUserDatas }) {
         >
           <View style={registerScreenStyle.avatarZone}>
             <Image
-              source={require("../assets/img/avatar-defaut.png")}
+              source={require("../assets/img/avatars/avatar-defaut.png")}
               style={registerScreenStyle.avatar}
             />
             <Text
