@@ -15,6 +15,7 @@ import { useState } from "react";
 import ModalChat from "../components/molecules/ModalChat";
 import ChatComponent from "../components/molecules/ChatComponent";
 import ModalDelete from "../components/molecules/ModalDelete";
+import ModalCodeConfirm from "../components/molecules/ModalCodeConfirm";
 
 import { chatScreensStyles } from "../styles/chatScreensStyles";
 import { genStyles } from "../styles/genStyles";
@@ -38,9 +39,11 @@ export default function GeneralChatScreen({
 }) {
   const [visible, setVisible] = useState(false);
   const [visibleDel, setVisibleDel] = useState(false);
+  const [visibleCodeConf, setVisibleCodeConf] = useState(false);
   const [rooms, setRooms] = useState([]);
   const [roomsLoading, setRoomsLoading] = useState(true);
   const [roomIdToDelete, setRoomIdToDelete] = useState();
+  const [roomIdToConfim, setRoomIdToConfirm] = useState();
 
   //Runs whenever there is new trigger from the backend
   socketConnect();
@@ -104,23 +107,7 @@ export default function GeneralChatScreen({
         <View style={chatScreensStyles.topZone}>
           <View
             style={[chatScreensStyles.btDecoPos, chatScreensStyles.btLabelZone]}
-          >
-            {/*             <TouchableOpacity
-              onPress={() => {
-                deleteInStore("jwtToken");
-                setUserToken(null);
-              }}
-              style={genStyles.genCenter}
-            >
-              <Image
-                source={require("../assets/img/bt-deco.png")}
-                style={chatScreensStyles.btOrange}
-              />
-              <Text style={[genStyles.basicClearText, genStyles.boldText]}>
-                Déconnexion
-              </Text>
-            </TouchableOpacity> */}
-          </View>
+          ></View>
           <Image
             source={require("../assets/img/couple-orange.png")}
             style={chatScreensStyles.coupleOrange}
@@ -156,7 +143,9 @@ export default function GeneralChatScreen({
                   userToken={userToken}
                   userId={userId}
                   setVisibleDel={setVisibleDel}
+                  setVisibleCodeConf={setVisibleCodeConf}
                   setRoomIdToDelete={setRoomIdToDelete}
+                  setRoomIdToConfirm={setRoomIdToConfirm}
                 />
               )}
               keyExtractor={(item, index) => index.toString()}
@@ -203,7 +192,17 @@ export default function GeneralChatScreen({
             userToken={userToken}
             setUserInfos={setUserInfos}
             rooms={rooms}
-            setRooms={setRooms}
+          />
+        ) : (
+          ""
+        )}
+        {visibleCodeConf ? (
+          <ModalCodeConfirm
+            setVisibleCodeConf={setVisibleCodeConf}
+            roomIdToConfim={roomIdToConfim}
+            url={url}
+            userToken={userToken}
+            rooms={rooms}
           />
         ) : (
           ""

@@ -23,6 +23,8 @@ const ChatComponent = ({
   userToken,
   userId,
   setVisibleDel,
+  setVisibleCodeConf,
+  setRoomIdToConfirm,
 }) => {
   const navigation = useNavigation();
 
@@ -41,10 +43,16 @@ const ChatComponent = ({
 
   // Open confirm modal, delete room and navigates to the Roomlist screen
   const handleDelete = () => {
-    //Open confirm modal
     console.log("DELETE ?" + item._id);
     setRoomIdToDelete(item._id);
     setVisibleDel(true);
+  };
+
+  // Open code confirm modal if room is private
+  const handleCodeConf = () => {
+    console.log("DELETE ?" + item._id);
+    setRoomIdToConfirm(item._id);
+    setVisibleCodeConf(true);
   };
 
   ///👇🏻 Navigates to the Messaging screen
