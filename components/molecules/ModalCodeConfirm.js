@@ -20,10 +20,12 @@ const ModalCodeConfirm = ({
   userToken,
   privateCode,
   setVisibleCodeConf,
+  name,
+  roomInfos,
 }) => {
   // States
   const [roomCodeUse, setRoomCodeUse] = useState("");
-  const [roomInfos, setRoomInfos] = useState();
+  /*   const [roomInfos, setRoomInfos] = useState(); */
   const [alert, setAlert] = useState("");
 
   const navigation = useNavigation();
@@ -32,7 +34,7 @@ const ModalCodeConfirm = ({
   const closeModal = () => setVisibleCodeConf(false);
 
   // Function to get all user connected informations
-  async function getRoomInfos() {
+  /*   async function getRoomInfos() {
     try {
       await fetch(`${url}rooms/details/${roomIdToConfim}`, {
         headers: {
@@ -48,10 +50,10 @@ const ModalCodeConfirm = ({
     } catch (e) {
       console.log(e);
     }
-  }
+  } */
 
   const handleValidCode = async () => {
-    if (privateCode === roomCodeUse) {
+    if (roomInfos.privateCode === roomCodeUse) {
       closeModal();
     } else {
       setAlert(
@@ -63,7 +65,7 @@ const ModalCodeConfirm = ({
   return (
     <View style={chatScreensStyles.modalCodeContent}>
       <Text style={[genStyles.titlePurpleText, genStyles.boldText]}>
-        Ce salon est privé.
+        Ce salon {roomInfos.name} est privé.
       </Text>
       <Text style={[genStyles.msgAlert, genStyles.marginBottomBase]}>
         {alert}

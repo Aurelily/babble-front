@@ -35,16 +35,18 @@ const MessagingScreen = ({
   userToken,
   userInfos,
   setUserInfos,
+  roomInfos,
+  setRoomInfos,
 }) => {
   const [message, setMessage] = useState("");
   const [messagesLoading, setMessageLoading] = useState(true);
   const [chatMessages, setChatMessages] = useState([]);
-  const [roomInfos, setRoomInfos] = useState();
+  /* const [roomInfos, setRoomInfos] = useState("defaut"); */
   const [infosLoading, setInfosLoading] = useState(true);
   const [visibleCodeConf, setVisibleCodeConf] = useState(false);
 
-  //Runs whenever there is new trigger from the backend
-  socketConnect();
+  /*   //Runs whenever there is new trigger from the backend
+  socketConnect(); */
 
   // Access the chat component params
   const { name, id, privateCode } = route.params;
@@ -53,27 +55,30 @@ const MessagingScreen = ({
   const flatList = React.useRef(null);
 
   // Function to get all user connected informations
-  async function getRoomInfos() {
+  const getRoomInfos = async () => {
     try {
-      await fetch(`${url}rooms/details/${id}`, {
+      fetch(`${url}rooms/details/${id}`, {
         headers: {
           Authorization: `Bearer ${userToken}`,
         },
       }).then((response) => {
         response.json().then((data) => {
           if (data.status == 200) {
+            console.log("dans getRoomInfos :");
             setRoomInfos(data.data);
+            console.log(roomInfos);
             setInfosLoading(false);
+            console.log(infosLoading);
           }
         });
       });
     } catch (e) {
       console.log(e);
     }
-  }
+  };
 
   // Function to get connected user info
-  async function getUserInfos() {
+  /*   const getUserInfos = async () => {
     try {
       await fetch(`${url}users/details/${userId}`, {
         headers: {
@@ -82,7 +87,9 @@ const MessagingScreen = ({
       }).then((response) => {
         response.json().then((data) => {
           if (data.status == 200) {
+            console.log("dans getUserInfos :");
             setUserInfos(data.data);
+            console.log(userInfos);
             setInfosLoading(false);
           }
         });
@@ -90,7 +97,7 @@ const MessagingScreen = ({
     } catch (e) {
       console.log(e);
     }
-  }
+  }; */
 
   async function fetchMessagesByRoomId() {
     try {
@@ -140,9 +147,21 @@ const MessagingScreen = ({
       }
     } else {
       // Si tous les champs ne sont pas remplis
-      setAlert("Indiquer un message");
+      console.log("Indiquer un message");
     }
   };
+
+  // Socket Events listener
+  socket.on("newMessage", (content) => {
+    fetchMessagesByRoomId();
+    if (id === content.id_room) {
+      setChatMessages((chatMessages) => [...chatMessages, content]);
+    }
+  });
+  socket.on("deleteRoom", (room) => {
+    leaveRoom(room.name);
+    navigation.navigate("roomsList");
+  });
 
   //👇🏻 This runs when the messages are updated.
   useEffect(() => {
@@ -150,18 +169,10 @@ const MessagingScreen = ({
     if (privateCode) {
       setVisibleCodeConf(true);
     }
-    socket.on("newMessage", (content) => {
-      fetchMessagesByRoomId();
-      if (id === content.id_room) {
-        setChatMessages((chatMessages) => [...chatMessages, content]);
-      }
-    });
-    socket.on("deleteRoom", (room) => {
-      leaveRoom(room.name);
-      navigation.navigate("roomsList");
-    });
-    getUserInfos();
+    /* getUserInfos(); */
     getRoomInfos();
+    console.log("Dans le useEffect");
+    console.log(roomInfos);
     console.log(privateCode);
     fetchMessagesByRoomId();
   }, []);
@@ -178,10 +189,11 @@ const MessagingScreen = ({
         {visibleCodeConf ? (
           <ModalCodeConfirm
             setVisibleCodeConf={setVisibleCodeConf}
-            roomInfos={roomInfos}
             url={url}
             userToken={userToken}
             privateCode={privateCode}
+            /*  name={name} */
+            roomInfos={roomInfos}
           />
         ) : (
           ""

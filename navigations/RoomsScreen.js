@@ -29,6 +29,7 @@ export default function RoomsScreen({
 }) {
   const navigation = useNavigation();
   const [roomName, setRoomName] = useState("");
+  const [roomInfos, setRoomInfos] = useState();
 
   // Navigates to the Roomlist screen
   const handleNavigation = () => {
@@ -101,6 +102,8 @@ export default function RoomsScreen({
             userToken={userToken}
             userInfos={userInfos}
             setUserInfos={setUserInfos}
+            roomInfos={roomInfos}
+            setRoomInfos={setRoomInfos}
           />
         )}
       </Stack.Screen>
