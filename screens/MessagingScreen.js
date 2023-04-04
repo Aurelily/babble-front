@@ -49,7 +49,7 @@ const MessagingScreen = ({
   socketConnect(); */
 
   // Access the chat component params
-  const { name, id, privateCode } = route.params;
+  const { name, id, privateCode, creator } = route.params;
 
   // Pour le scrollToEnd de la Flatlist
   const flatList = React.useRef(null);
@@ -76,28 +76,6 @@ const MessagingScreen = ({
       console.log(e);
     }
   };
-
-  // Function to get connected user info
-  /*   const getUserInfos = async () => {
-    try {
-      await fetch(`${url}users/details/${userId}`, {
-        headers: {
-          Authorization: `Bearer ${userToken}`,
-        },
-      }).then((response) => {
-        response.json().then((data) => {
-          if (data.status == 200) {
-            console.log("dans getUserInfos :");
-            setUserInfos(data.data);
-            console.log(userInfos);
-            setInfosLoading(false);
-          }
-        });
-      });
-    } catch (e) {
-      console.log(e);
-    }
-  }; */
 
   async function fetchMessagesByRoomId() {
     try {
@@ -172,7 +150,6 @@ const MessagingScreen = ({
     /* getUserInfos(); */
     getRoomInfos();
     console.log("Dans le useEffect");
-    console.log(roomInfos);
     console.log(privateCode);
     fetchMessagesByRoomId();
   }, []);
@@ -186,14 +163,14 @@ const MessagingScreen = ({
         source={require("../assets/img/fond-bulles-violet5.png")}
         style={chatScreensStyles.bgImage}
       >
-        {visibleCodeConf ? (
+        {visibleCodeConf && userId !== creator._id ? (
           <ModalCodeConfirm
             setVisibleCodeConf={setVisibleCodeConf}
             url={url}
             userToken={userToken}
             privateCode={privateCode}
-            /*  name={name} */
-            roomInfos={roomInfos}
+            name={name}
+            /*             roomInfos={roomInfos} */
           />
         ) : (
           ""

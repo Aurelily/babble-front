@@ -65,7 +65,7 @@ const ModalCodeConfirm = ({
   return (
     <View style={chatScreensStyles.modalCodeContent}>
       <Text style={[genStyles.titlePurpleText, genStyles.boldText]}>
-        Ce salon {roomInfos.name} est privé.
+        Ce salon {name} est privé.
       </Text>
       <Text style={[genStyles.msgAlert, genStyles.marginBottomBase]}>
         {alert}

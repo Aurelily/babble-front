@@ -143,7 +143,6 @@ export default function GeneralChatScreen({
                   userToken={userToken}
                   userId={userId}
                   setVisibleDel={setVisibleDel}
-                  setVisibleCodeConf={setVisibleCodeConf}
                   setRoomIdToDelete={setRoomIdToDelete}
                   setRoomIdToConfirm={setRoomIdToConfirm}
                 />

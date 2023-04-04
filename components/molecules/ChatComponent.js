@@ -23,7 +23,6 @@ const ChatComponent = ({
   userToken,
   userId,
   setVisibleDel,
-  setVisibleCodeConf,
   setRoomIdToConfirm,
 }) => {
   const navigation = useNavigation();
