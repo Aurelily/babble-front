@@ -26,6 +26,10 @@ const Stack = createNativeStackNavigator();
 // variable URL
 const url = "http://" + Server.SERVER_IP + ":3000/";
 
+// variable chemin absolue pour avatars
+const rootPath =
+  "file:///Users/aureliepreaud/Documents/_PLATEFORME/CDA-2023/Projet-Babble/babble-front/assets/img/avatars/";
+
 export default function App() {
   const [isLoading, setIsLoading] = useState(true);
   const [keyTokenStore, setKeyTokenStore] = useState("jwtToken");
@@ -128,6 +132,7 @@ export default function App() {
           userToken={userToken}
           setUserToken={setUserToken}
           url={url}
+          rootPath={rootPath}
         />
       )}
     </NavigationContainer>

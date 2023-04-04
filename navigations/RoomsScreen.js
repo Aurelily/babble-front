@@ -20,6 +20,7 @@ import { genStyles } from "../styles/genStyles";
 
 export default function RoomsScreen({
   url,
+  rootPath,
   userToken,
   setUserToken,
   userInfos,
@@ -57,6 +58,7 @@ export default function RoomsScreen({
           <GeneralChatScreen
             {...props}
             url={url}
+            rootPath={rootPath}
             userToken={userToken}
             setUserToken={setUserToken}
             userId={userId}

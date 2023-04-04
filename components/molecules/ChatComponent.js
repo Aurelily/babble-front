@@ -20,6 +20,7 @@ const ChatComponent = ({
   setRoomName,
   setRoomIdToDelete,
   url,
+  rootPath,
   userToken,
   userId,
   setVisibleDel,
@@ -97,7 +98,7 @@ const ChatComponent = ({
     <>
       <Pressable style={chatScreensStyles.component} onPress={handleNavigation}>
         <Image
-          source={require("../../assets/img/avatars/avatar-defaut.png")}
+          source={{ uri: rootPath + item.creator.avatarPath }}
           style={chatScreensStyles.avatar}
         />
         {item.privateCode ? (

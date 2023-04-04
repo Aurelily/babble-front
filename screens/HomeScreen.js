@@ -25,6 +25,7 @@ import { useNavigation } from "@react-navigation/core";
 
 export default function HomeScreen({
   url,
+  rootPath,
   userId,
   setUserId,
   setUserToken,
@@ -87,7 +88,7 @@ export default function HomeScreen({
           {/*     <Text>Screen Home : connexion confirmée pour le user ID : {userId} </Text> */}
           <View>
             <Image
-              source={require("../assets/img/avatars/avatar-defaut.png")}
+              source={{ uri: rootPath + userInfos.avatarPath }}
               style={homeScreenStyles.avatar}
             />
           </View>

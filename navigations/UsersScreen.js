@@ -20,6 +20,7 @@ import { genStyles } from "../styles/genStyles";
 
 export default function UsersScreen({
   url,
+  rootPath,
   userToken,
   setUserToken,
   userInfos,

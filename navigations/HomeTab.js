@@ -23,6 +23,7 @@ const HomeTab = ({
   userToken,
   setUserToken,
   url,
+  rootPath,
   userId,
   setUserId,
 }) => {
@@ -57,6 +58,7 @@ const HomeTab = ({
           <HomeScreen
             {...props}
             url={url}
+            rootPath={rootPath}
             userId={userId}
             setUserId={setUserId}
             userToken={userToken}
@@ -89,6 +91,7 @@ const HomeTab = ({
           <RoomsScreen
             {...props}
             url={url}
+            rootPath={rootPath}
             userToken={userToken}
             setUserToken={setUserToken}
             userId={userId}
@@ -121,6 +124,7 @@ const HomeTab = ({
           <UsersScreen
             {...props}
             url={url}
+            rootPath={rootPath}
             userToken={userToken}
             setUserToken={setUserToken}
             userId={userId}
@@ -152,6 +156,7 @@ const HomeTab = ({
           <ProfileScreen
             {...props}
             url={url}
+            rootPath={rootPath}
             userToken={userToken}
             setUserToken={setUserToken}
             deleteInStore={deleteInStore}

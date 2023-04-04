@@ -54,4 +54,32 @@ export const profilScreenStyle = StyleSheet.create({
     marginTop: 20,
     marginBottom: 20,
   },
+
+  // MODAL AVATARS
+
+  modalAvatarsContent: {
+    backgroundColor: "white",
+    borderRadius: 50,
+    padding: 20,
+    width: windowWidth,
+    height: windowHeight,
+    justifyContent: "flex-start",
+    alignItems: "center",
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 5,
+    },
+    shadowOpacity: 0.34,
+    shadowRadius: 6.27,
+    elevation: 10,
+  },
+
+  modalbuttonContainer: {
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-around",
+    paddingRight: 20,
+    width: "100%",
+  },
 });

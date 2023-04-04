@@ -15,6 +15,7 @@ import InputText from "../components/atoms/InputText";
 import InputEmail from "../components/atoms/InputEmail";
 import InputPassword from "../components/atoms/InputPassword";
 import BtForm from "../components/atoms/BtForm";
+import ModalAvatars from "../components/molecules/ModalAvatars";
 
 // Colors:
 import colors from "../assets/colors";
@@ -31,6 +32,7 @@ export default function ProfileScreen({
   setUserToken,
   userId,
   url,
+  rootPath,
   userInfos,
 }) {
   // Pour le switch RGPD
@@ -43,6 +45,9 @@ export default function ProfileScreen({
   const [email, setEmail] = useState(userInfos.email);
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
+  const [avatarPath, setAvatarPath] = useState(userInfos.avatarPath);
+
+  const [visibleAvatars, setVisibleAvatars] = useState(false);
   const [alert, setAlert] = useState("");
 
   const handleSubmitUpdate = async () => {
@@ -57,8 +62,7 @@ export default function ProfileScreen({
             lastname: lastname,
             email: email,
             password: password,
-            avatarPath:
-              "https://res.cloudinary.com/lilycloud/image/upload/v1675756437/babble/users/avatar-default_tpd0vq.jpg",
+            avatarPath: avatarPath,
           };
           const requestOptions = {
             method: "PUT",
@@ -108,6 +112,15 @@ export default function ProfileScreen({
           source={require("../assets/img/fond-bulles-violet3.png")}
           style={registerScreenStyle.bgImage}
         >
+          {visibleAvatars ? (
+            <ModalAvatars
+              visibleAvatars={visibleAvatars}
+              setVisibleAvatars={setVisibleAvatars}
+            />
+          ) : (
+            ""
+          )}
+
           <View style={profilScreenStyle.avatarZone}>
             <View
               style={[
@@ -140,7 +153,7 @@ export default function ProfileScreen({
               <TouchableOpacity
                 style={profilScreenStyle.btEditPos}
                 onPress={() => {
-                  console.log("Modal avatar");
+                  setVisibleAvatars(true);
                 }}
               >
                 <Image
@@ -152,8 +165,10 @@ export default function ProfileScreen({
                 </Text>
               </TouchableOpacity>
             </View>
+            <Text>{avatarPath}</Text>
             <Image
-              source={require("../assets/img/avatars/avatar-defaut.png")}
+              /* source={require("../assets/img/avatars/avatar-defaut.png")} */
+              source={{ uri: rootPath + avatarPath }}
               style={profilScreenStyle.avatar}
             />
             <Text

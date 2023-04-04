@@ -27,6 +27,7 @@ import { socketDisconnect } from "../utils/socket";
 
 export default function GeneralChatScreen({
   url,
+  rootPath,
   userToken,
   setUserToken,
   userInfos,
@@ -140,6 +141,7 @@ export default function GeneralChatScreen({
                   roomName={roomName}
                   setRoomName={setRoomName}
                   url={url}
+                  rootPath={rootPath}
                   userToken={userToken}
                   userId={userId}
                   setVisibleDel={setVisibleDel}
