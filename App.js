@@ -27,8 +27,7 @@ const Stack = createNativeStackNavigator();
 const url = "http://" + Server.SERVER_IP + ":3000/";
 
 // variable chemin absolue pour avatars
-const rootPath =
-  "file:///Users/aureliepreaud/Documents/_PLATEFORME/CDA-2023/Projet-Babble/babble-front/assets/img/avatars/";
+const rootPath = "http://design-dev.net/projet-babble/avatars/";
 
 export default function App() {
   const [isLoading, setIsLoading] = useState(true);
@@ -69,6 +68,10 @@ export default function App() {
       }
     }
     getValueFor("jwtToken");
+
+    // Pour vider le secure store et le token si j'ai fait une erreur
+    /*  deleteInStore("jwtToken");
+    setUserToken(null); */
 
     setTimeout(() => {
       setIsLoading(false);

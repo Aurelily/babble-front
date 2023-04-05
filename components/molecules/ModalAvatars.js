@@ -1,4 +1,4 @@
-import { View, Text, Switch, Image } from "react-native";
+import { View, Text, Image, TouchableOpacity } from "react-native";
 import React, { useState, useEffect } from "react";
 import { useNavigation } from "@react-navigation/native";
 
@@ -14,6 +14,7 @@ import { genStyles } from "../../styles/genStyles";
 // Import components
 import InputText from "../atoms/InputText";
 import BtForm from "../atoms/BtForm";
+import AvatarList from "../atoms/AvatarsList";
 
 const ModalAvatars = ({
   /*   roomIdToConfim,
@@ -24,41 +25,63 @@ const ModalAvatars = ({
   roomInfos, */
   visibleAvatars,
   setVisibleAvatars,
+  userInfos,
+  rootPath,
+  avatarPath,
+  setAvatarPath,
 }) => {
   // States
   const [alert, setAlert] = useState("");
+  const numAvatars = 24;
 
   // Function that closes the Modal component
   const closeModal = () => setVisibleAvatars(false);
 
+  // Cancellation action
+  const handleCancel = () => {
+    closeModal();
+    setAvatarPath(userInfos.avatarPath);
+  };
+
+  // Choice action
+  const handleChoice = () => {
+    closeModal();
+    setAvatarPath(avatarPath);
+  };
+
   return (
     <View style={profilScreenStyle.modalAvatarsContent}>
-      <Text
-        style={[
-          genStyles.basicPurpleText,
-          genStyles.boldText,
-          genStyles.marginBottomBase,
-        ]}
-      >
-        Ici vous pouvez choisir un nouvel avatar de babbler pour votre profil
+      <Text style={[genStyles.basicPurpleText, genStyles.boldText]}>
+        Ici vous pouvez choisir un nouvel avatar !
       </Text>
-      <Text style={[genStyles.msgAlert, genStyles.marginBottomBase]}>
+      <Text style={[genStyles.basicPurpleText, genStyles.boldText]}>
+        Cliquez sur l'avatar de votre choix.
+      </Text>
+      {/*    <Text style={[genStyles.msgAlert, genStyles.marginBottomBase]}>
         {alert}
-      </Text>
+      </Text> */}
 
-      {/*   <Image
-        source={require("../../assets/img/illus-private.png")}
-        style={chatScreensStyles.illus}
-      /> */}
+      <Image
+        source={{ uri: rootPath + avatarPath }}
+        style={profilScreenStyle.avatar}
+      />
+      <Text>{avatarPath}</Text>
+      <View style={profilScreenStyle.avatarTableContainer}>
+        <AvatarList
+          rootPath={rootPath}
+          avatarPath={avatarPath}
+          setAvatarPath={setAvatarPath}
+        />
+      </View>
       <View style={profilScreenStyle.modalbuttonContainer}>
         <BtForm
-          action={""}
+          action={handleChoice}
           text={"Choisir"}
           colorStart={colors.purplePrimary}
           colorEnd={colors.purpleSecondary}
         />
         <BtForm
-          action={closeModal}
+          action={handleCancel}
           text={"Annuler"}
           colorStart={colors.orangePrimary}
           colorEnd={colors.orangeSecondary}

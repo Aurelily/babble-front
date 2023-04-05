@@ -53,7 +53,7 @@ const ModalCodeConfirm = ({
   } */
 
   const handleValidCode = async () => {
-    if (roomInfos.privateCode === roomCodeUse) {
+    if (privateCode === roomCodeUse) {
       closeModal();
     } else {
       setAlert(

@@ -32,6 +32,7 @@ const MessagingScreen = ({
   navigation,
   userId,
   url,
+  rootPath,
   userToken,
   userInfos,
   setUserInfos,
@@ -188,6 +189,7 @@ const MessagingScreen = ({
                   <MessageComponent
                     item={item}
                     url={url}
+                    rootPath={rootPath}
                     userId={userId}
                     userToken={userToken}
                   />

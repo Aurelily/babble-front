@@ -10,7 +10,7 @@ import { genStyles } from "../../styles/genStyles";
 //👇🏻 Import socket from the socket.js file in utils folder
 import socket from "../../utils/socket";
 
-const UserComponent = ({ item, url, userToken, userId }) => {
+const UserComponent = ({ item, url, rootPath, userToken, userId }) => {
   const navigation = useNavigation();
   const [userInfos, setUserInfos] = useState();
   const [connected, setConnected] = useState(false);
@@ -77,8 +77,12 @@ const UserComponent = ({ item, url, userToken, userId }) => {
   return (
     <>
       <Pressable style={usersScreenStyle.component} onPress={handleNavigation}>
-        <Image
+        {/*         <Image
           source={require("../../assets/img/avatars/avatar-defaut.png")}
+          style={usersScreenStyle.avatar}
+        /> */}
+        <Image
+          source={{ uri: rootPath + item.avatarPath }}
           style={usersScreenStyle.avatar}
         />
 

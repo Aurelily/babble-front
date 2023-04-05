@@ -55,6 +55,7 @@ export default function UsersScreen({
           <UsersDirScreen
             {...props}
             url={url}
+            rootPath={rootPath}
             userToken={userToken}
             setUserToken={setUserToken}
             userId={userId}
@@ -95,6 +96,7 @@ export default function UsersScreen({
             {...props}
             userId={userId}
             url={url}
+            rootPath={rootPath}
             userToken={userToken}
             userInfos={userInfos}
             setUserInfos={setUserInfos}

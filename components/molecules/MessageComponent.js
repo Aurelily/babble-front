@@ -9,7 +9,13 @@ import colors from "../../assets/colors";
 //👇🏻 Import socket from the socket.js file in utils folder
 import socket from "../../utils/socket";
 
-export default function MessageComponent({ item, userId, userToken, url }) {
+export default function MessageComponent({
+  item,
+  userId,
+  userToken,
+  url,
+  rootPath,
+}) {
   const [messageCreator, setMessageCreator] = useState("");
 
   const status = item.id_author._id !== userId;
@@ -69,11 +75,14 @@ export default function MessageComponent({ item, userId, userToken, url }) {
         <View style={{ flexDirection: "row", alignItems: "center" }}>
           {status && status2 ? (
             <Image
-              source={require("../../assets/img/avatars/avatar-defaut.png")}
+              source={{ uri: rootPath + item.id_author.avatarPath }}
               style={chatScreensStyles.avatar}
             />
           ) : (
-            ""
+            <Image
+              source={{ uri: rootPath + item.id_author.avatarPath }}
+              style={chatScreensStyles.avatar}
+            />
           )}
 
           <View

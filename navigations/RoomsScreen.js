@@ -101,6 +101,7 @@ export default function RoomsScreen({
             {...props}
             userId={userId}
             url={url}
+            rootPath={rootPath}
             userToken={userToken}
             userInfos={userInfos}
             setUserInfos={setUserInfos}

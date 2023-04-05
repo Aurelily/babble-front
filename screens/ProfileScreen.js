@@ -114,6 +114,10 @@ export default function ProfileScreen({
         >
           {visibleAvatars ? (
             <ModalAvatars
+              avatarPath={avatarPath}
+              setAvatarPath={setAvatarPath}
+              rootPath={rootPath}
+              userInfos={userInfos}
               visibleAvatars={visibleAvatars}
               setVisibleAvatars={setVisibleAvatars}
             />
@@ -165,9 +169,8 @@ export default function ProfileScreen({
                 </Text>
               </TouchableOpacity>
             </View>
-            <Text>{avatarPath}</Text>
+            {/*   <Text>{avatarPath}</Text> */}
             <Image
-              /* source={require("../assets/img/avatars/avatar-defaut.png")} */
               source={{ uri: rootPath + avatarPath }}
               style={profilScreenStyle.avatar}
             />
@@ -179,8 +182,7 @@ export default function ProfileScreen({
                 genStyles.boldText,
               ]}
             >
-              Ici vous pouvez modifier les informations de votre profil, ainsi
-              que votre avatar.
+              Modifiez vos informations ou votre avatar.
             </Text>
           </View>
           <View style={genStyles.formContent}>

@@ -20,6 +20,7 @@ import BtForm from "../components/atoms/BtForm";
 export default function UserDetailsScreen({
   route,
   url,
+  rootPath,
   userToken,
   userId,
   usersInfos,

@@ -18,6 +18,7 @@ import UserComponent from "../components/molecules/UserComponent";
 
 export default function UsersDirScreen({
   url,
+  rootPath,
   userToken,
   setUserToken,
   userId,
@@ -79,6 +80,7 @@ export default function UsersDirScreen({
                 <UserComponent
                   item={item}
                   url={url}
+                  rootPath={rootPath}
                   userToken={userToken}
                   userId={userId}
                 />

@@ -29,12 +29,12 @@ export const profilScreenStyle = StyleSheet.create({
   },
   btDecoPos: {
     position: "absolute",
-    left: 10,
+    left: -20,
     top: 0,
   },
   btEditPos: {
     position: "absolute",
-    right: 10,
+    right: -10,
     top: 0,
     zIndex: 2,
   },
@@ -81,5 +81,19 @@ export const profilScreenStyle = StyleSheet.create({
     justifyContent: "space-around",
     paddingRight: 20,
     width: "100%",
+  },
+
+  avatarTableContainer: {
+    width: "100%",
+    flexDirection: "row",
+    flexWrap: "wrap",
+  },
+  miniAvatars: {
+    height: 50,
+    width: 50,
+    padding: 10,
+  },
+  miniAvatarsBtn: {
+    padding: 8,
   },
 });
