@@ -258,8 +258,15 @@ export const chatScreensStyles = StyleSheet.create({
     marginBottom: 15,
   },
 
-  mavatar: {
+  mavatarMe: {
+    marginLeft: 5,
+    height: 50,
+    width: 50,
+  },
+  mavatarYou: {
     marginRight: 5,
+    height: 50,
+    width: 50,
   },
 
   messageOther: {
