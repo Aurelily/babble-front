@@ -67,7 +67,7 @@ export default function RegisterScreen({ url, setUserDatas }) {
                 response.json().then((data) => {
                   if (data.status == 200) {
                     setAlert(data.message);
-                    console.log(data.status);
+
                     navigation.navigate("Login");
                   }
                   if (data.status == 409) {

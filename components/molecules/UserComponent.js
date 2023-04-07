@@ -13,7 +13,7 @@ import socket from "../../utils/socket";
 const UserComponent = ({ item, url, rootPath, userToken, userId }) => {
   const navigation = useNavigation();
   const [userInfos, setUserInfos] = useState();
-  const [connected, setConnected] = useState(false);
+  /*  const [online, setOnline] = useState(false); */
 
   ///👇🏻 Navigates to the User detail screen
   const handleNavigation = () => {
@@ -35,52 +35,23 @@ const UserComponent = ({ item, url, rootPath, userToken, userId }) => {
         },
       }).then((response) => {
         response.json().then((data) => {
-          console.log(data); // affiche la réponse JSON dans la console du navigateur
           if (data.status == 200) {
-            console.log(data.data.firstname);
-            console.log(data.data.lastname);
             setUserInfos(data.data);
           }
         });
       });
     } catch (e) {
-      console.log(e);
+      console.log(e.message);
     }
   }
 
   useEffect(() => {
     getUserInfos();
-
-    socket.on("user connected", (activeSockets) => {
-      console.log(activeSockets);
-      const index = activeSockets.indexOf(item._id);
-      if (index !== -1) {
-        setConnected(true);
-      } else {
-        setConnected(false);
-      }
-    });
-
-    socket.on("user disconnected", (activeSockets) => {
-      const index = activeSockets.indexOf(item._id);
-      if (index !== -1) {
-        setConnected(false);
-      }
-    });
-
-    // Clean up function
-    return () => {
-      socket.disconnect();
-    };
   }, []);
 
   return (
     <>
       <Pressable style={usersScreenStyle.component} onPress={handleNavigation}>
-        {/*         <Image
-          source={require("../../assets/img/avatars/avatar-defaut.png")}
-          style={usersScreenStyle.avatar}
-        /> */}
         <Image
           source={{ uri: rootPath + item.avatarPath }}
           style={usersScreenStyle.avatar}
@@ -91,7 +62,7 @@ const UserComponent = ({ item, url, rootPath, userToken, userId }) => {
             <Text style={usersScreenStyle.cUserName}>
               {item.firstname} {item.lastname}
             </Text>
-            <Text>{connected ? "Connected" : "Not Connected"}</Text>
+            {/*  <Text>{online ? "Connected" : "Not Connected"}</Text> */}
           </View>
         </View>
         <View style={usersScreenStyle.bgOpacity}></View>

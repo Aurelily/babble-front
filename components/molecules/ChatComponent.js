@@ -43,7 +43,6 @@ const ChatComponent = ({
 
   // Open confirm modal, delete room and navigates to the Roomlist screen
   const handleDelete = () => {
-    console.log("DELETE ?" + item._id);
     setRoomIdToDelete(item._id);
     setVisibleDel(true);
   };
@@ -70,15 +69,13 @@ const ChatComponent = ({
         },
       }).then((response) => {
         response.json().then((data) => {
-          console.log(data); // affiche la réponse JSON dans la console du navigateur
           if (data.status == 200) {
-            console.log(data.data.firstname);
             setRoomCreator(data.data.firstname);
           }
         });
       });
     } catch (e) {
-      console.log(e);
+      console.log(e.message);
     }
   }
   //SOCKET NEW CREATOR

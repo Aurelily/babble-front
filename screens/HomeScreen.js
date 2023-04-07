@@ -60,7 +60,7 @@ export default function HomeScreen({
           });
         });
       } catch (e) {
-        console.log(e);
+        console.log(e.message);
       }
     }
     getUserInfos();

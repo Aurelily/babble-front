@@ -46,9 +46,6 @@ export default function GeneralChatScreen({
   const [roomIdToDelete, setRoomIdToDelete] = useState();
   const [roomIdToConfim, setRoomIdToConfirm] = useState();
 
-  //Runs whenever there is new trigger from the backend
-  socketConnect();
-
   async function fetchGroups() {
     try {
       await fetch(`${url}rooms`, {
@@ -64,7 +61,7 @@ export default function GeneralChatScreen({
         });
       });
     } catch (e) {
-      console.log(e);
+      console.log(e.message);
     }
   }
 

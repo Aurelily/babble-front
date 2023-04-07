@@ -2,14 +2,10 @@ import * as React from "react";
 import { useState, useEffect } from "react";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { StatusBar } from "expo-status-bar";
 import { Text } from "react-native";
 import * as SecureStore from "expo-secure-store";
 import * as Server from "./env";
-
-// jwt-decode library to decode jwtToken
-import jwtDecode from "jwt-decode";
 
 // Import screens
 
@@ -29,7 +25,12 @@ const url = "http://" + Server.SERVER_IP + ":3000/";
 // variable chemin absolue pour avatars
 const rootPath = "http://design-dev.net/projet-babble/avatars/";
 
+//👇🏻 Import socket from the socket.js file in utils folder
+import socket from "./utils/socket";
+import { socketConnect, socketDisconnect } from "./utils/socket";
+
 export default function App() {
+  // States :
   const [isLoading, setIsLoading] = useState(true);
   const [keyTokenStore, setKeyTokenStore] = useState("jwtToken");
   const [userToken, setUserToken] = useState(null);
@@ -69,7 +70,7 @@ export default function App() {
     }
     getValueFor("jwtToken");
 
-    // Pour vider le secure store et le token si j'ai fait une erreur
+    // ENLEVER A LA FIN : Pour vider le secure store et le token si j'ai fait une erreur
     /*  deleteInStore("jwtToken");
     setUserToken(null); */
 

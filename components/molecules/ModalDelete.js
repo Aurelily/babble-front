@@ -35,14 +35,11 @@ const ModalDelete = ({ setVisibleDel, roomIdToDelete, userToken, url }) => {
 
       if (response.ok) {
         console.log("Room deleted successfully");
-        // faire d'autres actions si nécessaire
       } else {
         console.log("Error deleting room");
-        // gérer les erreurs si nécessaire
       }
     } catch (error) {
       console.error(error);
-      // gérer les erreurs si nécessaire
     }
     closeModal();
   };

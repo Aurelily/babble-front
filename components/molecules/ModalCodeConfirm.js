@@ -33,25 +33,6 @@ const ModalCodeConfirm = ({
   // Function that closes the Modal component
   const closeModal = () => setVisibleCodeConf(false);
 
-  // Function to get all user connected informations
-  /*   async function getRoomInfos() {
-    try {
-      await fetch(`${url}rooms/details/${roomIdToConfim}`, {
-        headers: {
-          Authorization: `Bearer ${userToken}`,
-        },
-      }).then((response) => {
-        response.json().then((data) => {
-          if (data.status == 200) {
-            setRoomInfos(data.data);
-          }
-        });
-      });
-    } catch (e) {
-      console.log(e);
-    }
-  } */
-
   const handleValidCode = async () => {
     if (privateCode === roomCodeUse) {
       closeModal();

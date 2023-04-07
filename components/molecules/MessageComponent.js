@@ -38,15 +38,13 @@ export default function MessageComponent({
         },
       }).then((response) => {
         response.json().then((data) => {
-          console.log(data); // affiche la réponse JSON dans la console du navigateur
           if (data.status == 200) {
-            console.log(data.data.firstname);
             setMessageCreator(data.data.firstname);
           }
         });
       });
     } catch (e) {
-      console.log(e);
+      console.log(e.message);
     }
   }
 

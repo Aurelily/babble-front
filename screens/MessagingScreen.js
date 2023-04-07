@@ -65,16 +65,13 @@ const MessagingScreen = ({
       }).then((response) => {
         response.json().then((data) => {
           if (data.status == 200) {
-            console.log("dans getRoomInfos :");
             setRoomInfos(data.data);
-            console.log(roomInfos);
             setInfosLoading(false);
-            console.log(infosLoading);
           }
         });
       });
     } catch (e) {
-      console.log(e);
+      console.log(e.message);
     }
   };
 
@@ -93,15 +90,12 @@ const MessagingScreen = ({
         });
       });
     } catch (e) {
-      console.log(e);
+      console.log(e.message);
     }
   }
 
   const handleSubmitMessage = async () => {
     if (message) {
-      // Si tous les champs sont remplis
-      console.log(roomInfos);
-
       var messageToCreate = {
         id_room: roomInfos._id,
         content: message,
@@ -116,7 +110,6 @@ const MessagingScreen = ({
         await fetch(`${url}messages/post`, requestOptions).then((response) => {
           response.json().then((data) => {
             if (data.status == 200) {
-              console.log(data.status);
               setMessage("");
             }
           });
@@ -150,8 +143,6 @@ const MessagingScreen = ({
     }
     /* getUserInfos(); */
     getRoomInfos();
-    console.log("Dans le useEffect");
-    console.log(privateCode);
     fetchMessagesByRoomId();
   }, []);
 

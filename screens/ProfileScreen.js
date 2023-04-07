@@ -75,16 +75,13 @@ export default function ProfileScreen({
           };
           await fetch(`${url}users/update/profil`, requestOptions)
             .then((response) => {
-              /* console.log(response); */
               response.json().then((data) => {
                 if (data.status == 200) {
-                  /*  console.log(data.status); */
                   setAlert("Update OK");
                   deleteInStore("jwtToken");
                   setUserToken(null);
                 }
                 if (data.status == 409) {
-                  /*  console.log(data.status); */
                   setAlert("cet email possède déjà un compte");
                 }
               });
