@@ -23,6 +23,8 @@ import { homeScreenStyles } from "../styles/homeScreenStyle";
 //UseNavigation : to use link toward other screens
 import { useNavigation } from "@react-navigation/core";
 
+import socket from "../utils/socket";
+
 export default function HomeScreen({
   url,
   rootPath,
@@ -33,16 +35,24 @@ export default function HomeScreen({
   userInfos,
   setUserInfos,
   deleteInStore,
+  setUsersConnectedList,
+  usersConnectedList,
 }) {
   const navigation = useNavigation();
 
   // States :
   const [infosLoading, setInfosLoading] = useState(true);
 
+  /*   socket.on("userOnlineList", function (userOnlineList) {
+    setUsersConnectedList(userOnlineList);
+    console.log("La nouvelle liste de connectés est : " + usersConnectedList);
+  }); */
+
   useEffect(() => {
     if (userToken) {
       const decodedToken = jwtDecode(userToken);
       setUserId(decodedToken.userId);
+      socket.emit("newUserConnected", decodedToken.userId);
     }
     // Function to get all user connected informations
     async function getUserInfos() {

@@ -26,6 +26,8 @@ const HomeTab = ({
   rootPath,
   userId,
   setUserId,
+  setUsersConnectedList,
+  usersConnectedList,
 }) => {
   const [userInfos, setUserInfos] = useState();
 
@@ -66,6 +68,8 @@ const HomeTab = ({
             userInfos={userInfos}
             setUserInfos={setUserInfos}
             deleteInStore={deleteInStore}
+            setUsersConnectedList={setUsersConnectedList}
+            usersConnectedList={usersConnectedList}
           />
         )}
       </Tab.Screen>
@@ -131,6 +135,8 @@ const HomeTab = ({
             userInfos={userInfos}
             setUserInfos={setUserInfos}
             deleteInStore={deleteInStore}
+            setUsersConnectedList={setUsersConnectedList}
+            usersConnectedList={usersConnectedList}
           />
         )}
       </Tab.Screen>
@@ -163,6 +169,8 @@ const HomeTab = ({
             userId={userId}
             userInfos={userInfos}
             setUserInfos={setUserInfos}
+            setUsersConnectedList={setUsersConnectedList}
+            usersConnectedList={usersConnectedList}
           />
         )}
       </Tab.Screen>

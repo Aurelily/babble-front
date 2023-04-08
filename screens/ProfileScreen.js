@@ -26,6 +26,9 @@ import { profilScreenStyle } from "../styles/profilScreenStyle";
 // Pour que le clavier du mobile ne supperpose pas le contenu
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 
+// Pour le sockt disconnected
+import socket from "../utils/socket";
+
 export default function ProfileScreen({
   deleteInStore,
   userToken,
@@ -34,6 +37,8 @@ export default function ProfileScreen({
   url,
   rootPath,
   userInfos,
+  setUsersConnectedList,
+  usersConnectedList,
 }) {
   // Pour le switch RGPD
   const [isEnabled, setIsEnabled] = useState(false);
@@ -78,6 +83,7 @@ export default function ProfileScreen({
               response.json().then((data) => {
                 if (data.status == 200) {
                   setAlert("Update OK");
+                  socket.emit("userLogout", userId);
                   deleteInStore("jwtToken");
                   setUserToken(null);
                 }
@@ -131,6 +137,7 @@ export default function ProfileScreen({
             >
               <TouchableOpacity
                 onPress={() => {
+                  socket.emit("userLogout", userId);
                   deleteInStore("jwtToken");
                   setUserToken(null);
                 }}

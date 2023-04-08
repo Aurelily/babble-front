@@ -10,10 +10,18 @@ import { genStyles } from "../../styles/genStyles";
 //👇🏻 Import socket from the socket.js file in utils folder
 import socket from "../../utils/socket";
 
-const UserComponent = ({ item, url, rootPath, userToken, userId }) => {
+const UserComponent = ({
+  item,
+  url,
+  rootPath,
+  userToken,
+  userId,
+  setUsersConnectedList,
+  usersConnectedList,
+}) => {
   const navigation = useNavigation();
   const [userInfos, setUserInfos] = useState();
-  /*  const [online, setOnline] = useState(false); */
+  const [online, setOnline] = useState(false);
 
   ///👇🏻 Navigates to the User detail screen
   const handleNavigation = () => {
@@ -26,28 +34,14 @@ const UserComponent = ({ item, url, rootPath, userToken, userId }) => {
     });
   };
 
-  // Function to get user creator info
-  async function getUserInfos() {
-    try {
-      await fetch(`${url}users/details/${item._id}`, {
-        headers: {
-          Authorization: `Bearer ${userToken}`,
-        },
-      }).then((response) => {
-        response.json().then((data) => {
-          if (data.status == 200) {
-            setUserInfos(data.data);
-          }
-        });
-      });
-    } catch (e) {
-      console.log(e.message);
-    }
-  }
-
   useEffect(() => {
-    getUserInfos();
-  }, []);
+    let userIndex = usersConnectedList.indexOf(item._id);
+    if (userIndex !== -1) {
+      setOnline(true);
+    } else {
+      setOnline(false);
+    }
+  }, [usersConnectedList]);
 
   return (
     <>
@@ -62,7 +56,7 @@ const UserComponent = ({ item, url, rootPath, userToken, userId }) => {
             <Text style={usersScreenStyle.cUserName}>
               {item.firstname} {item.lastname}
             </Text>
-            {/*  <Text>{online ? "Connected" : "Not Connected"}</Text> */}
+            <Text>{online ? "Connected" : "Not Connected"}</Text>
           </View>
         </View>
         <View style={usersScreenStyle.bgOpacity}></View>

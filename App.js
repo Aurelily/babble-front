@@ -7,6 +7,9 @@ import { Text } from "react-native";
 import * as SecureStore from "expo-secure-store";
 import * as Server from "./env";
 
+// jwt-decode library to decode jwtToken
+import jwtDecode from "jwt-decode";
+
 // Import screens
 
 import LoginScreen from "./screens/LoginScreen";
@@ -41,21 +44,22 @@ export default function App() {
     email: "",
     password: "",
   });
+  const [usersConnectedList, setUsersConnectedList] = useState();
 
   // Function to save something in expo secure store
   async function saveToStore(key, value) {
     await SecureStore.setItemAsync(key, value);
   }
 
-  // Function to get something in expo secure store
-  async function getFromStore(key, value) {
-    await SecureStore.getItemAsync(key, value);
-  }
-
   // Function to delete something in expo secure store
   async function deleteInStore(key) {
     await SecureStore.deleteItemAsync(key);
   }
+
+  socket.on("userOnlineList", function (userOnlineList) {
+    setUsersConnectedList(userOnlineList);
+    console.log("APP USERS CONNECTED LISTE : " + usersConnectedList);
+  });
 
   useEffect(() => {
     // Function to get value from Secure Store key
@@ -137,6 +141,8 @@ export default function App() {
           setUserToken={setUserToken}
           url={url}
           rootPath={rootPath}
+          setUsersConnectedList={setUsersConnectedList}
+          usersConnectedList={usersConnectedList}
         />
       )}
     </NavigationContainer>

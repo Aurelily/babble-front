@@ -16,6 +16,9 @@ import { genStyles } from "../styles/genStyles";
 // Import components
 import UserComponent from "../components/molecules/UserComponent";
 
+//socket
+import socket from "../utils/socket";
+
 export default function UsersDirScreen({
   url,
   rootPath,
@@ -25,6 +28,8 @@ export default function UsersDirScreen({
   usersInfos,
   setUserInfos,
   deleteInStore,
+  setUsersConnectedList,
+  usersConnectedList,
 }) {
   const [usersList, setUsersList] = useState([]);
   const [usersLoading, setUsersLoading] = useState(true);
@@ -50,7 +55,7 @@ export default function UsersDirScreen({
 
   useEffect(() => {
     fetchUsers();
-  }, []);
+  }, [socket, setUsersConnectedList]);
 
   return usersLoading ? (
     <View style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>
@@ -83,6 +88,8 @@ export default function UsersDirScreen({
                   rootPath={rootPath}
                   userToken={userToken}
                   userId={userId}
+                  setUsersConnectedList={setUsersConnectedList}
+                  usersConnectedList={usersConnectedList}
                 />
               )}
               keyExtractor={(item, index) => index.toString()}
