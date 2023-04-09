@@ -37,8 +37,6 @@ export default function ProfileScreen({
   url,
   rootPath,
   userInfos,
-  setUsersConnectedList,
-  usersConnectedList,
 }) {
   // Pour le switch RGPD
   const [isEnabled, setIsEnabled] = useState(false);

@@ -169,8 +169,6 @@ const HomeTab = ({
             userId={userId}
             userInfos={userInfos}
             setUserInfos={setUserInfos}
-            setUsersConnectedList={setUsersConnectedList}
-            usersConnectedList={usersConnectedList}
           />
         )}
       </Tab.Screen>

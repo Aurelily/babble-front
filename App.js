@@ -44,7 +44,7 @@ export default function App() {
     email: "",
     password: "",
   });
-  const [usersConnectedList, setUsersConnectedList] = useState();
+  const [usersConnectedList, setUsersConnectedList] = useState([]);
 
   // Function to save something in expo secure store
   async function saveToStore(key, value) {

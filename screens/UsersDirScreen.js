@@ -54,8 +54,17 @@ export default function UsersDirScreen({
   }
 
   useEffect(() => {
+    /*     socket.on("updateUsersList", function (users) {
+      setUsersList(users);
+      console.log(usersList);
+    }); */
+    socket.on("userOnlineList", function (userOnlineList) {
+      setUsersConnectedList(userOnlineList);
+      console.log("DIR USERS CONNECTED LISTE : " + usersConnectedList);
+      fetchUsers();
+    });
     fetchUsers();
-  }, [socket, setUsersConnectedList]);
+  }, [usersConnectedList]);
 
   return usersLoading ? (
     <View style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>
@@ -90,6 +99,8 @@ export default function UsersDirScreen({
                   userId={userId}
                   setUsersConnectedList={setUsersConnectedList}
                   usersConnectedList={usersConnectedList}
+                  usersList={usersList}
+                  setUsersList={setUsersList}
                 />
               )}
               keyExtractor={(item, index) => index.toString()}

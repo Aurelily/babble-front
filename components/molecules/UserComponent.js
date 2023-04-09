@@ -18,6 +18,8 @@ const UserComponent = ({
   userId,
   setUsersConnectedList,
   usersConnectedList,
+  usersList,
+  setUsersList,
 }) => {
   const navigation = useNavigation();
   const [userInfos, setUserInfos] = useState();
@@ -35,13 +37,17 @@ const UserComponent = ({
   };
 
   useEffect(() => {
+    /*     socket.on("updateUsersList", function (users) {
+      setUsersList(users);
+      console.log("UPDATE USERS LIST");
+    }); */
     let userIndex = usersConnectedList.indexOf(item._id);
     if (userIndex !== -1) {
       setOnline(true);
     } else {
       setOnline(false);
     }
-  }, [usersConnectedList]);
+  }, [online]);
 
   return (
     <>
