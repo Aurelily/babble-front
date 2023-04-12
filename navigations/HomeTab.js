@@ -1,5 +1,5 @@
 import React from "react";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 
 //import icons tab navigator
@@ -26,8 +26,6 @@ const HomeTab = ({
   rootPath,
   userId,
   setUserId,
-  setUsersConnectedList,
-  usersConnectedList,
 }) => {
   const [userInfos, setUserInfos] = useState();
 
@@ -68,8 +66,6 @@ const HomeTab = ({
             userInfos={userInfos}
             setUserInfos={setUserInfos}
             deleteInStore={deleteInStore}
-            setUsersConnectedList={setUsersConnectedList}
-            usersConnectedList={usersConnectedList}
           />
         )}
       </Tab.Screen>
@@ -98,6 +94,7 @@ const HomeTab = ({
             rootPath={rootPath}
             userToken={userToken}
             setUserToken={setUserToken}
+            setUserId={setUserId}
             userId={userId}
             userInfos={userInfos}
             setUserInfos={setUserInfos}
@@ -135,8 +132,6 @@ const HomeTab = ({
             userInfos={userInfos}
             setUserInfos={setUserInfos}
             deleteInStore={deleteInStore}
-            setUsersConnectedList={setUsersConnectedList}
-            usersConnectedList={usersConnectedList}
           />
         )}
       </Tab.Screen>
@@ -168,7 +163,6 @@ const HomeTab = ({
             deleteInStore={deleteInStore}
             userId={userId}
             userInfos={userInfos}
-            setUserInfos={setUserInfos}
           />
         )}
       </Tab.Screen>

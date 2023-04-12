@@ -1,12 +1,10 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect } from "react";
 import {
   View,
-  TextInput,
   Text,
   FlatList,
   TouchableOpacity,
   Image,
-  SafeAreaView,
   ImageBackground,
 } from "react-native";
 
@@ -20,11 +18,9 @@ import { KeyboardAvoidingView, Platform } from "react-native";
 
 //Import styles
 import { chatScreensStyles } from "../styles/chatScreensStyles";
-import { genStyles } from "../styles/genStyles";
 
 //👇🏻 Import socket from the socket.js file in utils folder
 import socket from "../utils/socket";
-import { socketConnect } from "../utils/socket";
 import { leaveRoom } from "../utils/socket";
 
 const MessagingScreen = ({
@@ -42,12 +38,8 @@ const MessagingScreen = ({
   const [message, setMessage] = useState("");
   const [messagesLoading, setMessageLoading] = useState(true);
   const [chatMessages, setChatMessages] = useState([]);
-  /* const [roomInfos, setRoomInfos] = useState("defaut"); */
   const [infosLoading, setInfosLoading] = useState(true);
   const [visibleCodeConf, setVisibleCodeConf] = useState(false);
-
-  /*   //Runs whenever there is new trigger from the backend
-  socketConnect(); */
 
   // Access the chat component params
   const { name, id, privateCode, creator } = route.params;
@@ -60,7 +52,9 @@ const MessagingScreen = ({
     try {
       fetch(`${url}rooms/details/${id}`, {
         headers: {
-          Authorization: `Bearer ${userToken}`,
+          Accept: "application/json",
+          "Content-Type": "application/json",
+          Authorization: "Bearer " + userToken,
         },
       }).then((response) => {
         response.json().then((data) => {
@@ -79,7 +73,9 @@ const MessagingScreen = ({
     try {
       await fetch(`${url}messages/room/${id}`, {
         headers: {
-          Authorization: `Bearer ${userToken}`,
+          Accept: "application/json",
+          "Content-Type": "application/json",
+          Authorization: "Bearer " + userToken,
         },
       }).then((response) => {
         response.json().then((data) => {
@@ -103,7 +99,11 @@ const MessagingScreen = ({
       };
       const requestOptions = {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+          Authorization: "Bearer " + userToken,
+        },
         body: JSON.stringify(messageToCreate),
       };
       try {
@@ -118,7 +118,6 @@ const MessagingScreen = ({
         console.log(e.message);
       }
     } else {
-      // Si tous les champs ne sont pas remplis
       console.log("Indiquer un message");
     }
   };
@@ -135,13 +134,12 @@ const MessagingScreen = ({
     navigation.navigate("roomsList");
   });
 
-  //👇🏻 This runs when the messages are updated.
+  //This runs when the messages are updated.
   useEffect(() => {
     navigation.setOptions({ title: name });
     if (privateCode) {
       setVisibleCodeConf(true);
     }
-    /* getUserInfos(); */
     getRoomInfos();
     fetchMessagesByRoomId();
   }, []);
@@ -162,7 +160,6 @@ const MessagingScreen = ({
             userToken={userToken}
             privateCode={privateCode}
             name={name}
-            /*             roomInfos={roomInfos} */
           />
         ) : (
           ""

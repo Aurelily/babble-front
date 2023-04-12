@@ -1,6 +1,5 @@
-import { useState, useEffect } from "react";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import { Text, TouchableOpacity, Image } from "react-native";
+import { TouchableOpacity, Image } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 
 //Screens
@@ -9,9 +8,6 @@ import UserDetailsScreen from "../screens/UserDetailsScreen";
 
 // Definition of stack navigator
 const Stack = createNativeStackNavigator();
-
-// Import socket from the socket.js file in utils folder
-import { leaveRoom } from "../utils/socket";
 
 // Import colors and styles
 import colors from "../assets/colors";
@@ -27,8 +23,6 @@ export default function UsersScreen({
   setUserInfos,
   userId,
   deleteInStore,
-  setUsersConnectedList,
-  usersConnectedList,
 }) {
   const navigation = useNavigation();
 
@@ -64,8 +58,6 @@ export default function UsersScreen({
             userInfos={userInfos}
             setUserInfos={setUserInfos}
             deleteInStore={deleteInStore}
-            setUsersConnectedList={setUsersConnectedList}
-            usersConnectedList={usersConnectedList}
           />
         )}
       </Stack.Screen>
@@ -104,8 +96,6 @@ export default function UsersScreen({
             userToken={userToken}
             userInfos={userInfos}
             setUserInfos={setUserInfos}
-            setUsersConnectedList={setUsersConnectedList}
-            usersConnectedList={usersConnectedList}
           />
         )}
       </Stack.Screen>

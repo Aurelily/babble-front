@@ -1,14 +1,10 @@
-import { View, Text, Pressable, Image, TouchableOpacity } from "react-native";
-import React, { useEffect, useState } from "react";
+import { View, Text, Pressable, Image } from "react-native";
+import React from "react";
 import { useNavigation } from "@react-navigation/native";
 
 //import styles
 
 import { usersScreenStyle } from "../../styles/usersScreenStyle";
-import { genStyles } from "../../styles/genStyles";
-
-//👇🏻 Import socket from the socket.js file in utils folder
-import socket from "../../utils/socket";
 
 const UserComponent = ({
   item,
@@ -22,10 +18,8 @@ const UserComponent = ({
   setUsersList,
 }) => {
   const navigation = useNavigation();
-  const [userInfos, setUserInfos] = useState();
-  const [online, setOnline] = useState(false);
 
-  ///👇🏻 Navigates to the User detail screen
+  //Navigates to the User detail screen
   const handleNavigation = () => {
     navigation.navigate("userDetail", {
       id: item._id,
@@ -35,19 +29,6 @@ const UserComponent = ({
       avatarPath: item.avatarPath,
     });
   };
-
-  useEffect(() => {
-    /*     socket.on("updateUsersList", function (users) {
-      setUsersList(users);
-      console.log("UPDATE USERS LIST");
-    }); */
-    let userIndex = usersConnectedList.indexOf(item._id);
-    if (userIndex !== -1) {
-      setOnline(true);
-    } else {
-      setOnline(false);
-    }
-  }, [online]);
 
   return (
     <>
@@ -62,7 +43,6 @@ const UserComponent = ({
             <Text style={usersScreenStyle.cUserName}>
               {item.firstname} {item.lastname}
             </Text>
-            <Text>{online ? "Connected" : "Not Connected"}</Text>
           </View>
         </View>
         <View style={usersScreenStyle.bgOpacity}></View>

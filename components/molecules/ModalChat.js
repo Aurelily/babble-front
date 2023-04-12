@@ -1,12 +1,4 @@
-import {
-  View,
-  Text,
-  Switch,
-  Image,
-  TextInput,
-  Pressable,
-  TouchableOpacity,
-} from "react-native";
+import { View, Text, Switch, Image } from "react-native";
 import React, { useState, useEffect } from "react";
 
 // Import styles and colors
@@ -18,12 +10,16 @@ import { genStyles } from "../../styles/genStyles";
 import InputText from "../atoms/InputText";
 import BtForm from "../atoms/BtForm";
 
+// jwt-decode library to decode jwtToken
+import jwtDecode from "jwt-decode";
+
 const ModalChat = ({
   setVisible,
   url,
   userInfos,
   setUserInfos,
   userId,
+  setUserId,
   userToken,
   rooms,
   fetchGroups,
@@ -39,7 +35,7 @@ const ModalChat = ({
   const [alert, setAlert] = useState("");
 
   useEffect(() => {
-    // Function to get all user connected informations
+    /* // Function to get all user connected informations
     async function getUserInfos() {
       try {
         await fetch(`${url}users/details/${userId}`, {
@@ -58,7 +54,11 @@ const ModalChat = ({
         console.log(e.message);
       }
     }
-    getUserInfos();
+    getUserInfos(); */
+    if (userToken) {
+      const decodedToken = jwtDecode(userToken);
+      setUserId(decodedToken.userId);
+    }
   }, [userId]);
 
   // Function that closes the Modal component
@@ -89,7 +89,6 @@ const ModalChat = ({
           dateCreation: new Date(),
           private: true,
           privateCode: roomCode,
-          signal: 0,
         };
       } else {
         var roomToCreate = {
@@ -98,13 +97,16 @@ const ModalChat = ({
           dateCreation: new Date(),
           private: false,
           privateCode: "",
-          signal: 0,
         };
       }
 
       const requestOptions = {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+          Authorization: "Bearer " + userToken,
+        },
         body: JSON.stringify(roomToCreate),
       };
       try {
@@ -169,17 +171,6 @@ const ModalChat = ({
         style={chatScreensStyles.illus}
       />
 
-      <View style={[genStyles.paddingBase, genStyles.rowSpaceBetween]}>
-        <Image
-          source={require("../../assets/img/bt-signal.png")}
-          style={chatScreensStyles.btSignal}
-        />
-        <Text style={genStyles.miniPurpleText}>
-          Un bouton “Signaler le salon” sera disponible pour les utilisateurs.
-          Au bout de 3 signalements nous nous réservons le droit de supprimer le
-          salon signalé.
-        </Text>
-      </View>
       <View style={chatScreensStyles.modalbuttonContainer}>
         <BtForm
           action={handleSubmitRoom}

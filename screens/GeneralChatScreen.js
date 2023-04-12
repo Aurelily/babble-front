@@ -1,4 +1,5 @@
 import React, { useEffect } from "react";
+
 import {
   View,
   Text,
@@ -22,8 +23,6 @@ import { genStyles } from "../styles/genStyles";
 
 //👇🏻 Import socket from the socket.js file in utils folder
 import socket from "../utils/socket";
-import { socketConnect } from "../utils/socket";
-import { socketDisconnect } from "../utils/socket";
 
 export default function GeneralChatScreen({
   url,
@@ -33,6 +32,7 @@ export default function GeneralChatScreen({
   userInfos,
   setUserInfos,
   userId,
+  setUserId,
   roomName,
   setRoomName,
   deleteInStore,
@@ -187,6 +187,7 @@ export default function GeneralChatScreen({
             url={url}
             userInfos={userInfos}
             userId={userId}
+            setUserId={setUserId}
             userToken={userToken}
             setUserInfos={setUserInfos}
             rooms={rooms}

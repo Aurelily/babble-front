@@ -4,9 +4,8 @@ import React, { useEffect, useState } from "react";
 // Import styles
 import { chatScreensStyles } from "../../styles/chatScreensStyles";
 import { genStyles } from "../../styles/genStyles";
-import colors from "../../assets/colors";
 
-//👇🏻 Import socket from the socket.js file in utils folder
+//Import socket from the socket.js file in utils folder
 import socket from "../../utils/socket";
 
 export default function MessageComponent({
@@ -29,7 +28,7 @@ export default function MessageComponent({
   };
   const formattedDate = dateMessage.toLocaleTimeString("fr-FR", options);
 
-  // Function to get user creator info
+  // Function to get message creator info
   async function getMessageAuthorInfos() {
     try {
       await fetch(`${url}users/details/${item.id_author._id}`, {
@@ -48,7 +47,7 @@ export default function MessageComponent({
     }
   }
 
-  //SOCKET NEW MESSAGE AUTHOR
+  //Socket : new message creator infos
   socket.on("newMessageAuthor", (messageAuthor) => {
     if (item.id_author.firstname) {
       setMessageCreator(item.id_author.firstname);
@@ -70,58 +69,42 @@ export default function MessageComponent({
             : [chatScreensStyles.mmessageWrapper, { alignItems: "flex-end" }]
         }
       >
-        <View style={{ flexDirection: "row", alignItems: "center" }}>
+        <View>
           {status && status2 ? (
             <>
-              <Image
-                source={{ uri: rootPath + item.id_author.avatarPath }}
-                style={chatScreensStyles.mavatarYou}
-              />
-              <View style={chatScreensStyles.messageOther}>
-                <Text style={genStyles.basicPurpleText}>{item.content}</Text>
-                <Text
-                  style={[
-                    genStyles.basicPurpleText,
-                    chatScreensStyles.messageAuthor,
-                  ]}
-                >
-                  Par: {messageCreator}
+              <View style={{ flexDirection: "row", alignItems: "center" }}>
+                <Image
+                  source={{ uri: rootPath + item.id_author.avatarPath }}
+                  style={chatScreensStyles.mavatarYou}
+                />
+                <View style={chatScreensStyles.messageOther}>
+                  <Text style={genStyles.basicPurpleText}>{item.content}</Text>
+                </View>
+              </View>
+              <View style={[chatScreensStyles.messageInfosOther]}>
+                <Text style={[genStyles.basicPurpleText]}>
+                  Par: {messageCreator} à :
                 </Text>
-                <Text
-                  style={[
-                    genStyles.basicPurpleText,
-                    chatScreensStyles.messageDate,
-                  ]}
-                >
-                  {formattedDate}
-                </Text>
+                <Text style={[genStyles.basicPurpleText]}>{formattedDate}</Text>
               </View>
             </>
           ) : (
             <>
-              <View style={chatScreensStyles.messageCreator}>
-                <Text style={genStyles.basicClearText}>{item.content}</Text>
-                <Text
-                  style={[
-                    genStyles.basicClearText,
-                    chatScreensStyles.messageAuthor,
-                  ]}
-                >
-                  Par: {messageCreator}
-                </Text>
-                <Text
-                  style={[
-                    genStyles.basicClearText,
-                    chatScreensStyles.messageDate,
-                  ]}
-                >
-                  {formattedDate}
-                </Text>
+              <View style={{ flexDirection: "row", alignItems: "center" }}>
+                <View style={chatScreensStyles.messageCreator}>
+                  <Text style={genStyles.basicClearText}>{item.content}</Text>
+                </View>
+                <Image
+                  source={{ uri: rootPath + item.id_author.avatarPath }}
+                  style={chatScreensStyles.mavatarMe}
+                />
               </View>
-              <Image
-                source={{ uri: rootPath + item.id_author.avatarPath }}
-                style={chatScreensStyles.mavatarMe}
-              />
+              <View style={[chatScreensStyles.messageInfosMe]}>
+                <Text style={[genStyles.basicPurpleText]}>
+                  Par: {messageCreator} à :
+                </Text>
+                <Text style={[genStyles.basicPurpleText]}>{formattedDate}</Text>
+              </View>
             </>
           )}
         </View>

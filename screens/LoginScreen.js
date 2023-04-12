@@ -5,7 +5,6 @@ import {
   Image,
   View,
   TouchableOpacity,
-  StyleSheet,
   SafeAreaView,
   ImageBackground,
 } from "react-native";
@@ -17,7 +16,6 @@ import BtForm from "../components/atoms/BtForm";
 
 //Colors and styles:
 import colors from "../assets/colors";
-const { purplePrimary, grey } = colors;
 import { genStyles } from "../styles/genStyles";
 import { loginScreenStyle } from "../styles/loginScreenStyles";
 
@@ -73,7 +71,7 @@ export default function LoginScreen({
               setAlert(data.message);
             }
             if (data.status == 400) {
-              setAlert("Login or password incorrect !");
+              setAlert("Email ou mot de passe incorrect !");
             }
           });
         });
@@ -81,7 +79,7 @@ export default function LoginScreen({
         console.log(error.message);
       }
     } else {
-      setAlert("Please fill all fields");
+      setAlert("Veuillez remplir tous les champs.");
     }
   };
 

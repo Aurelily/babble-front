@@ -1,21 +1,9 @@
 import * as React from "react";
-import {
-  Image,
-  View,
-  TouchableOpacity,
-  Text,
-  SafeAreaView,
-  ImageBackground,
-} from "react-native";
+import { Image, View, Text, SafeAreaView, ImageBackground } from "react-native";
 
 // Import colors ans style
-import colors from "../assets/colors";
-import { usersScreenStyle } from "../styles/usersScreenStyle";
 import { genStyles } from "../styles/genStyles";
 import { homeScreenStyles } from "../styles/homeScreenStyle";
-
-//Components :
-import BtForm from "../components/atoms/BtForm";
 
 export default function UserDetailsScreen({
   route,
@@ -51,17 +39,6 @@ export default function UserDetailsScreen({
           >
             {firstname} {lastname}
           </Text>
-
-          {/*           <View style={homeScreenStyles.buttonsContent}>
-            <BtForm
-              action={() => {
-                console.log("favoris");
-              }}
-              text={"Ajouter aux favoris"}
-              colorStart={colors.orangePrimary}
-              colorEnd={colors.orangeSecondary}
-            />
-          </View> */}
         </View>
       </ImageBackground>
     </SafeAreaView>

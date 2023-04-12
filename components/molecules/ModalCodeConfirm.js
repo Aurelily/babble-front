@@ -1,9 +1,6 @@
-import { View, Text, Switch, Image } from "react-native";
-import React, { useState, useEffect } from "react";
+import { View, Text, Image } from "react-native";
+import React, { useState } from "react";
 import { useNavigation } from "@react-navigation/native";
-
-// To leave the room if cancel
-import { leaveRoom } from "../../utils/socket";
 
 // Import styles and colors
 import colors from "../../assets/colors";
@@ -25,7 +22,6 @@ const ModalCodeConfirm = ({
 }) => {
   // States
   const [roomCodeUse, setRoomCodeUse] = useState("");
-  /*   const [roomInfos, setRoomInfos] = useState(); */
   const [alert, setAlert] = useState("");
 
   const navigation = useNavigation();

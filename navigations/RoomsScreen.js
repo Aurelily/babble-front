@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import { Text, TouchableOpacity, Image } from "react-native";
+import { TouchableOpacity, Image } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 
 //Screens
@@ -26,6 +26,7 @@ export default function RoomsScreen({
   userInfos,
   setUserInfos,
   userId,
+  setUserId,
   deleteInStore,
 }) {
   const navigation = useNavigation();
@@ -62,6 +63,7 @@ export default function RoomsScreen({
             userToken={userToken}
             setUserToken={setUserToken}
             userId={userId}
+            setUserId={setUserId}
             userInfos={userInfos}
             setUserInfos={setUserInfos}
             roomName={roomName}

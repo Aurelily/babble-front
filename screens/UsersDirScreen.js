@@ -5,7 +5,6 @@ import {
   Image,
   SafeAreaView,
   FlatList,
-  TouchableOpacity,
   ImageBackground,
 } from "react-native";
 
@@ -15,9 +14,6 @@ import { genStyles } from "../styles/genStyles";
 
 // Import components
 import UserComponent from "../components/molecules/UserComponent";
-
-//socket
-import socket from "../utils/socket";
 
 export default function UsersDirScreen({
   url,
@@ -54,17 +50,8 @@ export default function UsersDirScreen({
   }
 
   useEffect(() => {
-    /*     socket.on("updateUsersList", function (users) {
-      setUsersList(users);
-      console.log(usersList);
-    }); */
-    socket.on("userOnlineList", function (userOnlineList) {
-      setUsersConnectedList(userOnlineList);
-      console.log("DIR USERS CONNECTED LISTE : " + usersConnectedList);
-      fetchUsers();
-    });
     fetchUsers();
-  }, [usersConnectedList]);
+  }, []);
 
   return usersLoading ? (
     <View style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>

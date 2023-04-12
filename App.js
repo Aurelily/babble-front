@@ -7,11 +7,11 @@ import { Text } from "react-native";
 import * as SecureStore from "expo-secure-store";
 import * as Server from "./env";
 
-// jwt-decode library to decode jwtToken
-import jwtDecode from "jwt-decode";
+// A ENLEVER DESACTIVE LOG BOX JAUNES
+import { LogBox } from "react-native";
+LogBox.ignoreAllLogs();
 
 // Import screens
-
 import LoginScreen from "./screens/LoginScreen";
 import RegisterScreen from "./screens/RegisterScreen";
 import SplashScreen from "./screens/SplashScreen";
@@ -28,10 +28,6 @@ const url = "http://" + Server.SERVER_IP + ":3000/";
 // variable chemin absolue pour avatars
 const rootPath = "http://design-dev.net/projet-babble/avatars/";
 
-//👇🏻 Import socket from the socket.js file in utils folder
-import socket from "./utils/socket";
-import { socketConnect, socketDisconnect } from "./utils/socket";
-
 export default function App() {
   // States :
   const [isLoading, setIsLoading] = useState(true);
@@ -44,7 +40,6 @@ export default function App() {
     email: "",
     password: "",
   });
-  const [usersConnectedList, setUsersConnectedList] = useState([]);
 
   // Function to save something in expo secure store
   async function saveToStore(key, value) {
@@ -56,25 +51,20 @@ export default function App() {
     await SecureStore.deleteItemAsync(key);
   }
 
-  socket.on("userOnlineList", function (userOnlineList) {
-    setUsersConnectedList(userOnlineList);
-    console.log("APP USERS CONNECTED LISTE : " + usersConnectedList);
-  });
-
   useEffect(() => {
     // Function to get value from Secure Store key
     async function getValueFor(key) {
       let result = await SecureStore.getItemAsync(key);
       if (result) {
         setUserToken(result);
-        alert("🔐 Here's your value 🔐 \n" + result);
+        console.log("🔐 Here's your jwt token 🔐 \n" + result);
       } else {
-        alert("No values stored under that key.");
+        console.log("No jwt token stored under that key.");
       }
     }
     getValueFor("jwtToken");
 
-    // ENLEVER A LA FIN : Pour vider le secure store et le token si j'ai fait une erreur
+    // A ENLEVER : Pour vider le secure store et le token si j'ai fait une erreur
     /*  deleteInStore("jwtToken");
     setUserToken(null); */
 
@@ -129,7 +119,7 @@ export default function App() {
               headerLeft: () => <Text></Text>,
             }}
           >
-            {() => <RegisterScreen url={url} setUserDatas={setUserDatas} />}
+            {() => <RegisterScreen url={url} />}
           </Stack.Screen>
         </Stack.Navigator>
       ) : (
@@ -141,8 +131,6 @@ export default function App() {
           setUserToken={setUserToken}
           url={url}
           rootPath={rootPath}
-          setUsersConnectedList={setUsersConnectedList}
-          usersConnectedList={usersConnectedList}
         />
       )}
     </NavigationContainer>

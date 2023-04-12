@@ -1,28 +1,16 @@
 import { View, Text, Image, TouchableOpacity } from "react-native";
 import React, { useState, useEffect } from "react";
-import { useNavigation } from "@react-navigation/native";
-
-// To leave the room if cancel
-import { leaveRoom } from "../../utils/socket";
 
 // Import styles and colors
 import colors from "../../assets/colors";
-import { chatScreensStyles } from "../../styles/chatScreensStyles";
 import { profilScreenStyle } from "../../styles/profilScreenStyle";
 import { genStyles } from "../../styles/genStyles";
 
 // Import components
-import InputText from "../atoms/InputText";
 import BtForm from "../atoms/BtForm";
 import AvatarList from "../atoms/AvatarsList";
 
 const ModalAvatars = ({
-  /*   roomIdToConfim,
-  url,
-  userToken,
-  privateCode,
-  name,
-  roomInfos, */
   visibleAvatars,
   setVisibleAvatars,
   userInfos,
@@ -30,8 +18,7 @@ const ModalAvatars = ({
   avatarPath,
   setAvatarPath,
 }) => {
-  // States
-  const [alert, setAlert] = useState("");
+  // States and variables
   const numAvatars = 24;
 
   // Function that closes the Modal component
@@ -57,9 +44,6 @@ const ModalAvatars = ({
       <Text style={[genStyles.basicPurpleText, genStyles.boldText]}>
         Cliquez sur l'avatar de votre choix.
       </Text>
-      {/*    <Text style={[genStyles.msgAlert, genStyles.marginBottomBase]}>
-        {alert}
-      </Text> */}
 
       <Image
         source={{ uri: rootPath + avatarPath }}

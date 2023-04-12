@@ -18,7 +18,6 @@ import BtForm from "../components/atoms/BtForm";
 
 // Colors and styles:
 import colors from "../assets/colors";
-const { purplePrimary, purpleSecondary, grey } = colors;
 import { genStyles } from "../styles/genStyles";
 import { registerScreenStyle } from "../styles/registerScreenStyles";
 
@@ -28,7 +27,7 @@ import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view
 // UseNavigation pour pouvoir mettre des liens
 import { useNavigation } from "@react-navigation/core";
 
-export default function RegisterScreen({ url, setUserDatas }) {
+export default function RegisterScreen({ url }) {
   const navigation = useNavigation();
 
   // Pour le switch RGPD
@@ -55,6 +54,7 @@ export default function RegisterScreen({ url, setUserDatas }) {
             email: email,
             password: password,
             avatarPath: "avatar-0.png",
+            dateCreation: new Date(),
           };
           const requestOptions = {
             method: "POST",
@@ -87,11 +87,11 @@ export default function RegisterScreen({ url, setUserDatas }) {
         }
       } else {
         // si les 2 MDP ne sont pas identiques
-        setAlert("MDP doivent être identiques");
+        setAlert("Les mots de passes doivent être identiques");
       }
     } else {
       // Si tous les champs ne sont pas remplis
-      setAlert("Remplir tous les champs");
+      setAlert("Veuillez remplir tous les champs");
     }
   };
 

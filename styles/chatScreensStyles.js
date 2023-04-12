@@ -283,6 +283,10 @@ export const chatScreensStyles = StyleSheet.create({
   messageCreator: {
     width: "80%",
     backgroundColor: colors.orangePrimary,
+    /*     paddingTop: 20,
+    paddingBottom: 20,
+    paddingLeft: 20,
+    paddingRight: 80, */
     padding: 20,
     borderTopLeftRadius: 20,
     borderTopRightRadius: 20,
@@ -291,17 +295,15 @@ export const chatScreensStyles = StyleSheet.create({
     marginBottom: 2,
   },
 
-  messageDate: {
-    position: "absolute",
-    right: 5,
-    padding: 10,
+  messageInfosMe: {
+    paddingLeft: 10,
+    flexDirection: "row",
   },
-  messageAuthor: {
-    position: "absolute",
-    top: 20,
-    right: 5,
-    padding: 10,
+  messageInfosOther: {
+    paddingLeft: 60,
+    flexDirection: "row",
   },
+
   flatlistMessagesContainer: {
     /*  marginBottom: 280, */
     height: "70%",

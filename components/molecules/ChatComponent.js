@@ -1,5 +1,5 @@
 import { View, Text, Pressable, Image, TouchableOpacity } from "react-native";
-import React, { useEffect, useLayoutEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigation } from "@react-navigation/native";
 
 //import styles
@@ -41,13 +41,13 @@ const ChatComponent = ({
 
   const formattedDate = dateRoomCreation.toLocaleTimeString("fr-FR", options);
 
-  // Open confirm modal, delete room and navigates to the Roomlist screen
+  // Open confirm modal, delete room
   const handleDelete = () => {
     setRoomIdToDelete(item._id);
     setVisibleDel(true);
   };
 
-  ///👇🏻 Navigates to the Messaging screen
+  // Navigates to the Messaging screen
   const handleNavigation = () => {
     subscribeToRoom(item.name);
     setRoomName(item.name);
@@ -78,7 +78,7 @@ const ChatComponent = ({
       console.log(e.message);
     }
   }
-  //SOCKET NEW CREATOR
+  //Socket : get new message creator
   socket.on("newCreator", (creator) => {
     if (item.creator.firstname) {
       setRoomCreator(item.creator.firstname);

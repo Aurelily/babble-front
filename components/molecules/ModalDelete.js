@@ -1,13 +1,5 @@
-import {
-  View,
-  Text,
-  Switch,
-  Image,
-  TextInput,
-  Pressable,
-  TouchableOpacity,
-} from "react-native";
-import React, { useState, useEffect } from "react";
+import { View, Text, Image } from "react-native";
+import React from "react";
 
 // Import styles and colors
 import colors from "../../assets/colors";
@@ -26,8 +18,9 @@ const ModalDelete = ({ setVisibleDel, roomIdToDelete, userToken, url }) => {
       const response = await fetch(`${url}rooms/delete/${roomIdToDelete}`, {
         method: "DELETE",
         headers: {
+          Accept: "application/json",
           "Content-Type": "application/json",
-          Authorization: `Bearer ${userToken}`,
+          Authorization: "Bearer " + userToken,
         },
       });
 
@@ -49,9 +42,9 @@ const ModalDelete = ({ setVisibleDel, roomIdToDelete, userToken, url }) => {
       <Text style={[genStyles.titlePurpleText, chatScreensStyles.titleModal]}>
         Etes vous sure de vouloir supprimer ce salon ? :
       </Text>
-      <Text style={[genStyles.titlePurpleText, chatScreensStyles.titleModal]}>
+      {/*  <Text style={[genStyles.titlePurpleText, chatScreensStyles.titleModal]}>
         {roomIdToDelete}
-      </Text>
+      </Text> */}
 
       <Image
         source={require("../../assets/img/illus-delete.png")}
