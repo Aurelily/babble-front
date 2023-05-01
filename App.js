@@ -66,8 +66,8 @@ export default function App() {
     getValueFor("jwtToken");
 
     // A ENLEVER : Pour vider le secure store et le token si j'ai fait une erreur
-    deleteInStore("jwtToken");
-    setUserToken(null);
+    /*   deleteInStore("jwtToken");
+    setUserToken(null); */
 
     setTimeout(() => {
       setIsLoading(false);

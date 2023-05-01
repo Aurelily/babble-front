@@ -42,9 +42,6 @@ const ModalDelete = ({ setVisibleDel, roomIdToDelete, userToken, url }) => {
       <Text style={[genStyles.titlePurpleText, chatScreensStyles.titleModal]}>
         Etes vous sure de vouloir supprimer ce salon ? :
       </Text>
-      {/*  <Text style={[genStyles.titlePurpleText, chatScreensStyles.titleModal]}>
-        {roomIdToDelete}
-      </Text> */}
 
       <Image
         source={require("../../assets/img/illus-delete.png")}

@@ -283,10 +283,6 @@ export const chatScreensStyles = StyleSheet.create({
   messageCreator: {
     width: "80%",
     backgroundColor: colors.orangePrimary,
-    /*     paddingTop: 20,
-    paddingBottom: 20,
-    paddingLeft: 20,
-    paddingRight: 80, */
     padding: 20,
     borderTopLeftRadius: 20,
     borderTopRightRadius: 20,

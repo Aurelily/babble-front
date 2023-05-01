@@ -6,6 +6,7 @@ import {
   TouchableOpacity,
   Image,
   ImageBackground,
+  Keyboard,
 } from "react-native";
 
 //Import components
@@ -111,6 +112,7 @@ const MessagingScreen = ({
           response.json().then((data) => {
             if (data.status == 200) {
               setMessage("");
+              Keyboard.dismiss();
             }
           });
         });
@@ -190,7 +192,7 @@ const MessagingScreen = ({
                 style={chatScreensStyles.flatlistMessagesContainer}
               />
             ) : (
-              <Text></Text>
+              <Text style={chatScreensStyles.flatlistMessagesContainer}></Text>
             )}
           </View>
 
