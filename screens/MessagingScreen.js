@@ -111,11 +111,11 @@ const MessagingScreen = ({
         await fetch(`${url}messages/post`, requestOptions).then((response) => {
           response.json().then((data) => {
             if (data.status == 200) {
-              setMessage("");
               Keyboard.dismiss();
             }
           });
         });
+        setMessage("");
       } catch (e) {
         console.log(e.message);
       }
