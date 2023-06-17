@@ -66,6 +66,12 @@ export default function GeneralChatScreen({
   }
 
   // Get and sort rooms by creation date in descending order
+  socket.on("deleteUser", (user) => {
+    if (item.id_author === user._id) {
+      setMessageCreator("unkwown");
+    }
+    fetchGroups();
+  });
   useEffect(() => {
     socket.on("newRoom", (room) => {
       setRooms((rooms) =>

@@ -49,7 +49,7 @@ const ModalAvatars = ({
         source={{ uri: rootPath + avatarPath }}
         style={profilScreenStyle.avatar}
       />
-      <Text>{avatarPath}</Text>
+      {/* <Text>{avatarPath}</Text> */}
       <View style={profilScreenStyle.avatarTableContainer}>
         <AvatarList
           rootPath={rootPath}

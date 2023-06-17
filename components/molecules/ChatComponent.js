@@ -7,9 +7,6 @@ import { useNavigation } from "@react-navigation/native";
 import { chatScreensStyles } from "../../styles/chatScreensStyles";
 import { genStyles } from "../../styles/genStyles";
 
-// import component
-import ModalDelete from "./ModalDelete";
-
 //👇🏻 Import socket from the socket.js file in utils folder
 import { subscribeToRoom } from "../../utils/socket";
 import socket from "../../utils/socket";
@@ -93,45 +90,52 @@ const ChatComponent = ({
 
   return (
     <>
-      <Pressable style={chatScreensStyles.component} onPress={handleNavigation}>
-        <Image
-          source={{ uri: rootPath + item.creator.avatarPath }}
-          style={chatScreensStyles.avatar}
-        />
-        {item.privateCode ? (
+      {roomCreator ? (
+        <Pressable
+          style={chatScreensStyles.component}
+          onPress={handleNavigation}
+        >
           <Image
-            source={require("../../assets/img/private-room.png")}
-            style={[chatScreensStyles.privateImg]}
+            source={{ uri: rootPath + item.creator.avatarPath }}
+            style={chatScreensStyles.avatar}
           />
-        ) : (
-          <Text></Text>
-        )}
-        <View style={chatScreensStyles.cContainer}>
-          <View>
-            <Text style={chatScreensStyles.cRoomName}>{item.name}</Text>
+          {item.privateCode ? (
+            <Image
+              source={require("../../assets/img/private-room.png")}
+              style={[chatScreensStyles.privateImg]}
+            />
+          ) : (
+            <Text></Text>
+          )}
+          <View style={chatScreensStyles.cContainer}>
+            <View>
+              <Text style={chatScreensStyles.cRoomName}>{item.name}</Text>
 
-            <Text style={genStyles.basicPurpleText}>Par : {roomCreator}</Text>
-          </View>
-          <View>
-            <Text style={genStyles.basicPurpleText}>{formattedDate}</Text>
+              <Text style={genStyles.basicPurpleText}>Par : {roomCreator}</Text>
+            </View>
+            <View>
+              <Text style={genStyles.basicPurpleText}>{formattedDate}</Text>
 
-            {userId === item.creator._id ? (
-              <TouchableOpacity
-                onPress={handleDelete}
-                style={[genStyles.rowSpaceBetween, genStyles.genCenter]}
-              >
-                <Image
-                  source={require("../../assets/img/bt-delete.png")}
-                  style={[chatScreensStyles.btLeave]}
-                />
-              </TouchableOpacity>
-            ) : (
-              <Text></Text>
-            )}
+              {userId === item.creator._id ? (
+                <TouchableOpacity
+                  onPress={handleDelete}
+                  style={[genStyles.rowSpaceBetween, genStyles.genCenter]}
+                >
+                  <Image
+                    source={require("../../assets/img/bt-delete.png")}
+                    style={[chatScreensStyles.btLeave]}
+                  />
+                </TouchableOpacity>
+              ) : (
+                <Text></Text>
+              )}
+            </View>
           </View>
-        </View>
-        <View style={chatScreensStyles.bgOpacity}></View>
-      </Pressable>
+          <View style={chatScreensStyles.bgOpacity}></View>
+        </Pressable>
+      ) : (
+        <Text></Text>
+      )}
     </>
   );
 };

@@ -55,6 +55,11 @@ export default function MessageComponent({
       setMessageCreator(messageAuthor.firstname);
     }
   });
+  socket.on("deleteUser", (user) => {
+    if (item.id_author === user._id) {
+      setMessageCreator("unkwown");
+    }
+  });
 
   useEffect(() => {
     getMessageAuthorInfos();

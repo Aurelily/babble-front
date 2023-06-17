@@ -135,6 +135,12 @@ const MessagingScreen = ({
     leaveRoom(room.name);
     navigation.navigate("roomsList");
   });
+  socket.on("deleteUser", (user) => {
+    if (room.creator === user._id) {
+      leaveRoom(room.name);
+      navigation.navigate("roomsList");
+    }
+  });
 
   //This runs when the messages are updated.
   useEffect(() => {
