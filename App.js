@@ -23,8 +23,8 @@ import HomeTab from "./navigations/HomeTab";
 const Stack = createNativeStackNavigator();
 
 // variable URL
-const url = "http://" + Server.SERVER_IP + ":3000/";
-// const url = "https://api.aureliepreaud.me/";
+// const url = "http://" + Server.SERVER_IP + ":3000/";
+const url = "https://api.aureliepreaud.me/";
 
 // variable chemin absolue pour avatars
 const rootPath = "http://design-dev.net/projet-babble/avatars/";

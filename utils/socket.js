@@ -1,7 +1,7 @@
 import { io } from "socket.io-client";
 import * as Server from "../env";
-const socket = io("http://" + Server.SERVER_IP + ":3000/");
-/* const socket = io("https://api.aureliepreaud.me/"); */
+/* const socket = io("http://" + Server.SERVER_IP + ":3000/"); */
+const socket = io("https://api.aureliepreaud.me/");
 export default socket;
 
 export function socketConnect() {
