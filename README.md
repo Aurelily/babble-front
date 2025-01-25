@@ -26,6 +26,9 @@ Babble’s back-end infrastructure is using the MERN stack (MongoDB, Express, Re
 
 <img src="https://design-dev.net/images-github/babble/mackup1.png" width="800px" alt="Babble App">
 <img src="https://design-dev.net/images-github/babble/maquette.png"  width="800px" alt="Babble App">
+
+✏️ **Graphic research**
+
 <img src="https://design-dev.net/images-github/babble/charte.png"  width="800px" alt="Babble App">
 
 🚀 Video demonstration
